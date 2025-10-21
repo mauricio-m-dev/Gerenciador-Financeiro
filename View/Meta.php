@@ -31,11 +31,11 @@
             </div>
 
             <ul class="nav-links">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Sobre</a></li>
-                <li><a href="#">Serviços</a></li>
-                <li><a href="#">Projetos</a></li>
-                <li><a href="#">Contato</a></li>
+                <li><a href="#">Visão Geral</a></li>
+                <li><a href="#">Investimentos</a></li>
+                <li><a href="#">Análise</a></li>
+                <li><a href="#">Metas</a></li>
+                <li><a href="#">Cartões</a></li>
             </ul>
 
             <div class="user-area">
@@ -51,8 +51,40 @@
     </header>
 
     <main style="height: 200vh; padding: 100px 2rem; background-color: #f9f9f9;">
-        <h1>Conteúdo da Página</h1>
-        <p>Role para baixo para ver o efeito de sombra no header.</p>
+        <h1>Metas Financeiras</h1>
+
+        <div class="meta-container">
+            <div class="meta-card">
+                <p>Total das Metas</p>
+                <h2>R$ 147.000</h2>
+            </div>
+
+            <div class="meta-card">
+                <p>Valor Acumulado</p>
+                <h2>R$ 59.700</h2>            
+            </div>
+
+            <div class="meta-card">
+                <p>Progresso Geral</p>
+                <h2>40.6%</h2>
+            </div>
+
+            <div class="meta-card">
+                <p>Contribuição Mensal</p>
+                <h2>R$ 5.700</h2>
+            </div>
+
+
+
+        </div>
+
+
+
+
+
+
+
+
     </main>
 
     <script src="../template/asset/js/Meta.js"></script>
