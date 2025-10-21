@@ -102,7 +102,7 @@ header.scrolled {
     transform 0.3s ease-in-out;
 }
 
-.nav-links li a:hover {
+.nav-links li a:icon {
   color: #155eef;
   background-color: #f5f8ff;
   border-radius: 1rem;
@@ -126,7 +126,7 @@ header.scrolled {
 }
 
 .settings-icon:hover .material-symbols-outlined {
-  color: #222;
+  color: #101828;
   transform: rotate(60deg);
 }
 
@@ -236,7 +236,7 @@ main h1 {
   font-family: inherit; /* Herda a fonte 'Poppins' do body */
   text-align: left;
   cursor: pointer;
-  
+
   /* Estilo de Card (baseado no .meta-card para consistência) */
   display: block;
   width: 100%;
@@ -245,7 +245,7 @@ main h1 {
   padding: 1.5rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(0, 0, 0, 0.05);
-  
+
   /* Diferencial: Adiciona uma borda esquerda colorida.
     Usamos uma variável CSS (--button-accent-color) para que 
     as classes específicas possam alterá-la.
@@ -253,7 +253,8 @@ main h1 {
   border-left: 5px solid var(--button-accent-color, #155eef); /* Azul como padrão */
 
   /* Transições para hover e focus */
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease,
+    background-color 0.3s ease;
 }
 
 /* Estilo de Hover e Focus (Acessibilidade)
@@ -278,7 +279,6 @@ main h1 {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
-
 /* Estilo do conteúdo DENTRO dos botões.
   Mantém a consistência com os .meta-card.
 */
@@ -295,19 +295,18 @@ main h1 {
   margin-top: 0.5rem; /* Espaçamento entre o <p> e o <h2> */
 }
 
-
 /* Variações de Cor
   Aqui definimos a cor da borda para cada tipo de botão.
 */
 
 /* Renda = Verde */
 .geral-button-renda button {
-  --button-accent-color: #48BB78; /* Verde (Positivo) */
+  --button-accent-color: #48bb78; /* Verde (Positivo) */
 }
 
 /* Despesas = Vermelho */
 .geral-button-despesas button {
-  --button-accent-color: #F56565; /* Vermelho (Negativo) */
+  --button-accent-color: #f56565; /* Vermelho (Negativo) */
 }
 
 /* Metas = Azul (Cor primária) */
@@ -315,7 +314,108 @@ main h1 {
   --button-accent-color: #155eef; /* Azul (Meta/Ação) */
 }
 
-/* --- 7. Responsividade (Media Queries) --- */
+/* --- 7. Componente: Tabela de Transações --- */
+
+/* Classe utilitária para alinhamento */
+.align-right {
+  text-align: right;
+}
+
+/* Container de toda a seção */
+.transactions-section {
+  margin-top: 3rem;
+  max-width: 1200px;
+  min-width: 320px;
+  margin: 0 auto;
+  padding: 0 0.9rem;
+}
+
+/* Título da seção (H2) */
+.transactions-section h2 {
+  font-size: 1.75rem; /* Um pouco menor que o H1 principal */
+  color: #2d3748;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  margin-top: 2rem;
+}
+
+/* O Card que envolve a tabela */
+.card-table-container {
+  background: #ffffff;
+  border-radius: 16px; /* Cantos arredondados */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+
+  /* Importante: Esconde o que "vazar" para manter os cantos arredondados */
+  overflow: hidden;
+}
+
+/* Wrapper que permite a rolagem horizontal (responsividade) */
+.table-scroll-wrapper {
+  overflow-x: auto; /* Permite rolar a tabela horizontalmente */
+  -webkit-overflow-scrolling: touch; /* Melhora a rolagem em iOS */
+}
+
+/* Estilo principal da tabela */
+.transactions-table {
+  width: 100%; /* Ocupa 100% do wrapper */
+  border-collapse: collapse; /* Remove espaços entre as células */
+
+  /* Força a rolagem em telas menores que 600px */
+  min-width: 600px;
+}
+
+/* Estilo das Células (Cabeçalho <th> e Dados <td>) */
+.transactions-table th,
+.transactions-table td {
+  padding: 1.25rem 1.5rem; /* Espaçamento interno generoso */
+  text-align: left;
+  border-bottom: 1px solid #f0f0f0; /* Linha sutil entre as transações */
+  white-space: nowrap; /* Impede que o texto quebre (para a rolagem) */
+}
+
+/* Cabeçalho da Tabela (Nome, Método, etc.) */
+.transactions-table th {
+  background-color: #ECEFF2;
+  font-weight: 600;
+  font-size: 0.875rem; /* 14px */
+  color: #668091;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Remove a borda da última linha da tabela */
+.transactions-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Estilos de Células Específicas */
+.transaction-name {
+  font-weight: 600;
+  color: #333;
+}
+
+.transaction-method,
+.transaction-date {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+/* --- Cores para Renda e Despesa --- */
+/* Usamos as mesmas cores dos botões para consistência */
+
+.amount-income {
+  color: #48bb78; /* Verde */
+  font-weight: 600;
+}
+
+.amount-expense {
+  color: #f56565; /* Vermelho */
+  font-weight: 600;
+}
+
+
+/* --- 9. Responsividade (Media Queries) --- */
 /* Agrupados do maior para o menor breakpoint */
 
 /* Breakpoint: Tablets e Menores (<= 992px) */

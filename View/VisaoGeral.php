@@ -97,6 +97,59 @@
                 </div>
             </div>
         </div>
+
+        <div class="transactions-section">
+
+            <h2>Últimas Transações</h2>
+
+            <div class="card-table-container">
+                <div class="table-scroll-wrapper">
+                    <table class="transactions-table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Método</th>
+                                <th>Data</th>
+                                <th class="align-right">Quantia</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td class="transaction-name">Netflix</td>
+                                <td class="transaction-method">Cartão de Crédito</td>
+                                <td class="transaction-date">20 Out 2025</td>
+                                <td class="amount-expense align-right">- R$ 55,90</td>
+                            </tr>
+
+                            <tr>
+                                <td class="transaction-name">Salário Empresa X</td>
+                                <td class="transaction-method">Pix</td>
+                                <td class="transaction-date">19 Out 2025</td>
+                                <td class="amount-income align-right">+ R$ 4.500,00</td>
+                            </tr>
+
+                            <tr>
+                                <td class="transaction-name">iFood</td>
+                                <td class="transaction-method">Cartão de Débito</td>
+                                <td class="transaction-date">19 Out 2025</td>
+                                <td class="amount-expense align-right">- R$ 89,00</td>
+                            </tr>
+
+                            <tr>
+                                <td class="transaction-name">Padaria Pão Quente</td>
+                                <td class="transaction-method">Pix</td>
+                                <td class="transaction-date">18 Out 2025</td>
+                                <td class="amount-expense align-right">- R$ 22,50</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+            
+        </div>
+        
     </main>
 
     <script src="../template/asset/js/VisaoGeral.js"></script>
