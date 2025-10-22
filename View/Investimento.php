@@ -7,10 +7,12 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Visao Geral - NOVYX</title>
 
-    <link rel="stylesheet" href="../template/asset/css/Investimento.css">
+    <!-- Bootstrap CSS primeiro -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Fontes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -18,11 +20,13 @@
         rel="stylesheet">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
 
+    <!-- Seu CSS por último (para sobrescrever o Bootstrap se necessário) -->
+    <link rel="stylesheet" href="../template/asset/css/Investimento.css">
+
 </head>
 
-
 <body>
-   <header>
+    <header>
         <nav class="navbar">
             <div class="nav-left">
 
@@ -58,16 +62,16 @@
     </header>
 
     <main style="height: 200vh; padding: 100px 2rem; background-color: #f9f9f9;">
-        
+
 
         <div class="container">
 
             <div class="titulo">
-            
-            <h1>Investimentos</h1>
 
-            <button class="adicionar"> <i class='bxr  bx-plus'  ></i> Adicionar Investimento</button>
-        </div>
+                <h1>Investimentos</h1>
+
+                <button class="adicionar"> <i class='bxr  bx-plus'></i> Adicionar Investimento</button>
+            </div>
 
             <div class="geral-container">
                 <div class="geral-card-renda">
@@ -83,7 +87,82 @@
                     <h2>R$ 45.909</h2>
                 </div>
             </div>
+
+
+            <div class="mercado">
+                <div class="pesquisa">
+                    <h2>Mercado de Ações</h2>
+
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+
+                <div class="acoes">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">PETR4</h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">Petrobras</h6>
+                            <p class="card-text">53,45</p>
+                            
+                            
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">PETR4</h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">Petrobras</h6>
+                            <p class="card-text"></p>
+                            
+                            
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">PETR4</h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">Petrobras</h6>
+                            <p class="card-text"></p>
+                            
+                            
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">PETR4</h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">Petrobras</h6>
+                            <p class="card-text"></p>
+                            
+                            
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">PETR4</h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">Petrobras</h6>
+                            <p class="card-text"></p>
+                            
+                            
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">PETR4</h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">Petrobras</h6>
+                            <p class="card-text"></p>
+                            
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+
+                
+            </div>
+
+
         </div>
+
 
 
     </main>

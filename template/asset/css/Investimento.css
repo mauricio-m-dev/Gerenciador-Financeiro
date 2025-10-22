@@ -94,6 +94,16 @@ header.scrolled {
 .nav-links {
   display: flex;
   gap: 2.5rem; /* Espaçamento entre os links */
+  align-items: center;  /* Adiciona alinhamento vertical */
+  margin: 0;           /* Remove margem padrão do Bootstrap */
+  padding: 0;          /* Remove padding padrão do Bootstrap */
+  height: 100%;        /* Ocupa toda altura da navbar */
+}
+
+.nav-links li {
+  height: 100%;        /* Ocupa toda altura */
+  display: flex;       /* Permite alinhamento vertical */
+  align-items: center; /* Centraliza verticalmente */
 }
 
 .nav-links li a {
@@ -139,6 +149,44 @@ header.scrolled {
   object-fit: cover; /* Garante que a imagem não distorça */
   border: 2px solid #eee;
   cursor: pointer;
+}
+
+/* Ajuste da navbar */
+.navbar {
+    margin: 0 auto;
+    padding: 0 0.9rem;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    min-width: 320px;
+}
+
+/* Ajuste dos links de navegação */
+.nav-links {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;  /* Adiciona alinhamento vertical */
+    margin: 0;           /* Remove margem padrão do Bootstrap */
+    padding: 0;          /* Remove padding padrão do Bootstrap */
+    height: 100%;        /* Ocupa toda altura da navbar */
+}
+
+.nav-links li {
+    height: 100%;        /* Ocupa toda altura */
+    display: flex;       /* Permite alinhamento vertical */
+    align-items: center; /* Centraliza verticalmente */
+}
+
+.nav-links li a {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 0.8rem;
+    font-weight: 500;
+    color: #555;
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
 }
 
 .titulo{
@@ -240,3 +288,65 @@ header.scrolled {
   font-weight: 500;
   color: #555;
 }
+
+.mercado {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    margin-top: 2rem;
+    width: 100%;
+}
+
+.pesquisa {
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+    width: 100%;
+    gap: 1.5rem;
+}
+
+.pesquisa form {
+    width: 50%;
+}
+
+.acoes {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 colunas com largura igual */
+    gap: 1rem;
+    width: 100%;
+}
+
+/* Ajuste opcional para os cards individuais */
+.acoes .card {
+    width: 100%;
+    height: 7rem;
+    min-width: 0; /* Previne overflow */
+}
+
+/* Responsividade (opcional) */
+@media (max-width: 1200px) {
+    .acoes {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 992px) {
+    .acoes {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .acoes {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .acoes {
+        grid-template-columns: 1fr;
+    }
+}
+
