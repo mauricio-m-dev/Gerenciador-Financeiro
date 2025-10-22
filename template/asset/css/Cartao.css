@@ -110,7 +110,7 @@ body {
     font-weight: 600;
     color: #1a1a1a;
     display: inline-block;
-    margin-left: 20px ;
+    margin: 0 auto ;
     
 
 }
@@ -155,10 +155,10 @@ body {
     color: #64748b;
 }
 
-/* ======= BLOCO DE INFORMAÇÕES (RENDA, DESPESAS, METAS) ======= */
+
 .main-content2 {
     display: flex;
-    max-width: 1200px;
+    max-width: 1300px;
     margin: 30px auto;
     padding: 0 20px;
     gap: 20px;
@@ -194,7 +194,7 @@ body {
 }
 
 .Minha-carteira {
-    max-width: 1200px;
+    max-width: 1300px;
     margin: 0 auto;
     margin-top: 30px;
 }
@@ -267,7 +267,7 @@ body {
 }
 
 .summary-value {
-    font-size: 1.4em;
+    font-size: 1.6em;
 
     margin-top: 0;
 
@@ -302,4 +302,10 @@ body {
     font-weight: 500;
     color: #666;
     margin-bottom: 5px;
+}
+.inner-block.small2{
+    width: 20%;
+    height: 26px;
+    ;;
+
 }

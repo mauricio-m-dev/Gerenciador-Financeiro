@@ -73,6 +73,7 @@
             <div class="Renda mini-summary-card income-card">
                 <h4 class="summary-title">Renda</h4>
                 <p class="summary-value">R$5.502,45</p>
+                <div class="inner-block small2"></div>
 
 
 
@@ -82,6 +83,7 @@
             <div class="Despesas mini-summary-card expense-card">
                 <h4 class="summary-title">Despesas</h4>
                 <p class="summary-value">R$9.450,00</p>
+                <div class="inner-block small2"></div>
 
 
 
@@ -91,6 +93,7 @@
             <div class="Metas mini-summary-card goal-card">
                 <h4 class="summary-title">Metas</h4>
                 <p class="summary-value goal-value">R$3.945,55</p>
+                <div class="inner-block small2"></div>
 
             </div>
         </div>
