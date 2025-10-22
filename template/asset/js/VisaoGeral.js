@@ -1,44 +1,39 @@
-document.addEventListener('DOMContentLoaded', function () {
-	const navLinks = document.querySelectorAll('.nav-links a');
-	const STORAGE_KEY = 'nav-active-index';
+// Espera o DOM carregar para garantir que os elementos existam
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // --- 1. Funcionalidade do Menu Hamburguer ---
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
 
-	function setActive(index) {
-		navLinks.forEach((a, i) => {
-			if (i === index) {
-				a.classList.add('active');
-				a.setAttribute('aria-current', 'page');
-			} else {
-				a.classList.remove('active');
-				a.removeAttribute('aria-current');
-			}
-		});
-	}
+    hamburger.addEventListener('click', () => {
+        // Anima o hamburguer (vira "X" ou volta ao normal)
+        hamburger.classList.toggle('active');
+        
+        // Mostra/Esconde o menu dropdown
+        navLinks.classList.toggle('active');
+    });
 
-	// Restore from localStorage
-	const saved = localStorage.getItem(STORAGE_KEY);
-	if (saved !== null) {
-		const idx = parseInt(saved, 10);
-		if (!Number.isNaN(idx) && idx >= 0 && idx < navLinks.length) {
-			setActive(idx);
-		}
-	}
+    // (Bônus) Fecha o menu ao clicar em um link (útil em Single Page Applications)
+    document.querySelectorAll('.nav-links li a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (navLinks.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+    });
 
-	// Click handlers
-	navLinks.forEach((link, idx) => {
-		link.addEventListener('click', function (e) {
-			// If links are anchors to other pages, let navigation happen.
-			// For now they are '#', so prevent default to stay on the page and demonstrate selection.
-			if (link.getAttribute('href') === '#') e.preventDefault();
-			setActive(idx);
-			localStorage.setItem(STORAGE_KEY, String(idx));
-		});
 
-		// Allow keyboard Enter/Space to activate
-		link.addEventListener('keydown', function (e) {
-			if (e.key === 'Enter' || e.key === ' ') {
-				e.preventDefault();
-				link.click();
-			}
-		});
-	});
+    // --- 2. Diferencial: Sombra no Header ao Rolar ---
+    const header = document.querySelector('header');
+    
+    window.addEventListener('scroll', () => {
+        // Adiciona a classe 'scrolled' se o usuário rolar mais de 20 pixels
+        if (window.scrollY > 20) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+
 });

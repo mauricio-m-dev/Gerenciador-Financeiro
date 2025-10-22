@@ -1,36 +1,159 @@
-<?php ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
+    <title>Visao Geral - NOVYX</title>
+
     <link rel="stylesheet" href="../template/asset/css/VisaoGeral.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-        integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+
 </head>
 
 <body>
-    <header class="header">
-        <div class="brand">NONYX</div>
+    <header>
+        <nav class="navbar">
+            <div class="nav-left">
 
-        <nav class="nav-links">
-            <a href="#" data-index="0" class="active">Início</a>
-            <a href="#" data-index="1">Sobre</a>
-            <a href="#" data-index="2">Serviços</a>
-            <a href="#" data-index="3">Portfólio</a>
-            <a href="#" data-index="4">Contato</a>
+                <div class="hamburger">
+
+                    <span class="line"></span>
+                    <span class="line"></span>
+                    <span class="line"></span>
+
+                </div>
+                <a href="#" class="logo">NOVYX</a>
+            </div>
+
+            <ul class="nav-links">
+
+                <li><a href="#">Visão Geral</a></li>
+                <li><a href="#">Investimentos</a></li>
+                <li><a href="#">Análise</a></li>
+                <li><a href="#">Metas</a></li>
+                <li><a href="#">Cartões</a></li>
+
+            </ul>
+
+            <div class="user-area">
+                <a href="#" class="settings-icon" aria-label="Configurações">
+                    <span class="material-symbols-outlined">
+                        <i class='bxr  bx-cog'></i>
+                    </span>
+                </a>
+                <img src="" alt="Foto de Perfil" class="profile-pic">
+            </div>
         </nav>
-
-        <div class="profile-settings">
-            <i class="fas fa-cog settings-icon"></i>
-            <img src="https://via.placeholder.com/40" alt="Foto de Perfil" class="profile-pic" />
-        </div>
     </header>
 
+    <main style="height: 200vh; padding: 100px 2rem; background-color: #f9f9f9;">
+        <div class="container">
+
+            <h1>Olá, Mauricio</h1>
+
+            <div class="geral-container">
+                <div class="geral-card-renda">
+                    <p>Renda</p>
+                    <h2>R$ 147.000</h2>
+                </div>
+                <div class="geral-card-despesas">
+                    <p>Despesas</p>
+                    <h2>R$ 59.700</h2>
+                </div>
+                <div class="geral-card-metas">
+                    <p>Metas</p>
+                    <h2>R$ 45.909</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="geral-container">
+                <div class="geral-button-renda">
+                    <button>
+                        <h2>Adicionar renda</h2>
+                        <p>Crie uma renda manualmente</p>
+                    </button>
+                </div>
+                <div class="geral-button-despesas">
+                    <button>
+                        <h2>Adicionar despesa</h2>
+                        <p>Crie uma despesa manualmente</p>
+                    </button>
+                </div>
+                <div class="geral-button-metas">
+                    <button>
+                        <h2>Adicionar renda - Metas</h2>
+                        <p>Selecione o valor e adicione á metas</p>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="transactions-section">
+
+            <h2>Últimas Transações</h2>
+
+            <div class="card-table-container">
+                <div class="table-scroll-wrapper">
+                    <table class="transactions-table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Método</th>
+                                <th>Data</th>
+                                <th class="align-right">Quantia</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td class="transaction-name">Netflix</td>
+                                <td class="transaction-method">Cartão de Crédito</td>
+                                <td class="transaction-date">20 Out 2025</td>
+                                <td class="amount-expense align-right">- R$ 55,90</td>
+                            </tr>
+
+                            <tr>
+                                <td class="transaction-name">Salário Empresa X</td>
+                                <td class="transaction-method">Pix</td>
+                                <td class="transaction-date">19 Out 2025</td>
+                                <td class="amount-income align-right">+ R$ 4.500,00</td>
+                            </tr>
+
+                            <tr>
+                                <td class="transaction-name">iFood</td>
+                                <td class="transaction-method">Cartão de Débito</td>
+                                <td class="transaction-date">19 Out 2025</td>
+                                <td class="amount-expense align-right">- R$ 89,00</td>
+                            </tr>
+
+                            <tr>
+                                <td class="transaction-name">Padaria Pão Quente</td>
+                                <td class="transaction-method">Pix</td>
+                                <td class="transaction-date">18 Out 2025</td>
+                                <td class="amount-expense align-right">- R$ 22,50</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+            
+        </div>
+        
+    </main>
+
     <script src="../template/asset/js/VisaoGeral.js"></script>
+
 </body>
 
 </html>

@@ -1,92 +1,494 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
-/* Reset básico */
+/* --- 1. Estilos Globais e Reset --- */
+/* Reseta margens, preenchimentos e define o box-sizing universal */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #f9f9f9;
+  font-family: "Poppins", sans-serif;
+  background-color: #fff;
+  /* Adiciona padding-top para compensar o header fixo */
 }
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    flex-wrap: wrap;
+ul {
+  list-style: none;
 }
 
-/* Marca - Lado esquerdo */
-.brand {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #101828;
-    letter-spacing: 1px;
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
-/* Navegação Central */
+/* --- 2. Classes de Layout e Utilitários --- */
+/* Container principal para centralizar o conteúdo */
+.container {
+  max-width: 1200px;
+  min-width: 320px;
+  margin: 0 auto;
+  padding: 0 0.9rem; /* Adicionado padding aqui, removido do navbar */
+}
+
+/* --- 3. Componente: Header e Navbar --- */
+header {
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  transition: box-shadow 0.3s ease;
+}
+
+/* Classe adicionada via JS para indicar rolagem */
+header.scrolled {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Estrutura principal da Navbar */
+.navbar {
+  margin: 0 auto;
+  padding: 0 0.9rem; /* Espaçamento lateral */
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  min-width: 320px;
+}
+
+/* 3.1 Bloco da Esquerda (Logo + Hamburguer) */
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* Espaço entre hamburguer e logo */
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #000;
+}
+
+/* 3.2 Ícone Hamburguer (Base) */
+.hamburger {
+  display: none; /* Escondido no desktop */
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5px; /* Espaço entre as linhas */
+}
+
+.hamburger .line {
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  border-radius: 3px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* 3.3 Bloco do Centro (Links de Navegação) */
 .nav-links {
-    display: flex;
-    gap: 25px;
-    flex: 1;
-    justify-content: center;
-    flex-wrap: wrap;
+  display: flex;
+  gap: 2.5rem; /* Espaçamento entre os links */
 }
 
-.nav-links a {
-    text-decoration: none;
-    color: #516778;
-    font-weight: 500;
-    position: relative;
-    padding: 5px;
-    transition: transform 0.3s ease-out;
+.nav-links li a {
+  font-weight: 500;
+  color: #555;
+  padding: 0.8rem;
+  transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out,
+    transform 0.3s ease-in-out;
 }
 
-.nav-links a:hover {
-    color: #155EEF;
-    background-color: #F5F8FF;
-    border-radius: 6px;
-    font-weight: 600;
-    transform: translateY(-1px);
+.nav-links li a:icon {
+  color: #155eef;
+  background-color: #f5f8ff;
+  border-radius: 1rem;
+  transform: translateY(-5px); /* Efeito "lift" sutil */
 }
 
-.nav-links a.active,
-.nav-links a:focus {
-    color: #155EEF;
-    background-color: #F5F8FF;
-    border-radius: 6px;
-    font-weight: 600;
-    transform: translateY(-1px);
-    outline: none;
+/* 3.4 Bloco da Direita (Área do Usuário) */
+.user-area {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
-.nav-links a:focus-visible {
-    box-shadow: 0 0 0 3px rgba(21,94,239,0.12);
+.settings-icon .material-symbols-outlined {
+  font-size: 28px;
+  color: #555;
+  align-items: center;
+  display: flex;
+  /* Animação de rotação no hover */
+  transition: transform 0.4s ease, color 0.3s ease;
 }
 
-/* Perfil - Lado direito */
-.profile-settings {
-    display: flex;
-    align-items: center;
-    gap: 25px;
+.settings-icon:hover .material-symbols-outlined {
+  color: #101828;
+  transform: rotate(60deg);
 }
 
 .profile-pic {
-    width: 40px;
-    height: 40px;
-    border: 1px solid #ECEFF2;
-    object-fit: cover;
-    border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover; /* Garante que a imagem não distorça */
+  border: 2px solid #eee;
+  cursor: pointer;
 }
 
-.settings-icon {
-    font-size: 1.2rem;
-    color: #555;
-    cursor: pointer;
+/* --- 4. Estilos de Conteúdo Principal (Main) --- */
+
+/* 4.1 Título Principal da Página */
+main h1 {
+  font-size: 2rem;
+  color: #101828;
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+/* 4.2 Grid de Cards (Geral) */
+.geral-container {
+  display: grid;
+  /* Cria colunas responsivas: 
+     - Tenta encaixar o máximo de colunas de 280px
+     - Se não couber, cada coluna ocupa 1 fração (1fr) do espaço */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.geral-card-renda {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.geral-card-renda h2 {
+  font-size: 2rem;
+  color: #17b26a;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.geral-card-renda p {
+  font-weight: 500;
+  color: #555;
+}
+
+.geral-card-despesas {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.geral-card-despesas h2 {
+  font-size: 2rem;
+  color: #f04438;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.geral-card-despesas p {
+  font-weight: 500;
+  color: #555;
+}
+
+.geral-card-metas {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.geral-card-metas h2 {
+  font-size: 2rem;
+  color: #155eef;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.geral-card-metas p {
+  font-weight: 500;
+  color: #555;
+}
+
+/* --- 6. Componente: Cartões de Ação (Botões) --- */
+
+/* Estilo PADRÃO do botão.
+  Isso reseta o botão e o faz parecer um card.
+*/
+.geral-container button {
+  /* Reset de estilos de botão */
+  border: none;
+  background: none;
+  font-family: inherit; /* Herda a fonte 'Poppins' do body */
+  text-align: left;
+  cursor: pointer;
+
+  /* Estilo de Card (baseado no .meta-card para consistência) */
+  display: block;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+
+  /* Diferencial: Adiciona uma borda esquerda colorida.
+    Usamos uma variável CSS (--button-accent-color) para que 
+    as classes específicas possam alterá-la.
+  */
+  border-left: 5px solid var(--button-accent-color, #155eef); /* Azul como padrão */
+
+  /* Transições para hover e focus */
+  transition: transform 0.3s ease, box-shadow 0.3s ease,
+    background-color 0.3s ease;
+}
+
+/* Estilo de Hover e Focus (Acessibilidade)
+  Funciona como o .meta-card, mas com feedback extra de clique.
+*/
+.geral-container button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  background-color: #fdfdfd;
+}
+
+.geral-container button:focus-visible {
+  /* Mostra um anel de foco claro para acessibilidade */
+  outline: 2px solid #155eef;
+  outline-offset: 3px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.geral-container button:active {
+  /* Feedback de clique */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Estilo do conteúdo DENTRO dos botões.
+  Mantém a consistência com os .meta-card.
+*/
+.geral-container button p {
+  font-weight: 500;
+  color: #555;
+  margin: 0;
+}
+
+.geral-container button h2 {
+  font-size: 1rem;
+  color: #1a202c;
+  font-weight: 600;
+  margin-top: 0.5rem; /* Espaçamento entre o <p> e o <h2> */
+}
+
+/* Variações de Cor
+  Aqui definimos a cor da borda para cada tipo de botão.
+*/
+
+/* Renda = Verde */
+.geral-button-renda button {
+  --button-accent-color: #48bb78; /* Verde (Positivo) */
+}
+
+/* Despesas = Vermelho */
+.geral-button-despesas button {
+  --button-accent-color: #f56565; /* Vermelho (Negativo) */
+}
+
+/* Metas = Azul (Cor primária) */
+.geral-button-metas button {
+  --button-accent-color: #155eef; /* Azul (Meta/Ação) */
+}
+
+/* --- 7. Componente: Tabela de Transações --- */
+
+/* Classe utilitária para alinhamento */
+.align-right {
+  text-align: right;
+}
+
+/* Container de toda a seção */
+.transactions-section {
+  margin-top: 3rem;
+  max-width: 1200px;
+  min-width: 320px;
+  margin: 0 auto;
+  padding: 0 0.9rem;
+}
+
+/* Título da seção (H2) */
+.transactions-section h2 {
+  font-size: 1.75rem; /* Um pouco menor que o H1 principal */
+  color: #2d3748;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  margin-top: 2rem;
+}
+
+/* O Card que envolve a tabela */
+.card-table-container {
+  background: #ffffff;
+  border-radius: 16px; /* Cantos arredondados */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+
+  /* Importante: Esconde o que "vazar" para manter os cantos arredondados */
+  overflow: hidden;
+}
+
+/* Wrapper que permite a rolagem horizontal (responsividade) */
+.table-scroll-wrapper {
+  overflow-x: auto; /* Permite rolar a tabela horizontalmente */
+  -webkit-overflow-scrolling: touch; /* Melhora a rolagem em iOS */
+}
+
+/* Estilo principal da tabela */
+.transactions-table {
+  width: 100%; /* Ocupa 100% do wrapper */
+  border-collapse: collapse; /* Remove espaços entre as células */
+
+  /* Força a rolagem em telas menores que 600px */
+  min-width: 600px;
+}
+
+/* Estilo das Células (Cabeçalho <th> e Dados <td>) */
+.transactions-table th,
+.transactions-table td {
+  padding: 1.25rem 1.5rem; /* Espaçamento interno generoso */
+  text-align: left;
+  border-bottom: 1px solid #f0f0f0; /* Linha sutil entre as transações */
+  white-space: nowrap; /* Impede que o texto quebre (para a rolagem) */
+}
+
+/* Cabeçalho da Tabela (Nome, Método, etc.) */
+.transactions-table th {
+  background-color: #ECEFF2;
+  font-weight: 600;
+  font-size: 0.875rem; /* 14px */
+  color: #668091;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Remove a borda da última linha da tabela */
+.transactions-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Estilos de Células Específicas */
+.transaction-name {
+  font-weight: 600;
+  color: #333;
+}
+
+.transaction-method,
+.transaction-date {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+/* --- Cores para Renda e Despesa --- */
+/* Usamos as mesmas cores dos botões para consistência */
+
+.amount-income {
+  color: #48bb78; /* Verde */
+  font-weight: 600;
+}
+
+.amount-expense {
+  color: #f56565; /* Vermelho */
+  font-weight: 600;
+}
+
+
+/* --- 9. Responsividade (Media Queries) --- */
+/* Agrupados do maior para o menor breakpoint */
+
+/* Breakpoint: Tablets e Menores (<= 992px) */
+/* Oculta links e mostra o menu hamburguer */
+@media (max-width: 992px) {
+  /* Esconde os links do centro e transforma em menu dropdown */
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: absolute;
+    top: 70px; /* Abaixo do header */
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    border-top: 1px solid #f0f0f0;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+
+    /* Começa escondido (JS vai controlar) */
+    max-height: 0;
+    padding: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+  }
+
+  /* Classe 'active' que o JS vai adicionar para abrir o menu */
+  .nav-links.active {
+    max-height: 500px; /* Altura suficiente para os links */
+    padding: 1rem 0; /* Adiciona padding quando aberto */
+  }
+
+  .nav-links li {
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem 1.5rem;
+  }
+
+  .nav-links li a:hover {
+    background-color: #f9f9f9;
+    transform: translateY(0); /* Remove o efeito "lift" no mobile */
+  }
+
+  /* Mostra o ícone hamburguer */
+  .hamburger {
+    display: flex;
+  }
+
+  /* Animação do Hamburguer para "X" (controlado via JS) */
+  .hamburger.active .line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .hamburger.active .line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.active .line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+}
+
+/* Breakpoint: Celulares Maiores (<= 768px) */
+/* Empilha os cards */
+@media (max-width: 768px) {
+  .geral-container {
+    /* Desativa o grid e empilha os itens */
+    grid-template-columns: 1fr;
+    /* Nota: O original usava flex-direction, mas como é um grid, 
+       basta redefinir as colunas para 1fr */
+  }
+
+  /* Opcional: Garante que o card ocupe a largura total */
+  .geral-card {
+    max-width: 100%;
+  }
 }

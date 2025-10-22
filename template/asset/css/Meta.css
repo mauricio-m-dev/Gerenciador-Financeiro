@@ -141,29 +141,10 @@ main p {
     transition: all 0.3s ease-in-out;
 }
 
-main {
-    margin: 80px 0 0 0;
-    padding: 2rem 1.5rem;
-}
-
-.container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.container h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-}
 
 
 .meta-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
     gap: 5rem;
     margin-top: 3rem;
 }
@@ -186,36 +167,10 @@ main {
 
 .meta-card h2 {
     font-size: 2.5rem;
+    color: #000000;
 }
 
-.meta-card.valor h2 {
-    color: #12CA50;
-}
 
-.meta-card.progresso h2 {
-    color: #155EEF;
-}
-
-.meta-details {
-    justify-content: center;
-    align-items: center;
-    gap: 5rem;
-    margin-top: 3rem;
-}
-
-.card-details {
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-    width: 90rem;
-    text-align: flex-start;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-main, .container {
-  border: 1px solid red; /* temporário pra ver os limites */
-}
 
 
 
