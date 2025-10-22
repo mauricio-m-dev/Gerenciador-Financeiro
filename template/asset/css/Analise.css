@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #fff;
+    background-color: #f9f9f9;
     padding-top: 30px;
 }
 
@@ -39,7 +39,7 @@ header.scrolled {
 main h1,
 main p {
     max-width: 1700px;
-    margin: auto;
+    margin: 0 auto;
     padding: 0 1.5rem;
 }
 
@@ -141,24 +141,74 @@ main p {
     transition: all 0.3s ease-in-out;
 }
 .title{
-    margin-top: 1.0rem;
+    margin-left: 3rem;
+    margin-right: 3rem;
 }
-.container{
-    margin-top: 2rem;
-    display: flex;
-    gap: 19px;
+.geral-container {
+  display: grid;
+  /* Cria colunas responsivas: 
+     - Tenta encaixar o máximo de colunas de 280px
+     - Se não couber, cada coluna ocupa 1 fração (1fr) do espaço */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+  margin-left: 5rem;    
+  margin-right: 5rem;
+}
 
+.geral-card-renda {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-.box {
-  border-radius: 12px;
-  border: 1px solid #ddd;
-  padding: 16px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+.geral-card-renda h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  margin-left: 1.4rem;
 }
-.mini{
-    opacity: 0.5;
+
+.mini {
+  font-weight: 500;
+  color: #555;
 }
+
+.geral-card-despesas {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.geral-card-despesas h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  margin-left: 1.4rem;
+}
+
+.geral-card-metas {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.geral-card-metas h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  margin-left: 1.4rem;
+}
+
 
 .green{
     color: #17B26A;
@@ -166,6 +216,62 @@ main p {
 
 }
 
+.red{
+    color:#E82929;
+}
+
+/* --- Estilos para os Gráficos (Novidade) --- */
+.charts-container {
+    max-width: 1700px;
+    margin: 3rem auto 0 auto;
+    padding: 0 1.5rem;
+    /* Configuração para duas colunas lado a lado */
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 2rem;
+}
+
+.chart-card {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.chart-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 0; /* Remove margem para ficar perto do sub-title */
+}
+
+.chart-card .sub-title {
+    font-size: 0.9rem;
+    color: #888;
+    font-weight: 400;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    padding: 0; /* Garante que não tenha padding extra do main p */
+}
+
+.chart-content {
+    /* Altura para que o gráfico tenha espaço para ser desenhado */
+    height: 350px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.comparativo{
+    margin-top: 2rem;
+    margin-left: 5rem;    
+    margin-right: 5rem;
+}
+
+.comparativo p{
+    opacity: 0.5;
+}
 
 /* --- Responsividade (Mobile) --- */
 @media (max-width: 992px) {
@@ -198,6 +304,7 @@ main p {
         padding: 0;
         overflow: hidden;
         transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+        
     }
 
     /* Classe 'active' que o JS vai adicionar */
@@ -235,4 +342,14 @@ main p {
     .hamburger.active .line:nth-child(3) {
         transform: translateY(-8px) rotate(-45deg);
     }
+    /* Na tela pequena, os gráficos ficam um embaixo do outro */
+    .charts-container {
+        grid-template-columns: 1fr;
+        padding: 0 1.5rem;
+        margin-top: 2rem;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    
 }
