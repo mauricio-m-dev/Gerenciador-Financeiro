@@ -1,5 +1,6 @@
-/* --- 1. Estilos Globais e Reset --- */
-/* Reseta margens, preenchimentos e define o box-sizing universal */
+/* ================================== */
+/* 1. Reset Global e Estilos Base     */
+/* ================================== */
 * {
   margin: 0;
   padding: 0;
@@ -8,8 +9,11 @@
 
 body {
   font-family: "Poppins", sans-serif;
-  background-color: #fff;
-  /* Adiciona padding-top para compensar o header fixo */
+  background-color: #f9f9f9; /* Cor de fundo principal */
+  color: #101828;
+  /* Melhora a renderização do texto */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 ul {
@@ -21,16 +25,44 @@ a {
   color: inherit;
 }
 
-/* --- 2. Classes de Layout e Utilitários --- */
-/* Container principal para centralizar o conteúdo */
+/* ================================== */
+/* 2. Layout e Utilitários            */
+/* ================================== */
 .container {
   max-width: 1200px;
-  min-width: 320px;
+  width: 100%; /* Garante fluidez */
   margin: 0 auto;
-  padding: 0 0.9rem; /* Adicionado padding aqui, removido do navbar */
+  padding: 0 1.5rem; /* Espaçamento padrão (será ajustado no mobile) */
 }
 
-/* --- 3. Componente: Header e Navbar --- */
+main {
+  /* 70px (header) + 30px (espaço) */
+  padding-top: calc(70px + 2rem); 
+  padding-bottom: 3rem;
+  min-height: 100vh;
+}
+
+main h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #101828;
+  margin-bottom: 1.5rem;
+}
+
+.section-title {
+  font-size: 1.5rem; /* Ajustado para um H2 mais coeso */
+  color: #2d3748;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.align-right {
+  text-align: right;
+}
+
+/* ================================== */
+/* 3. Componente: Header e Navbar     */
+/* ================================== */
 header {
   width: 100%;
   background-color: #fff;
@@ -42,28 +74,24 @@ header {
   transition: box-shadow 0.3s ease;
 }
 
-/* Classe adicionada via JS para indicar rolagem */
 header.scrolled {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* Estrutura principal da Navbar */
 .navbar {
   margin: 0 auto;
-  padding: 0 0.9rem; /* Espaçamento lateral */
+  padding: 0 1.5rem; /* Espaçamento padrão */
   height: 70px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   max-width: 1200px;
-  min-width: 320px;
 }
 
-/* 3.1 Bloco da Esquerda (Logo + Hamburguer) */
 .nav-left {
   display: flex;
   align-items: center;
-  gap: 1rem; /* Espaço entre hamburguer e logo */
+  gap: 1rem;
 }
 
 .logo {
@@ -72,12 +100,12 @@ header.scrolled {
   color: #000;
 }
 
-/* 3.2 Ícone Hamburguer (Base) */
 .hamburger {
-  display: none; /* Escondido no desktop */
+  display: none; /* Escondido por padrão (desktop-first) */
   cursor: pointer;
   flex-direction: column;
-  gap: 5px; /* Espaço entre as linhas */
+  gap: 5px;
+  padding: 10px; /* Área de clique maior */
 }
 
 .hamburger .line {
@@ -88,28 +116,26 @@ header.scrolled {
   transition: all 0.3s ease-in-out;
 }
 
-/* 3.3 Bloco do Centro (Links de Navegação) */
 .nav-links {
   display: flex;
-  gap: 2.5rem; /* Espaçamento entre os links */
+  gap: 2.5rem;
 }
 
 .nav-links li a {
   font-weight: 500;
   color: #555;
   padding: 0.8rem;
-  transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out,
-    transform 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 
-.nav-links li a:icon {
+.nav-links li a:hover,
+.nav-links li a:focus {
   color: #155eef;
   background-color: #f5f8ff;
   border-radius: 1rem;
-  transform: translateY(-5px); /* Efeito "lift" sutil */
+  outline: none;
 }
 
-/* 3.4 Bloco da Direita (Área do Usuário) */
 .user-area {
   display: flex;
   align-items: center;
@@ -121,7 +147,6 @@ header.scrolled {
   color: #555;
   align-items: center;
   display: flex;
-  /* Animação de rotação no hover */
   transition: transform 0.4s ease, color 0.3s ease;
 }
 
@@ -134,110 +159,63 @@ header.scrolled {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  object-fit: cover; /* Garante que a imagem não distorça */
+  object-fit: cover;
   border: 2px solid #eee;
   cursor: pointer;
+  background-color: #f0f0f0;
 }
 
-/* --- 4. Estilos de Conteúdo Principal (Main) --- */
-
-/* 4.1 Título Principal da Página */
-main h1 {
-  font-size: 2rem;
-  color: #101828;
-  margin-bottom: 1.5rem;
-  position: relative;
-  padding-bottom: 0.5rem;
-}
-
-/* 4.2 Grid de Cards (Geral) */
+/* ================================== */
+/* 4. Componente: Cards Principais    */
+/* ================================== */
 .geral-container {
   display: grid;
-  /* Cria colunas responsivas: 
-     - Tenta encaixar o máximo de colunas de 280px
-     - Se não couber, cada coluna ocupa 1 fração (1fr) do espaço */
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Minmax mais flexível */
+  gap: 1.5rem; /* Gap ligeiramente menor */
   margin-top: 2rem;
 }
 
-.geral-card-renda {
+.geral-card {
   background: #ffffff;
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   padding: 1.5rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-.geral-card-renda h2 {
-  font-size: 2rem;
-  color: #17b26a;
-  font-weight: 600;
-  margin-top: 0.5rem;
-}
-
-.geral-card-renda p {
+.geral-card p {
   font-weight: 500;
   color: #555;
 }
 
-.geral-card-despesas {
-  background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  padding: 1.5rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.geral-card-despesas h2 {
+.geral-card h2 {
   font-size: 2rem;
-  color: #f04438;
   font-weight: 600;
   margin-top: 0.5rem;
+  /* Evita quebra de linha em valores grandes */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.geral-card-despesas p {
-  font-weight: 500;
-  color: #555;
+.geral-card .h2-renda { color: #17b26a; }
+.geral-card .h2-despesas { color: #f04438; }
+.geral-card .h2-metas { color: #155eef; }
+
+/* ================================== */
+/* 5. Componente: Botões de Ação      */
+/* ================================== */
+/* Container dos botões de desktop */
+.desktop-action-buttons {
+  margin-top: 1.5rem; /* Reduzido */
 }
 
-.geral-card-metas {
-  background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  padding: 1.5rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.geral-card-metas h2 {
-  font-size: 2rem;
-  color: #155eef;
-  font-weight: 600;
-  margin-top: 0.5rem;
-}
-
-.geral-card-metas p {
-  font-weight: 500;
-  color: #555;
-}
-
-/* --- 6. Componente: Cartões de Ação (Botões) --- */
-
-/* Estilo PADRÃO do botão.
-  Isso reseta o botão e o faz parecer um card.
-*/
 .geral-container button {
-  /* Reset de estilos de botão */
   border: none;
   background: none;
-  font-family: inherit; /* Herda a fonte 'Poppins' do body */
+  font-family: inherit;
   text-align: left;
   cursor: pointer;
-
-  /* Estilo de Card (baseado no .meta-card para consistência) */
   display: block;
   width: 100%;
   background: #ffffff;
@@ -245,43 +223,21 @@ main h1 {
   padding: 1.5rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(0, 0, 0, 0.05);
-
-  /* Diferencial: Adiciona uma borda esquerda colorida.
-    Usamos uma variável CSS (--button-accent-color) para que 
-    as classes específicas possam alterá-la.
-  */
-  border-left: 5px solid var(--button-accent-color, #155eef); /* Azul como padrão */
-
-  /* Transições para hover e focus */
-  transition: transform 0.3s ease, box-shadow 0.3s ease,
-    background-color 0.3s ease;
+  border-left: 5px solid var(--button-accent-color, #155eef);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Estilo de Hover e Focus (Acessibilidade)
-  Funciona como o .meta-card, mas com feedback extra de clique.
-*/
 .geral-container button:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  background-color: #fdfdfd;
 }
 
 .geral-container button:focus-visible {
-  /* Mostra um anel de foco claro para acessibilidade */
   outline: 2px solid #155eef;
   outline-offset: 3px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
-.geral-container button:active {
-  /* Feedback de clique */
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-}
-
-/* Estilo do conteúdo DENTRO dos botões.
-  Mantém a consistência com os .meta-card.
-*/
 .geral-container button p {
   font-weight: 500;
   color: #555;
@@ -292,136 +248,405 @@ main h1 {
   font-size: 1rem;
   color: #1a202c;
   font-weight: 600;
-  margin-top: 0.5rem; /* Espaçamento entre o <p> e o <h2> */
+  margin-top: 0.5rem;
 }
 
-/* Variações de Cor
-  Aqui definimos a cor da borda para cada tipo de botão.
-*/
+.geral-button-renda button { --button-accent-color: #48bb78; }
+.geral-button-despesas button { --button-accent-color: #f56565; }
+.geral-button-metas button { --button-accent-color: #155eef; }
 
-/* Renda = Verde */
-.geral-button-renda button {
-  --button-accent-color: #48bb78; /* Verde (Positivo) */
-}
-
-/* Despesas = Vermelho */
-.geral-button-despesas button {
-  --button-accent-color: #f56565; /* Vermelho (Negativo) */
-}
-
-/* Metas = Azul (Cor primária) */
-.geral-button-metas button {
-  --button-accent-color: #155eef; /* Azul (Meta/Ação) */
-}
-
-/* --- 7. Componente: Tabela de Transações --- */
-
-/* Classe utilitária para alinhamento */
-.align-right {
-  text-align: right;
-}
-
-/* Container de toda a seção */
-.transactions-section {
+/* ================================== */
+/* 6. Componente: Grid do Dashboard   */
+/* ================================== */
+.dashboard-grid {
+  display: grid;
+  /* Abordagem Mobile-First: 1 coluna por padrão */
+  grid-template-columns: 1fr;
+  gap: 2rem;
   margin-top: 3rem;
-  max-width: 1200px;
-  min-width: 320px;
-  margin: 0 auto;
-  padding: 0 0.9rem;
+  align-items: flex-start;
 }
 
-/* Título da seção (H2) */
-.transactions-section h2 {
-  font-size: 1.75rem; /* Um pouco menor que o H1 principal */
-  color: #2d3748;
-  font-weight: 600;
-  margin-bottom: 1.5rem;
-  margin-top: 2rem;
-}
-
-/* O Card que envolve a tabela */
+/* Tabela de Transações */
 .card-table-container {
   background: #ffffff;
-  border-radius: 16px; /* Cantos arredondados */
+  border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(0, 0, 0, 0.05);
-
-  /* Importante: Esconde o que "vazar" para manter os cantos arredondados */
   overflow: hidden;
 }
 
-/* Wrapper que permite a rolagem horizontal (responsividade) */
 .table-scroll-wrapper {
-  overflow-x: auto; /* Permite rolar a tabela horizontalmente */
-  -webkit-overflow-scrolling: touch; /* Melhora a rolagem em iOS */
+  overflow-x: auto; /* Garante rolagem horizontal em telas pequenas */
+  -webkit-overflow-scrolling: touch;
 }
 
-/* Estilo principal da tabela */
 .transactions-table {
-  width: 100%; /* Ocupa 100% do wrapper */
-  border-collapse: collapse; /* Remove espaços entre as células */
-
-  /* Força a rolagem em telas menores que 600px */
-  min-width: 600px;
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px; /* Força rolagem apenas quando necessário */
 }
 
-/* Estilo das Células (Cabeçalho <th> e Dados <td>) */
 .transactions-table th,
 .transactions-table td {
-  padding: 1.25rem 1.5rem; /* Espaçamento interno generoso */
+  padding: 1.25rem 1.5rem;
   text-align: left;
-  border-bottom: 1px solid #f0f0f0; /* Linha sutil entre as transações */
-  white-space: nowrap; /* Impede que o texto quebre (para a rolagem) */
+  border-bottom: 1px solid #f0f0f0;
+  white-space: nowrap;
 }
 
-/* Cabeçalho da Tabela (Nome, Método, etc.) */
 .transactions-table th {
-  background-color: #ECEFF2;
+  background-color: #f9fafb;
   font-weight: 600;
-  font-size: 0.875rem; /* 14px */
-  color: #668091;
+  font-size: 0.875rem;
+  color: #667085;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
-/* Remove a borda da última linha da tabela */
 .transactions-table tbody tr:last-child td {
   border-bottom: none;
 }
 
-/* Estilos de Células Específicas */
-.transaction-name {
+.transaction-name { font-weight: 600; color: #333; }
+.transaction-method, .transaction-date { color: #666; font-size: 0.95rem; }
+.amount-income { color: #17b26a; font-weight: 600; }
+.amount-expense { color: #f04438; font-weight: 600; }
+.empty-table-message { text-align: center; color: #777; padding: 2rem; }
+
+/* Gráfico de Categorias */
+.chart-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  max-width: 400px; /* Limite para telas pequenas/médias */
+  aspect-ratio: 1 / 1; /* Mantém o gráfico quadrado */
+}
+
+/* ================================== */
+/* 7. Componente: Modal de Transação  */
+/* ================================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.transaction-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -45%);
+  opacity: 0;
+  visibility: hidden;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 500px;
+  z-index: 2001;
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+
+.modal-overlay.active,
+.transaction-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.transaction-modal.active {
+  transform: translate(-50%, -50%);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.modal-header h2 {
+  font-size: 1.25rem;
   font-weight: 600;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+/* Classes de cor do cabeçalho */
+.modal-header.modal-header-renda h2 { color: #17b26a; }
+.modal-header.modal-header-despesa h2 { color: #f04438; }
+.modal-header.modal-header-metas h2 { color: #155eef; }
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  color: #999;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.modal-close-btn:hover {
   color: #333;
+  transform: rotate(90deg);
 }
 
-.transaction-method,
-.transaction-date {
-  color: #666;
+.modal-body {
+  padding: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #333;
+  font-size: 0.875rem;
+}
+
+/* Inputs e Selects */
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="date"],
+.form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #155eef;
+  box-shadow: 0 0 0 3px rgba(21, 94, 239, 0.1);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.modal-footer {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  border-top: 1px solid #f0f0f0;
+  background-color: #f9fafb;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+
+/* Estilos de Botão do Modal */
+.btn {
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 8px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
   font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-/* --- Cores para Renda e Despesa --- */
-/* Usamos as mesmas cores dos botões para consistência */
+.btn-secondary {
+  background-color: #ffffff;
+  color: #344054;
+  border: 1px solid #d0d5dd;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.btn-secondary:hover { background-color: #f9fafb; }
 
-.amount-income {
-  color: #48bb78; /* Verde */
+.btn-primary {
+  background-color: #155eef;
+  color: #ffffff;
+  border: 1px solid #155eef;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.btn-primary:hover { background-color: #104abd; }
+
+/* ================================== */
+/* 8. Componente: Modal de Escolha    */
+/* ================================== */
+.chooser-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 2100; /* Acima do overlay do modal principal */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.chooser-modal {
+  position: fixed;
+  left: 50%;
+  bottom: 0; /* Sobe de baixo */
+  width: 100%;
+  max-width: 500px; /* Consistente com o outro modal */
+  background: #ffffff;
+  z-index: 2101;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  box-shadow: 0 -5px 30px rgba(0, 0, 0, 0.1);
+  transform: translate(-50%, 100%);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.chooser-overlay.active,
+.chooser-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.chooser-modal.active {
+  transform: translate(-50%, 0);
+}
+
+.chooser-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.chooser-header h2 {
+  font-size: 1.1rem;
   font-weight: 600;
+  margin: 0;
 }
 
-.amount-expense {
-  color: #f56565; /* Vermelho */
-  font-weight: 600;
+.chooser-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
+.chooser-button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 1.25rem;
+  border-radius: 12px;
+  border: 1px solid #d0d5dd;
+  background-color: #f9fafb;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  gap: 1rem;
+  color: #344054;
+}
 
-/* --- 9. Responsividade (Media Queries) --- */
-/* Agrupados do maior para o menor breakpoint */
+.chooser-button i {
+  font-size: 1.5rem;
+}
 
-/* Breakpoint: Tablets e Menores (<= 992px) */
-/* Oculta links e mostra o menu hamburguer */
+/* Cores dinâmicas no hover */
+#chooser-btn-renda { --chooser-color: #17b26a; }
+#chooser-btn-despesa { --chooser-color: #f04438; }
+#chooser-btn-metas { --chooser-color: #155eef; }
+
+.chooser-button:hover {
+  background-color: #fff;
+  border-color: var(--chooser-color);
+  color: var(--chooser-color);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
+}
+
+/* ================================== */
+/* 9. Componente: Botão Flutuante     */
+/* ================================== */
+.mobile-action-button-container {
+  display: none; /* Escondido por padrão (desktop) */
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 1050;
+}
+
+.btn-float-add {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 50px; /* Formato de pílula */
+  border: none;
+  background-color: #155eef;
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0 8px 20px rgba(21, 94, 239, 0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-float-add i {
+  font-size: 1.5rem;
+}
+
+.btn-float-add:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(21, 94, 239, 0.5);
+}
+
+/* ================================== */
+/* 10. Seção: Responsividade          */
+/* ================================== */
+
+/* Laptop (1024px) - Adiciona a sidebar */
+@media (min-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr 380px; /* 2 colunas */
+  }
+  
+  .table-scroll-wrapper {
+    max-height: 400px; /* Limita altura da tabela */
+  }
+  
+  .chart-card {
+    max-width: 100%; /* Gráfico ocupa toda a sidebar */
+    aspect-ratio: 1 / 1;
+  }
+}
+
+/* Tablet (992px) - Ponto de quebra do menu hamburguer */
 @media (max-width: 992px) {
-  /* Esconde os links do centro e transforma em menu dropdown */
   .nav-links {
     display: flex;
     flex-direction: column;
@@ -433,18 +658,15 @@ main h1 {
     background-color: #ffffff;
     border-top: 1px solid #f0f0f0;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-
-    /* Começa escondido (JS vai controlar) */
     max-height: 0;
     padding: 0;
     overflow: hidden;
     transition: max-height 0.4s ease-out, padding 0.4s ease-out;
   }
 
-  /* Classe 'active' que o JS vai adicionar para abrir o menu */
   .nav-links.active {
-    max-height: 500px; /* Altura suficiente para os links */
-    padding: 1rem 0; /* Adiciona padding quando aberto */
+    max-height: 500px;
+    padding: 1rem 0;
   }
 
   .nav-links li {
@@ -455,40 +677,122 @@ main h1 {
 
   .nav-links li a:hover {
     background-color: #f9f9f9;
-    transform: translateY(0); /* Remove o efeito "lift" no mobile */
+    transform: translateY(0);
   }
 
-  /* Mostra o ícone hamburguer */
   .hamburger {
-    display: flex;
+    display: flex; /* Mostra o ícone hamburguer */
   }
 
-  /* Animação do Hamburguer para "X" (controlado via JS) */
-  .hamburger.active .line:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
+  /* Animação do 'X' */
+  .hamburger.active .line:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .hamburger.active .line:nth-child(2) { opacity: 0; }
+  .hamburger.active .line:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+}
+
+/* Tablet (768px) - Ponto de quebra dos botões de ação */
+@media (max-width: 768px) {
+  .container,
+  .navbar {
+    padding: 0 1rem; /* Reduz o padding lateral */
   }
 
-  .hamburger.active .line:nth-child(2) {
-    opacity: 0;
+  main {
+    padding-top: calc(70px + 1.5rem);
   }
 
-  .hamburger.active .line:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
+  main h1 {
+    font-size: 1.75rem; /* Reduz o H1 */
+  }
+
+  /* --- AQUI A MUDANÇA --- */
+  /* Esconde os 3 botões do desktop */
+  .desktop-action-buttons {
+    display: none;
+  }
+
+  /* Mostra o botão flutuante */
+  .mobile-action-button-container {
+    display: block;
+  }
+  /* ------------------- */
+  
+  .geral-card h2 {
+    font-size: 1.75rem;
   }
 }
 
-/* Breakpoint: Celulares Maiores (<= 768px) */
-/* Empilha os cards */
-@media (max-width: 768px) {
-  .geral-container {
-    /* Desativa o grid e empilha os itens */
-    grid-template-columns: 1fr;
-    /* Nota: O original usava flex-direction, mas como é um grid, 
-       basta redefinir as colunas para 1fr */
+/* Mobile L (425px) */
+@media (max-width: 425px) {
+  main {
+    /* Espaço no fundo para o botão flutuante não cobrir conteúdo */
+    padding-bottom: 7rem; 
   }
 
-  /* Opcional: Garante que o card ocupe a largura total */
-  .geral-card {
-    max-width: 100%;
+  main h1 {
+    font-size: 1.5rem;
+  }
+  
+  /* Empilha os campos 'Data' e 'Método' no modal */
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0; /* .form-group já tem margin-bottom */
+  }
+  
+  .modal-body { padding: 1.5rem 1rem; }
+  .modal-header, .modal-footer { padding: 1.25rem 1rem; }
+  .chooser-body { padding: 1.5rem 1rem; }
+
+  /* Botão flutuante vira apenas ícone */
+  .btn-float-add {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    padding: 0;
+    justify-content: center;
+  }
+  .btn-float-add span {
+    display: none; /* Esconde o texto */
+  }
+  .btn-float-add i {
+    font-size: 1.75rem;
+  }
+  
+  .mobile-action-button-container {
+    bottom: 1.5rem;
+    right: 1.5rem;
+  }
+}
+
+/* Mobile M (375px) */
+@media (max-width: 375px) {
+  main h1 {
+    font-size: 1.4rem;
+  }
+  
+  .geral-card h2 {
+    font-size: 1.5rem;
+  }
+  
+  .logo {
+    font-size: 1.4rem;
+  }
+
+  /* Reduz padding da tabela em telas muito pequenas */
+  .transactions-table th,
+  .transactions-table td {
+    padding: 0.8rem 1rem;
+  }
+}
+
+/* Mobile S (320px) */
+@media (max-width: 320px) {
+  .container,
+  .navbar {
+    padding: 0 0.75rem;
+  }
+
+  .logo {
+    display: none; /* Esconde o logo em telas minúsculas */
   }
 }
