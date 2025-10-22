@@ -17,10 +17,10 @@
 </head>
 
 <body>
-    
+
     <header>
         <nav class="navbar">
-            
+
             <div class="nav-left">
                 <div class="hamburger">
                     <span class="line"></span>
@@ -41,7 +41,7 @@
             <div class="user-area">
                 <a href="#" class="settings-icon" aria-label="Configurações">
                     <span class="material-symbols-outlined">
-                        <i class='bxr  bx-cog'  ></i> 
+                        <i class='bxr  bx-cog'></i>
                     </span>
                 </a>
                 <img src="https://via.placeholder.com/40" alt="Foto de Perfil" class="profile-pic">
@@ -50,41 +50,41 @@
         </nav>
     </header>
 
-    <main style="height: 200vh; padding: 100px 2rem; background-color: #f9f9f9;">
+    <main>
         <h1>Metas Financeiras</h1>
+        <div class="container">
+            <div class="meta-container">
+                <div class="meta-card">
+                    <p>Total das Metas</p>
+                    <h2>R$ 147.000</h2>
+                </div>
 
-        <div class="meta-container">
-            <div class="meta-card">
-                <p>Total das Metas</p>
-                <h2>R$ 147.000</h2>
+                <div class="meta-card valor">
+                    <p>Valor Acumulado</p>
+                    <h2>R$ 59.700</h2>
+                </div>
+
+                <div class="meta-card progresso">
+                    <p>Progresso Geral</p>
+                    <h2>40.6%</h2>
+                </div>
+
+                <div class="meta-card contribuicao">
+                    <p>Contribuição Mensal</p>
+                    <h2>R$ 5.700</h2>
+                </div>
             </div>
 
-            <div class="meta-card">
-                <p>Valor Acumulado</p>
-                <h2>R$ 59.700</h2>            
-            </div>
+            <div class="meta-details">
+                <div class="card-details">
+                    <h3>Fundo de Emergência</h3>
+                    <p>Segurança</p>
+                </div>
 
-            <div class="meta-card">
-                <p>Progresso Geral</p>
-                <h2>40.6%</h2>
             </div>
-
-            <div class="meta-card">
-                <p>Contribuição Mensal</p>
-                <h2>R$ 5.700</h2>
-            </div>
-
 
 
         </div>
-
-
-
-
-
-
-
-
     </main>
 
     <script src="../template/asset/js/Meta.js"></script>
