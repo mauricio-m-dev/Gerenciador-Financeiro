@@ -8,7 +8,7 @@
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: '', sans-serif;
     background-color: #f9f9f9;
 }
 
@@ -106,11 +106,12 @@ body {
 
 }
 .main-content1 h1 {
-    font-size: 24px;
+    font-size: 30px;
     font-weight: 600;
     color: #1a1a1a;
     display: inline-block;
-    margin: 0 auto ;
+
+    font-family: 'Inter', sans-serif;
     
 
 }
@@ -119,9 +120,9 @@ body {
 
 .add-cartao {
     float: right;
-    background-color: #ffffff;
-    color: #394753;
 
+    color: #394753;
+    font-family: 'Inter', sans-serif;
     font-weight: 500;
     border-radius: 10px;
     padding: 8px 14px;
@@ -131,6 +132,8 @@ body {
     cursor: pointer;
     transition: 0.3s;
     font-size: 15px;
+    border: 1px solid #ECEFF2;
+    
 }
 
 
@@ -145,14 +148,17 @@ body {
 }
 
 .Minha-carteira h2 {
-    font-size: 20px;
+    font-size: 25px;
     color: #1e293b;
     margin-bottom: 5px;
+    font-family: 'Inter', sans-serif;
 }
 
 .Minha-carteira h5 {
     font-weight: 400;
     color: #64748b;
+    font-size: 15px;
+       font-family: 'Inter', sans-serif;
 }
 
 
@@ -181,16 +187,22 @@ body {
 .Renda h4 {
     color: #668091;
     font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
 }
 
 .Despesas h4 {
     color: #668091;
     font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
 }
 
 .Metas h4 {
     color: #668091;
     font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
 }
 
 .Minha-carteira {
@@ -215,29 +227,28 @@ body {
 
 .card-list {
     display: flex;
-    flex-wrap: nowrap;
-    gap: 20px;
+    flex-wrap: wrap;
+    gap: 50px;
     margin-bottom: 30px;
     justify-content: center;
     margin-top: 30px;
 }
 
 .card-placeholder {
-    height: 170px;
-    width: 320px;
-    flex-grow: 0;
-    flex-shrink: 0;
-
+    height: 190px;
+    max-width: 330px; 
+    flex-basis: 300px;
+    flex-grow: 1;
     background-color: #f0f0f0;
     border: 1px solid #e0e0e0;
     border-radius: 12px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-
-
-    padding: 20px;
+    padding: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+
 }
 
 .card-content {
@@ -246,6 +257,11 @@ body {
     gap: 10px;
     width: 100%;
 
+}
+.card-content-top {
+    display: flex;
+    
+    align-items: center;
 }
 
 .inner-block {
@@ -267,8 +283,8 @@ body {
 }
 
 .summary-value {
-    font-size: 1.6em;
-
+    font-size: 1.8em;
+    
     margin-top: 0;
 
 }
@@ -278,22 +294,22 @@ body {
 
 .income-card .summary-value {
     color: #17B26A;
-    ;
-    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
 }
 
 
 .expense-card .summary-value {
     color: #F04438;
-    ;
-    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
 }
 
 .goal-card .summary-value {
     color: #155EEF;
-    ;
-    font-weight: 600;
-    margin-bottom: 0;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+  
 }
 
 .summary-title {
@@ -304,8 +320,501 @@ body {
     margin-bottom: 5px;
 }
 .inner-block.small2{
-    width: 20%;
+   
     height: 26px;
-    ;;
+   width: 80px;
+   white-space: nowrap;
+    margin: 0 0 0 auto !important;
+    background-color: hsl(0, 0%, 100%);
+   border: 1px solid #D5DDE2;
+ 
+  
+}
+
+.increase-indicator {
+    color: #17B26A;
+    font-size: 17px;
+    font-weight: 500;
+     
+    
+}
+
+
+.decrease-indicator {
+      font-size: 17px;
+    color: #F04438;
+    font-weight: 500;
+  
+
 
 }
+
+
+
+
+
+.increase-indicator .percentage-value {
+    color: #17B26A;
+    
+}
+
+
+.decrease-indicator .percentage-value {
+    color:  #F04438;
+  
+}
+
+
+
+.inner-block.small2 i {
+    font-size: 1em; 
+    margin-left: 4px;
+
+}
+
+.main-content3 {
+    display: flex;
+    gap: 50px; /* Espaço entre as duas colunas */
+    max-width: 1300px;
+    margin: 40px auto;
+    padding: 0 20px;
+    justify-content: space-between;
+}
+
+.chart-section, .transactions-section {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    flex: 1; /* Faz com que ambos ocupem a mesma largura */
+}
+
+.transactions-section {
+    flex: 2; /* Faz a tabela ser um pouco mais larga que o gráfico */
+}
+
+/* --- TÍTULOS DE SEÇÃO --- */
+.chart-section h2{
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #333E47;
+
+    margin-bottom: 5px;
+}
+ .transactions-section h2 {
+       font-size: 25px;
+       font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    margin-bottom: 5px;
+ }
+ .transactions-section p {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+ }
+
+.section-subtitle {
+    font-size: 0.85em;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+/* --- ESTILO DO GRÁFICO (Lado Esquerdo) --- */
+.donut-chart-placeholder {
+    width: 200px; /* Tamanho do donut */
+    height: 200px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="%23e0e0e0" stroke-width="10"/><circle cx="50" cy="50" r="30" fill="%23ffffff"/></svg>');
+    margin: 10px auto 25px auto;
+    border-radius: 50%;
+}
+
+/* LISTA DE CATEGORIAS */
+.category-list {
+    list-style: none;
+    padding: 0;
+   
+}
+
+.category-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3px 0;
+    font-size: 0.9em;
+    color: #000000;
+    border-bottom: 1px solid #f0f0f0;
+    font-family: 'Inter', sans-serif;
+}
+
+.category-item:last-child {
+    border-bottom: none;
+}
+
+.color-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+/* Cores das categorias (baseado na imagem) */
+.dot-casa { background-color: #EF4438; } /* Vermelho */
+.dot-cartao { background-color: #9B51E0; } /* Roxo */
+.dot-transporte { background-color: #4CAF50; } /* Verde */
+.dot-mantimentos { background-color: #2D9CDB; } /* Azul */
+.dot-compras { background-color: #F2C94C; } /* Amarelo */
+
+.percentage {
+    font-weight: 600;
+    color: #668091;
+}
+
+/* --- ESTILO DA TABELA DE TRANSAÇÕES (Lado Direito) --- */
+
+.transactions-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+    margin-top: 15px;
+    font-family: 'Inter', sans-serif;
+    color: black;
+}
+.transactions-table td i.bx-dots-vertical-rounded {
+    font-size: 1.3em;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.transactions-table th {
+    text-align: left;
+    color: #666;
+    font-weight: 500;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+
+}
+
+.transactions-table td {
+    padding: 10px 0;
+    border-bottom: 1px solid #f7f7f7; 
+    vertical-align: middle;
+    
+
+}
+
+.income {
+    color: #17B26A; 
+    font-weight: 600;
+}
+
+.expense {
+    color: #F04438;
+    font-weight: 600;
+}
+
+
+.initials {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 0.75em;
+    font-weight: 700;
+    color: #ffffff;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.orlando { background-color: #898b8b; }
+.netflix { background-color: #ff1100; }
+/* --- ESTILO BASE DA SEÇÃO DO GRÁFICO --- */
+.chart-section {
+    /* Garante que o conteúdo use todo o espaço disponível */
+    padding: 20px;
+}
+
+.chart-section h2 {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+    font-family: 'Inter', sans-serif;
+}
+
+/* PLACEHOLDER DO GRÁFICO (para referência de contexto) */
+.donut-chart-placeholder {
+    width: 250px; /* Tamanho do círculo */
+    height: 250px;
+    margin: 10px auto 25px auto;
+    border-radius: 50%;
+}
+
+
+/* --- LISTA DE CATEGORIAS (Itens) --- */
+.category-list {
+    list-style: none;
+    padding: 0;
+   
+ 
+}
+.category-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: left;
+ 
+    font-size: 0.95em;
+    color: #101828;
+    border-bottom: 1px solid #f0f0f0;
+    font-family: 'Inter', sans-serif;   
+}
+
+
+
+
+.category-item:last-child {
+    border-bottom: none;
+}
+
+/* --- ESTILO DA BOLINHA COLORIDA MAIOR (O WRAPPER) --- */
+.category-icon-wrapper {
+ display: inline-flex; /* Para centralizar o ícone */
+    align-items: center;
+    justify-content: center;
+    
+    /* DEFINIÇÃO DO TAMANHO DA BOLINHA */
+    width: 34px; 
+    height: 34px; 
+    border-radius: 50%; 
+    margin-right: 10px; 
+    flex-shrink: 0; 
+}
+
+/* --- ESTILO DO ÍCONE BOXICONS DENTRO DA BOLINHA --- */
+.category-icon-wrapper i {
+    font-size: 1.5em; /* Tamanho do ícone dentro da bolinha */
+    color: #ffffff; /* Ícone branco para contraste */
+}
+
+
+/* --- CORES DE FUNDO DAS BOLINHAS (BASEADO NA IMAGEM) --- */
+.category-icon-wrapper.dot-casa { background-color: #EF4438; } 
+.category-icon-wrapper.dot-cartao { background-color: #9B51E0; } 
+.category-icon-wrapper.dot-transporte { background-color: #4CAF50; } 
+.category-icon-wrapper.dot-mantimentos { background-color: #2D9CDB; } 
+.category-icon-wrapper.dot-compras { background-color: #F2C94C; } 
+
+
+.percentage {
+    font-weight: 600;
+    color: #333;
+}
+
+
+@media (max-width: 768px) {
+
+    /* --- GERAL: CABEÇALHO E MARGENS --- */
+    
+    /* Empilha itens do cabeçalho */
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px 20px;
+    }
+
+    .brand {
+        margin-bottom: 10px;
+ 
+    }
+
+    /* Navegação ocupa 100% da largura e alinha à esquerda */
+    .nav-links {
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 15px;
+        flex: none; /* Remove a flexibilidade para garantir 100% */
+        width: 100%;
+    }
+
+    /* Reposiciona o perfil no canto superior direito */
+    .profile-settings {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+    }
+    
+    /* Ajuste de Padding Lateral para todos os containers */
+    .main-content1, .Minha-carteira, .main-content2, .main-content3 {
+        padding-left: 15px !important; 
+        padding-right: 15px !important;
+        max-width: 100% !important;
+    }
+
+    /* Remove o float e garante o espaçamento do botão 'Adicionar Cartão' */
+    .add-cartao {
+        margin-bottom: 20px;
+        display: inline-flex; 
+    }
+
+
+    /* --- SEÇÃO 1: CARTÕES / CARTEIRAS --- */
+    
+    /* Empilha os placeholders dos cartões e CENTRALIZA-OS */
+    .card-list {
+        flex-direction: column !important; /* Empilha verticalmente */
+        gap: 15px !important;
+        justify-content: center !important; /* Centraliza a coluna */
+        align-items: center; /* Centraliza itens se houver width < 100% */
+    }
+    
+    /* Faz os placeholders ocuparem a largura total */
+    .card-placeholder {
+        width: 100% !important;
+        max-width: 350px; /* Define uma largura máxima para não esticar demais em tablets na vertical */
+        flex-basis: auto !important;
+        height: 150px; /* Altura ajustada para telas menores */
+    }
+
+    /* --- SEÇÃO 2: RENDA / DESPESA / METAS --- */
+    
+    /* Empilha os cards de sumário */
+    .main-content2 {
+        flex-direction: column !important;
+        gap: 15px !important;
+        margin-top: 20px !important;
+    }
+    
+    /* Faz os cards de sumário ocuparem a largura total */
+    .main-content2 > div {
+        width: 100% !important;
+        flex: none !important;
+    }
+    
+    /* Alinhamento do indicador de porcentagem (mantido o padrão clean) */
+    .inner-block.small2 {
+        margin: 0 0 0 auto !important; /* Move o indicador para a direita */
+        width: 80px; 
+        height: auto !important;
+     
+    }
+    .inner-block.small2 i {
+        margin-right: -2px;
+    }
+
+    /* --- SEÇÃO 3: GRÁFICO / TABELA DE TRANSAÇÕES --- */
+
+    /* Empilha a coluna de Gráfico e a coluna de Tabela */
+    .main-content3 {
+        flex-direction: column !important;
+        gap: 20px !important;
+        margin-top: 30px !important;
+    }
+
+    /* Garante que ambas as colunas ocupem a largura total */
+    .chart-section, .transactions-section {
+        flex: 1 1 100% !important; 
+        width: 100% !important;
+    }
+    
+   .chart-container {
+
+    max-width: 250px; /* Largura máxima, adequada para a maioria dos celulares */
+    height: 250px;    /* Mantém a proporção circular */
+    
+    /* Centraliza o gráfico na tela, já que a largura é menor que 100% */
+    margin: 20px auto !important; 
+}
+
+/* Opcional: Garante que a seção do gráfico ocupe 100% */
+.chart-section {
+    flex: 1 1 100% !important; 
+    width: 100% !important;
+}
+
+    /* Torna a tabela horizontalmente rolável para evitar quebra */
+    .transactions-section {
+        overflow-x: auto;
+    }
+    .transactions-table {
+        /* Garante que a tabela não encolha demais, forçando a rolagem lateral */
+        min-width: 600px; 
+    }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+
+    /* --- GERAL: Margens e Limites --- */
+    
+    /* Reduz o padding lateral para dar mais espaço ao conteúdo */
+    .main-content1, .Minha-carteira, .main-content2, .main-content3 {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+        max-width: 100% !important;
+    }
+    
+    /* --- CABEÇALHO --- */
+    
+    .nav-links {
+        /* Permite que a navegação se quebre se o espaço for muito apertado */
+        flex-wrap: wrap; 
+        gap: 15px;
+        flex: 1; /* Mantém a distribuição centralizada */
+    }
+
+    /* --- SEÇÃO 1: CARTÕES / CARTEIRAS --- */
+    
+    /* Permite que o card-list quebre para caber mais de 3 cards em uma linha */
+    .card-list {
+        flex-wrap: wrap; 
+        justify-content: flex-start;
+        gap: 15px; /* Reduz o espaçamento */
+    }
+    
+    /* Ajusta a largura dos placeholders para permitir 2 ou 3 cards por linha */
+    .card-placeholder {
+        /* Permite 3 cards por linha com espaçamento */
+        width: calc(33.33% - 15px); 
+        flex-basis: auto; 
+    }
+    
+      .inner-block.small2 {
+        margin: 0 0 0 auto !important; /* Move o indicador para a direita */
+        width: 80px; 
+        height: auto !important;
+     
+    }
+
+    
+    /* Reduz o tamanho do ícone dentro do bloco */
+    .inner-block.small2 i {
+        font-size: 0.8em !important; 
+        margin-right: 3px !important;
+        line-height: 1 !important;
+    
+    }
+    
+
+}
+/* =======================================
+   MEDIA QUERY DE TRANSIÇÃO (LAYOUT DE 3 CARDS)
+   Telas entre 1025px e 1280px (ajuste o limite superior conforme seu design)
+   ======================================= */
+@media (min-width: 1025px) and (max-width: 1280px) {
+
+    /* --- SEÇÃO 1: CARTÕES / CARTEIRAS --- */
+    
+    .card-list {
+        /* Garante que o gap seja consistente com o layout de 3 cards */
+        gap: 25px; 
+    }
+    
+    /* Força os cards a caberem exatamente 3 por linha, dando folga suficiente */
+    .card-placeholder {
+        /* Cálculo para 3 cards por linha, descontando o gap */
+        /* width: (100% / 3) - (gap * 2 / 3) */
+        width: calc(33.33% - 16.66px); 
+        flex-basis: auto; 
+    }
+}
+    
+  
