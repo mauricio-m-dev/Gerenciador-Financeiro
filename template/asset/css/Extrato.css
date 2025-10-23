@@ -1,0 +1,488 @@
+/* ================================== */
+/* 1. Reset Global e Estilos Base     */
+/* (Mantido da VisaoGeral.css)        */
+/* ================================== */
+:root {
+  /* Cores Principais */
+  --bg-color: #f9f9f9;
+  --text-color: #101828;
+  --text-color-light: #6c757d;
+  --card-bg-color: #ffffff;
+  --border-color: #e4e7ec;
+
+  /* Cores de Acento (Baseado no VisaoGeral) */
+  --renda-color: #0d9488;
+  --renda-color-bg: #ccfbf1;
+  --despesa-color: #dc2626;
+  --despesa-color-bg: #fee2e2;
+  --meta-color: #4f46e5;
+  --meta-color-bg: #e0e7ff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ================================== */
+/* 2. Layout e Utilitários            */
+/* ================================== */
+.container {
+  max-width: 1200px;
+  width: 100%; /* Garante fluidez */
+  margin: 0 auto;
+  padding: 0 1.5rem; /* Espaçamento padrão (será ajustado no mobile) */
+}
+
+main {
+  /* 70px (header) + 30px (espaço) */
+  padding-top: calc(70px + 2rem);
+  padding-bottom: 3rem;
+  min-height: 100vh;
+}
+
+main h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #101828;
+  margin-bottom: 1.5rem;
+}
+
+.section-title {
+  font-size: 1.5rem; /* Ajustado para um H2 mais coeso */
+  color: #2d3748;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.align-right {
+  text-align: right;
+}
+
+/* ================================== */
+/* 3. Componente: Header e Navbar     */
+/* ================================== */
+header {
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  transition: box-shadow 0.3s ease;
+}
+
+header.scrolled {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.navbar {
+  margin: 0 auto;
+  padding: 0 1.5rem; /* Espaçamento padrão */
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #000;
+}
+
+.hamburger {
+  display: none; /* Escondido por padrão (desktop-first) */
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px; /* Área de clique maior */
+}
+
+.hamburger .line {
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  border-radius: 3px;
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+}
+
+.nav-links li a {
+  font-weight: 500;
+  color: #555;
+  padding: 0.8rem;
+  transition: 0.3s ease-in-out;
+}
+
+.nav-links li a:hover,
+.nav-links li a:focus {
+  color: #155eef;
+  background-color: #f5f8ff;
+  border-radius: 1rem;
+  outline: none;
+}
+
+.user-area {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.settings-icon .material-symbols-outlined {
+  font-size: 28px;
+  color: #555;
+  align-items: center;
+  display: flex;
+  transition: transform 0.4s ease, color 0.3s ease;
+}
+
+.settings-icon:hover .material-symbols-outlined {
+  color: #101828;
+  transform: rotate(60deg);
+}
+
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #eee;
+  cursor: pointer;
+  background-color: #f0f0f0;
+}
+
+/* ================================== */
+/* 4. Estilos da Página de Extrato    */
+/* (NOVO CÓDIGO)                      */
+/* ================================== */
+
+/* Grupo de transações (Ex: "21 Out 2025") */
+.transaction-group {
+  margin-bottom: 1.75rem;
+}
+
+.transaction-group-date {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-color-light);
+  margin-bottom: 0.75rem;
+  padding-left: 0.5rem; /* Leve alinhamento */
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.transaction-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* Espaço entre os cards de transação */
+}
+
+/* Card de Transação Individual */
+.transaction-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.transaction-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Ícone da Transação (Círculo colorido) */
+.transaction-icon {
+  flex-shrink: 0; /* Impede que o ícone encolha */
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.transaction-icon.renda {
+  background-color: var(--renda-color-bg);
+  color: var(--renda-color);
+}
+.transaction-icon.despesa {
+  background-color: var(--despesa-color-bg);
+  color: var(--despesa-color);
+}
+.transaction-icon.meta {
+  background-color: var(--meta-color-bg);
+  color: var(--meta-color);
+}
+
+/* Detalhes (Nome e Método) */
+.transaction-details {
+  flex: 1; /* Ocupa o espaço disponível */
+  display: flex;
+  flex-direction: column;
+  /* Garante que o texto não quebre o layout */
+  min-width: 0; 
+}
+
+.transaction-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-color);
+  /* Impede que texto muito longo quebre o layout */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.transaction-method {
+  font-size: 0.85rem;
+  color: var(--text-color-light);
+}
+
+/* Valor da Transação */
+.transaction-amount {
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: nowrap; /* Impede quebra de linha no valor */
+}
+
+.transaction-amount.renda {
+  color: var(--renda-color);
+}
+.transaction-amount.despesa {
+  color: var(--despesa-color);
+}
+.transaction-amount.meta {
+  color: var(--meta-color);
+}
+
+/* Mensagem para quando não há transações */
+.empty-state {
+  text-align: center;
+  color: var(--text-color-light);
+  font-size: 1rem;
+  padding: 3rem 1rem;
+}
+
+.card {
+  background-color: var(--card-bg-color);
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+  border: 1px solid var(--border-color);
+}
+
+/* ================================== */
+/* 10. Seção: Responsividade          */
+/* ================================== */
+
+/* Laptop (1024px) - Adiciona a sidebar */
+@media (min-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr 380px; /* 2 colunas */
+  }
+
+  .table-scroll-wrapper {
+    max-height: 400px; /* Limita altura da tabela */
+  }
+
+  .chart-card {
+    max-width: 100%; /* Gráfico ocupa toda a sidebar */
+    aspect-ratio: 1 / 1;
+  }
+}
+
+/* Tablet (992px) - Ponto de quebra do menu hamburguer */
+@media (max-width: 992px) {
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: absolute;
+    top: 70px; /* Abaixo do header */
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    border-top: 1px solid #f0f0f0;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    max-height: 0;
+    padding: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+  }
+
+  .nav-links.active {
+    max-height: 500px;
+    padding: 1rem 0;
+  }
+
+  .nav-links li {
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem 1.5rem;
+  }
+
+  .nav-links li a:hover {
+    background-color: #f9f9f9;
+    transform: translateY(0);
+  }
+
+  .hamburger {
+    display: flex; /* Mostra o ícone hamburguer */
+  }
+
+  /* Animação do 'X' */
+  .hamburger.active .line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .hamburger.active .line:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.active .line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+}
+
+/* Tablet (768px) - Ponto de quebra dos botões de ação */
+@media (max-width: 768px) {
+  .container,
+  .navbar {
+    padding: 0 1rem; /* Reduz o padding lateral */
+  }
+
+  main {
+    padding-top: calc(70px + 1.5rem);
+  }
+
+  main h1 {
+    font-size: 1.75rem; /* Reduz o H1 */
+  }
+
+  /* --- AQUI A MUDANÇA --- */
+  /* Esconde os 3 botões do desktop */
+  .desktop-action-buttons {
+    display: none;
+  }
+
+  /* Mostra o botão flutuante */
+  .mobile-action-button-container {
+    display: block;
+  }
+  /* ------------------- */
+
+  .geral-card h2 {
+    font-size: 1.75rem;
+  }
+}
+
+/* Mobile L (425px) */
+@media (max-width: 425px) {
+  main {
+    /* Espaço no fundo para o botão flutuante não cobrir conteúdo */
+    padding-bottom: 7rem;
+  }
+
+  main h1 {
+    font-size: 1.5rem;
+  }
+
+  /* Empilha os campos 'Data' e 'Método' no modal */
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0; /* .form-group já tem margin-bottom */
+  }
+
+  .modal-body {
+    padding: 1.5rem 1rem;
+  }
+  .modal-header,
+  .modal-footer {
+    padding: 1.25rem 1rem;
+  }
+  .chooser-body {
+    padding: 1.5rem 1rem;
+  }
+
+  /* Botão flutuante vira apenas ícone */
+  .btn-float-add {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    padding: 0;
+    justify-content: center;
+  }
+  .btn-float-add span {
+    display: none; /* Esconde o texto */
+  }
+  .btn-float-add i {
+    font-size: 1.75rem;
+  }
+
+  .mobile-action-button-container {
+    bottom: 1.5rem;
+    right: 1.5rem;
+  }
+}
+
+/* Mobile M (375px) */
+@media (max-width: 375px) {
+  main h1 {
+    font-size: 1.4rem;
+  }
+
+  .geral-card h2 {
+    font-size: 1.5rem;
+  }
+
+  .logo {
+    font-size: 1.4rem;
+  }
+
+  /* Reduz padding da tabela em telas muito pequenas */
+  .transactions-table th,
+  .transactions-table td {
+    padding: 0.8rem 1rem;
+  }
+}
+
+/* Mobile S (320px) */
+@media (max-width: 320px) {
+  .container,
+  .navbar {
+    padding: 0 0.75rem;
+  }
+
+  .logo {
+    display: none; /* Esconde o logo em telas minúsculas */
+  }
+}
