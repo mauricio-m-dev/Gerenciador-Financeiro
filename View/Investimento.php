@@ -61,7 +61,7 @@
         </nav>
     </header>
 
-    <main style="height: 200vh; padding: 100px 2rem; background-color: #f9f9f9;">
+    <main style="height: 150vh; padding: 100px 2rem; background-color: #f9f9f9;">
 
 
         <div class="container">
@@ -154,19 +154,71 @@
                             
                         </div>
                     </div>
+                     <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">PETR4</h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">Petrobras</h6>
+                            <p class="card-text">53,45</p>
+                            
+                            
+                        </div>
+                    </div>
+                     <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">PETR4</h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">Petrobras</h6>
+                            <p class="card-text">53,45</p>
+                            
+                            
+                        </div>
+                    </div>
+                     <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">PETR4</h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">Petrobras</h6>
+                            <p class="card-text">53,45</p>
+                            
+                            
+                        </div>
+                    </div>
+                     <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">PETR4</h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">Petrobras</h6>
+                            <p class="card-text">53,45</p>
+                            
+                            
+                        </div>
+                    </div>
                     
                 </div>
 
                 
             </div>
 
-
+             <div class="geral-container">
+            <div class="chart-card">
+                <h3>Evolução Patrimonial</h3>
+                <p class="sub-title">Últimos 6 meses</p>
+                <div class="chart-content">
+                    <canvas id="evolution-chart"></canvas> 
+                </div>
+            </div>
+            
+            <div class="chart-card">
+                <h3>Despesas por Categoria</h3>
+                <p class="sub-title">Distribuição Mensal</p>
+                <div class="chart-content">
+                    <canvas id="expenses-chart"></canvas>
+                </div>
+            </div>
         </div>
 
 
 
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../template/asset/js/Investimento.js"></script>
 </body>
 

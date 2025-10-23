@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 /* --- 1. Estilos Globais e Reset --- */
 /* Reseta margens, preenchimentos e define o box-sizing universal */
@@ -33,165 +33,157 @@ a {
 }
 
 /* --- 3. Componente: Header e Navbar --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9f9f9;
+    padding-top: 30px;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* --- Estilo do Header e Navbar --- */
 header {
-  width: 100%;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  transition: box-shadow 0.3s ease;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    transition: box-shadow 0.3s ease;
 }
 
-/* Classe adicionada via JS para indicar rolagem */
+/* Classe adicionada via JS */
 header.scrolled {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* Estrutura principal da Navbar */
+
 .navbar {
-  margin: 0 auto;
-  padding: 0 0.9rem; /* Espaçamento lateral */
-  height: 70px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  min-width: 320px;
-}
-
-/* 3.1 Bloco da Esquerda (Logo + Hamburguer) */
-.nav-left {
-  display: flex;
-  align-items: center;
-  gap: 1rem; /* Espaço entre hamburguer e logo */
-}
-
-.logo {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #000;
-}
-
-/* 3.2 Ícone Hamburguer (Base) */
-.hamburger {
-  display: none; /* Escondido no desktop */
-  cursor: pointer;
-  flex-direction: column;
-  gap: 5px; /* Espaço entre as linhas */
-}
-
-.hamburger .line {
-  width: 25px;
-  height: 3px;
-  background-color: #333;
-  border-radius: 3px;
-  transition: all 0.3s ease-in-out;
-}
-
-/* 3.3 Bloco do Centro (Links de Navegação) */
-.nav-links {
-  display: flex;
-  gap: 2.5rem; /* Espaçamento entre os links */
-  align-items: center;  /* Adiciona alinhamento vertical */
-  margin: 0;           /* Remove margem padrão do Bootstrap */
-  padding: 0;          /* Remove padding padrão do Bootstrap */
-  height: 100%;        /* Ocupa toda altura da navbar */
-}
-
-.nav-links li {
-  height: 100%;        /* Ocupa toda altura */
-  display: flex;       /* Permite alinhamento vertical */
-  align-items: center; /* Centraliza verticalmente */
-}
-
-.nav-links li a {
-  font-weight: 500;
-  color: #555;
-  padding: 0.8rem;
-  transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out,
-    transform 0.3s ease-in-out;
-}
-
-.nav-links li a:hover {
-  color: #155eef;
-  background-color: #f5f8ff;
-  border-radius: 1rem;
-  transform: translateY(-5px); /* Efeito "lift" sutil */
-}
-
-/* 3.4 Bloco da Direita (Área do Usuário) */
-.user-area {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.settings-icon .material-symbols-outlined {
-  font-size: 28px;
-  color: #555;
-  align-items: center;
-  display: flex;
-  /* Animação de rotação no hover */
-  transition: transform 0.4s ease, color 0.3s ease;
-}
-
-.settings-icon:hover .material-symbols-outlined {
-  color: #222;
-  transform: rotate(60deg);
-}
-
-.profile-pic {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover; /* Garante que a imagem não distorça */
-  border: 2px solid #eee;
-  cursor: pointer;
-}
-
-/* Ajuste da navbar */
-.navbar {
+    max-width: 1700px;
     margin: 0 auto;
-    padding: 0 0.9rem;
+    padding: 0 1rem;
     height: 70px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
-    min-width: 320px;
 }
 
-/* Ajuste dos links de navegação */
+/* Sobrescreve o padding do Bootstrap */
+.navbar .nav-links,
+.navbar ol,
+.navbar ul {
+    padding-left: 0 !important;
+    margin: 0;
+}
+
+/* --- Blocos da Navbar --- */
+
+/* 1. Bloco da Esquerda (Logo + Hamburguer) */
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    /* Espaço entre hamburguer e logo */
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #222;
+}
+
+/* 2. Bloco do Centro (Links) */
 .nav-links {
     display: flex;
-    gap: 2.5rem;
-    align-items: center;  /* Adiciona alinhamento vertical */
-    margin: 0;           /* Remove margem padrão do Bootstrap */
-    padding: 0;          /* Remove padding padrão do Bootstrap */
-    height: 100%;        /* Ocupa toda altura da navbar */
-}
-
-.nav-links li {
-    height: 100%;        /* Ocupa toda altura */
-    display: flex;       /* Permite alinhamento vertical */
-    align-items: center; /* Centraliza verticalmente */
+    gap: 1.5rem;
+    margin-top: auto;
+    margin-bottom: auto;
+    /* Espaçamento entre os links */
 }
 
 .nav-links li a {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    padding: 0 0.8rem;
     font-weight: 500;
     color: #555;
-    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    padding: 0.8rem;
+    transition-duration: 0.5s;
+    transition: 0.3s ease-in-out;
 }
 
-.titulo{
+.nav-links li a:hover {
+    color: #155EEF;
+    background-color: #F5F8FF;
+    padding: 0.8rem;
+    border-radius: 1rem;
+    transform: translateY(-5px);
+}
+
+/* 3. Bloco da Direita (Usuário) */
+.user-area {
     display: flex;
-     justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.settings-icon .material-symbols-outlined {
+    font-size: 28px;
+    color: #555;
+    align-items: center;
+    display: flex;
+    /* Diferencial: Animação de rotação no hover */
+    transition: transform 0.4s ease, color 0.3s ease;
+}
+
+.settings-icon:hover .material-symbols-outlined {
+    color: #222;
+    transform: rotate(60deg);
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    /* Garante que a imagem não distorça */
+    border: 2px solid #eee;
+    cursor: pointer;
+}
+
+/* --- Configuração do Hamburguer (Mobile) --- */
+.hamburger {
+    display: none;
+    /* Escondido no desktop */
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+    /* Espaço entre as linhas */
+}
+
+.hamburger .line {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    border-radius: 3px;
+    transition: all 0.3s ease-in-out;
+}
+
+
+.titulo {
+  display: flex;
+  justify-content: space-between;
 }
 
 /* 4.2 Grid de Cards (Geral) */
@@ -205,25 +197,25 @@ header.scrolled {
   margin-top: 2rem;
 }
 
-.titulo{
-    display: flex;
-     justify-content: space-between;
+.titulo {
+  display: flex;
+  justify-content: space-between;
 }
 
-.adicionar{
-    background-color: white;
-    color: black;
-    border: gray solid 1px   ;
-    border-radius: 8px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.adicionar {
+  background-color: white;
+  color: black;
+  border: gray solid 1px;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.bxr.bx-plus{
-    margin-right: 5px;
-    margin-bottom: 5px;
+.bxr.bx-plus {
+  margin-right: 5px;
+  margin-bottom: 5px;
 }
 
 .geral-card-renda {
@@ -290,63 +282,177 @@ header.scrolled {
 }
 
 .mercado {
-    background: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    padding: 1.5rem;
-    margin-top: 2rem;
-    width: 100%;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
 }
 
 .pesquisa {
-    display: flex;
-    justify-content:space-around;
-    align-items: center;
-    width: 100%;
-    gap: 1.5rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  gap: 1.5rem;
 }
 
 .pesquisa form {
-    width: 50%;
+  width: 50%;
 }
 
 .acoes {
-    margin-top: 2rem;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 5 colunas com largura igual */
-    gap: 1rem;
-    width: 100%;
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 colunas com largura igual */
+  gap: 1rem;
+  width: 100%;
 }
 
 /* Ajuste opcional para os cards individuais */
 .acoes .card {
-    width: 100%;
-    height: 7rem;
-    min-width: 0; /* Previne overflow */
+  width: 100%;
+  height: 7rem;
+  /* Previne overflow */
+}
+
+.charts-container {
+    max-width: 1700px;
+    margin: 3rem auto 0 auto;
+    padding: 0 1.5rem;
+    /* Configuração para duas colunas lado a lado */
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 2rem;
+}
+
+.chart-card {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.chart-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 0; /* Remove margem para ficar perto do sub-title */
+}
+
+.chart-card .sub-title {
+    font-size: 0.9rem;
+    color: #888;
+    font-weight: 400;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    padding: 0; /* Garante que não tenha padding extra do main p */
+}
+
+.chart-content {
+    /* Altura para que o gráfico tenha espaço para ser desenhado */
+    height: 350px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Responsividade (opcional) */
 @media (max-width: 1200px) {
-    .acoes {
-        grid-template-columns: repeat(4, 1fr);
-    }
+  .acoes {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
+/* Breakpoint: Tablets e Menores (<= 992px) */
+/* Oculta links e mostra o menu hamburguer */
 @media (max-width: 992px) {
+  /* Esconde os links do centro e transforma em menu dropdown */
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: absolute;
+    top: 70px; /* Abaixo do header */
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    border-top: 1px solid #f0f0f0;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+
+    /* Começa escondido (JS vai controlar) */
+    max-height: 0;
+    padding: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+  }
+
+  /* Classe 'active' que o JS vai adicionar para abrir o menu */
+  .nav-links.active {
+    max-height: 500px; /* Altura suficiente para os links */
+    padding: 1rem 0; /* Adiciona padding quando aberto */
+  }
+
+  .nav-links li {
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem 1.5rem;
+  }
+
+  .nav-links li a:hover {
+    background-color: #f9f9f9;
+    transform: translateY(0); /* Remove o efeito "lift" no mobile */
+  }
+
+  /* Mostra o ícone hamburguer */
+  .hamburger {
+    display: flex;
+  }
+
+  /* Animação do Hamburguer para "X" (controlado via JS) */
+  .hamburger.active .line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .hamburger.active .line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.active .line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
     .acoes {
-        grid-template-columns: repeat(3, 1fr);
-    }
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
+
+/* Breakpoint: Celulares Maiores (<= 768px) */
+/* Empilha os cards */
+
+
+
 
 @media (max-width: 768px) {
-    .acoes {
-        grid-template-columns: repeat(2, 1fr);
-    }
+  .mercado {
+  }
+
+  .acoes {
+    grid-template-columns: repeat(2, 1fr);
+    overflow-y: scroll;
+    max-width: 100vh;
+    align-items: center;
+  }
 }
 
 @media (max-width: 576px) {
-    .acoes {
-        grid-template-columns: 1fr;
-    }
+  .acoes {
+    grid-template-columns: 1fr;
+  }
 }
-
