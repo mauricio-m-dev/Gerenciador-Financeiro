@@ -47,13 +47,12 @@
 
         </nav>
     </header>
-
     <main>
         <div class="container">
             <div class="header-meta-section">
                 <h1>Metas Financeiras</h1>
                 <button class="add-meta-button">
-                   <i class='bxr  bxs-plus bx-flip-horizontal'></i>Adicionar Meta</button>
+                    <i class='bxr  bxs-plus bx-flip-horizontal'></i>Adicionar Meta</button>
             </div>
 
             <div class="meta-container">
@@ -94,7 +93,7 @@
 
                     <div class="chart-and-summary">
                         <div class="chart-container">
-                            <canvas id="progressionChart"></canvas>
+                            <canvas id="chartEmergencia"></canvas>
                         </div>
 
                         <div class="summary-details-vertical">
@@ -143,7 +142,7 @@
 
                     <div class="chart-and-summary">
                         <div class="chart-container">
-                            <canvas id="progressionChart"></canvas>
+                            <canvas id="chartViagem"></canvas>
                         </div>
 
                         <div class="summary-details-vertical">
@@ -192,7 +191,7 @@
 
                     <div class="chart-and-summary">
                         <div class="chart-container">
-                            <canvas id="progressionChart"></canvas>
+                            <canvas id="chartApartamento"></canvas>
                         </div>
 
                         <div class="summary-details-vertical">
@@ -241,7 +240,7 @@
 
                     <div class="chart-and-summary">
                         <div class="chart-container">
-                            <canvas id="progressionChart"></canvas>
+                            <canvas id="chartCarro"></canvas>
                         </div>
 
                         <div class="summary-details-vertical">
@@ -298,8 +297,8 @@
         </div>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../template/asset/js/Meta.js"></script>
 </body>
 
