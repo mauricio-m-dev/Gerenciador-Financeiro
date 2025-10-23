@@ -18,19 +18,39 @@ $totalMetas = 45909.00;
 // 3. Dados da Tabela de Transações (Consulta SQL com LIMIT)
 $transactions = [
     [
-        "nome" => "Spotify", "metodo" => "Cartão de Débito", "data" => "21 Out 2025", "quantia" => -29.90, "tipo" => "despesa"
+        "nome" => "Spotify",
+        "metodo" => "Cartão de Débito",
+        "data" => "21 Out 2025",
+        "quantia" => -29.90,
+        "tipo" => "despesa"
     ],
     [
-        "nome" => "Freelance Projeto Y", "metodo" => "Pix", "data" => "18 Out 2025", "quantia" => 2300.00, "tipo" => "renda"
+        "nome" => "Freelance Projeto Y",
+        "metodo" => "Pix",
+        "data" => "18 Out 2025",
+        "quantia" => 2300.00,
+        "tipo" => "renda"
     ],
     [
-        "nome" => "Aluguel", "metodo" => "Boleto", "data" => "10 Out 2025", "quantia" => -1200.00, "tipo" => "despesa"
+        "nome" => "Aluguel",
+        "metodo" => "Boleto",
+        "data" => "10 Out 2025",
+        "quantia" => -1200.00,
+        "tipo" => "despesa"
     ],
     [
-        "nome" => "Supermercado", "metodo" => "Cartão de Crédito", "data" => "20 Out 2025", "quantia" => -350.75, "tipo" => "despesa"
+        "nome" => "Supermercado",
+        "metodo" => "Cartão de Crédito",
+        "data" => "20 Out 2025",
+        "quantia" => -350.75,
+        "tipo" => "despesa"
     ],
     [
-        "nome" => "Salário Empresa X", "metodo" => "Pix", "data" => "19 Out 2025", "quantia" => 4500.00, "tipo" => "renda"
+        "nome" => "Salário Empresa X",
+        "metodo" => "Pix",
+        "data" => "19 Out 2025",
+        "quantia" => 4500.00,
+        "tipo" => "renda"
     ]
 ];
 
@@ -47,7 +67,8 @@ $categoryData = [
 */
 
 // Formata um valor numérico para BRL
-function formatCurrency($value) {
+function formatCurrency($value)
+{
     return "R$ " . number_format($value, 2, ',', '.');
 }
 
@@ -67,9 +88,9 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    
+
     <link rel="stylesheet" href="../template/asset/css/VisaoGeral.css">
 </head>
 
@@ -87,7 +108,7 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
             </div>
 
             <ul class="nav-links">
-                <li><a href="#">Visão Geral</a></li>
+                <li><a href="Visaogera.php">Visão Geral</a></li>
                 <li><a href="#">Investimentos</a></li>
                 <li><a href="#">Análise</a></li>
                 <li><a href="#">Metas</a></li>
@@ -100,13 +121,14 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
                         <i class='bx bx-cog'></i>
                     </span>
                 </a>
-                <img src="<?= htmlspecialchars($userProfilePic) ?>" alt="Foto de Perfil de <?= htmlspecialchars($userName) ?>" class="profile-pic">
+                <img src="<?= htmlspecialchars($userProfilePic) ?>"
+                    alt="Foto de Perfil de <?= htmlspecialchars($userName) ?>" class="profile-pic">
             </div>
         </nav>
     </header>
 
     <main>
-        
+
         <div class="container">
             <h1>Olá, <?= htmlspecialchars($userName) ?></h1>
 
@@ -115,12 +137,12 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
                     <p>Renda</p>
                     <h2 class="h2-renda"><?= formatCurrency($totalRenda) ?></h2>
                 </div>
-                
+
                 <div class="geral-card">
                     <p>Despesas</p>
                     <h2 class="h2-despesas"><?= formatCurrency($totalDespesas) ?></h2>
                 </div>
-                
+
                 <div class="geral-card">
                     <p>Metas</p>
                     <h2 class="h2-metas"><?= formatCurrency($totalMetas) ?></h2>
@@ -129,7 +151,7 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
         </div>
 
         <div class="container">
-            
+
             <div class="geral-container desktop-action-buttons">
                 <div class="geral-button-renda">
                     <button id="btn-add-renda">
@@ -159,10 +181,10 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
             </div>
 
             <div class="dashboard-grid">
-                
+
                 <div class="main-content-area">
                     <div class="transactions-section">
-                        <h2 class="section-title">Últimas Transações</h2>
+                        <h2 class="section-title section-title-transactions">Últimas Transações</h2>
                         <div class="card-table-container">
                             <div class="table-scroll-wrapper">
                                 <table class="transactions-table">
@@ -187,10 +209,10 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
                                                     <td class="transaction-name"><?= htmlspecialchars($tx['nome']) ?></td>
                                                     <td class="transaction-method"><?= htmlspecialchars($tx['metodo']) ?></td>
                                                     <td class="transaction-date"><?= htmlspecialchars($tx['data']) ?></td>
-                                                    
+
                                                     <?php
-                                                        $amountClass = ($tx['tipo'] === 'renda') ? 'amount-income' : 'amount-expense';
-                                                        $prefix = ($tx['tipo'] === 'renda') ? '+ ' : '- ';
+                                                    $amountClass = ($tx['tipo'] === 'renda') ? 'amount-income' : 'amount-expense';
+                                                    $prefix = ($tx['tipo'] === 'renda') ? '+ ' : '- ';
                                                     ?>
                                                     <td class="<?= $amountClass ?> align-right">
                                                         <?= $prefix . formatCurrency(abs($tx['quantia'])) ?>
@@ -202,6 +224,9 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
                                 </table>
                             </div>
                         </div>
+                        <div class="view-extrato-mobile-link" style="display: flex; padding: 0 auto; margin-top: -1rem; justify-content: center;">
+                            <a href="Extrato.php" class="btn btn-primary">Ver Extrato Completo</a>
+                        </div>
                     </div>
                 </div>
 
@@ -209,15 +234,13 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
                     <div class="category-chart-section">
                         <h2 class="section-title">Despesas por Categoria</h2>
                         <div class="chart-card">
-                            <canvas 
-                                id="expenseDoughnutChart"
-                                data-labels='<?= $chartLabelsJSON ?>'
-                                data-valores='<?= $chartValoresJSON ?>'
-                            ></canvas>
+                            <canvas id="expenseDoughnutChart" data-labels='<?= $chartLabelsJSON ?>'
+                                data-valores='<?= $chartValoresJSON ?>'></canvas>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </main>
 
@@ -249,7 +272,7 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
             <h2 id="modal-title">Adicionar Título</h2>
             <button class="modal-close-btn" id="modal-close-btn" aria-label="Fechar modal">&times;</button>
         </div>
-        
+
         <div class="modal-body">
             <form id="modal-form">
                 <input type="hidden" id="modal-type" name="type">
@@ -261,7 +284,8 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
 
                 <div class="form-group">
                     <label for="modal-quantia">Quantia</label>
-                    <input type="number" id="modal-quantia" name="quantia" placeholder="R$ 0,00" step="0.01" min="0.01" required>
+                    <input type="number" id="modal-quantia" name="quantia" placeholder="R$ 0,00" step="0.01" min="0.01"
+                        required>
                 </div>
 
                 <div class="form-row">
@@ -296,4 +320,5 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
     <script src="../template/asset/js/VisaoGeral.js"></script>
 
 </body>
+
 </html>

@@ -37,7 +37,7 @@ a {
 
 main {
   /* 70px (header) + 30px (espaço) */
-  padding-top: calc(70px + 2rem); 
+  padding-top: calc(70px + 2rem);
   padding-bottom: 3rem;
   min-height: 100vh;
 }
@@ -170,7 +170,10 @@ header.scrolled {
 /* ================================== */
 .geral-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Minmax mais flexível */
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(250px, 1fr)
+  ); /* Minmax mais flexível */
   gap: 1.5rem; /* Gap ligeiramente menor */
   margin-top: 2rem;
 }
@@ -198,9 +201,15 @@ header.scrolled {
   text-overflow: ellipsis;
 }
 
-.geral-card .h2-renda { color: #17b26a; }
-.geral-card .h2-despesas { color: #f04438; }
-.geral-card .h2-metas { color: #155eef; }
+.geral-card .h2-renda {
+  color: #17b26a;
+}
+.geral-card .h2-despesas {
+  color: #f04438;
+}
+.geral-card .h2-metas {
+  color: #155eef;
+}
 
 /* ================================== */
 /* 5. Componente: Botões de Ação      */
@@ -251,9 +260,15 @@ header.scrolled {
   margin-top: 0.5rem;
 }
 
-.geral-button-renda button { --button-accent-color: #48bb78; }
-.geral-button-despesas button { --button-accent-color: #f56565; }
-.geral-button-metas button { --button-accent-color: #155eef; }
+.geral-button-renda button {
+  --button-accent-color: #48bb78;
+}
+.geral-button-despesas button {
+  --button-accent-color: #f56565;
+}
+.geral-button-metas button {
+  --button-accent-color: #155eef;
+}
 
 /* ================================== */
 /* 6. Componente: Grid do Dashboard   */
@@ -308,11 +323,28 @@ header.scrolled {
   border-bottom: none;
 }
 
-.transaction-name { font-weight: 600; color: #333; }
-.transaction-method, .transaction-date { color: #666; font-size: 0.95rem; }
-.amount-income { color: #17b26a; font-weight: 600; }
-.amount-expense { color: #f04438; font-weight: 600; }
-.empty-table-message { text-align: center; color: #777; padding: 2rem; }
+.transaction-name {
+  font-weight: 600;
+  color: #333;
+}
+.transaction-method,
+.transaction-date {
+  color: #666;
+  font-size: 0.95rem;
+}
+.amount-income {
+  color: #17b26a;
+  font-weight: 600;
+}
+.amount-expense {
+  color: #f04438;
+  font-weight: 600;
+}
+.empty-table-message {
+  text-align: center;
+  color: #777;
+  padding: 2rem;
+}
 
 /* Gráfico de Categorias */
 .chart-card {
@@ -386,9 +418,15 @@ header.scrolled {
 }
 
 /* Classes de cor do cabeçalho */
-.modal-header.modal-header-renda h2 { color: #17b26a; }
-.modal-header.modal-header-despesa h2 { color: #f04438; }
-.modal-header.modal-header-metas h2 { color: #155eef; }
+.modal-header.modal-header-renda h2 {
+  color: #17b26a;
+}
+.modal-header.modal-header-despesa h2 {
+  color: #f04438;
+}
+.modal-header.modal-header-metas h2 {
+  color: #155eef;
+}
 
 .modal-close-btn {
   background: none;
@@ -480,7 +518,9 @@ header.scrolled {
   border: 1px solid #d0d5dd;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
-.btn-secondary:hover { background-color: #f9fafb; }
+.btn-secondary:hover {
+  background-color: #f9fafb;
+}
 
 .btn-primary {
   background-color: #155eef;
@@ -488,7 +528,9 @@ header.scrolled {
   border: 1px solid #155eef;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
-.btn-primary:hover { background-color: #104abd; }
+.btn-primary:hover {
+  background-color: #104abd;
+}
 
 /* ================================== */
 /* 8. Componente: Modal de Escolha    */
@@ -576,9 +618,15 @@ header.scrolled {
 }
 
 /* Cores dinâmicas no hover */
-#chooser-btn-renda { --chooser-color: #17b26a; }
-#chooser-btn-despesa { --chooser-color: #f04438; }
-#chooser-btn-metas { --chooser-color: #155eef; }
+#chooser-btn-renda {
+  --chooser-color: #17b26a;
+}
+#chooser-btn-despesa {
+  --chooser-color: #f04438;
+}
+#chooser-btn-metas {
+  --chooser-color: #155eef;
+}
 
 .chooser-button:hover {
   background-color: #fff;
@@ -634,14 +682,18 @@ header.scrolled {
   .dashboard-grid {
     grid-template-columns: 1fr 380px; /* 2 colunas */
   }
-  
+
   .table-scroll-wrapper {
     max-height: 400px; /* Limita altura da tabela */
   }
-  
+
   .chart-card {
     max-width: 100%; /* Gráfico ocupa toda a sidebar */
     aspect-ratio: 1 / 1;
+  }
+
+  .btn-primary {
+    display: none;
   }
 }
 
@@ -685,9 +737,15 @@ header.scrolled {
   }
 
   /* Animação do 'X' */
-  .hamburger.active .line:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-  .hamburger.active .line:nth-child(2) { opacity: 0; }
-  .hamburger.active .line:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+  .hamburger.active .line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .hamburger.active .line:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.active .line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
 }
 
 /* Tablet (768px) - Ponto de quebra dos botões de ação */
@@ -716,9 +774,13 @@ header.scrolled {
     display: block;
   }
   /* ------------------- */
-  
+
   .geral-card h2 {
     font-size: 1.75rem;
+  }
+  
+  .btn-primary {
+    display: none;
   }
 }
 
@@ -726,22 +788,29 @@ header.scrolled {
 @media (max-width: 425px) {
   main {
     /* Espaço no fundo para o botão flutuante não cobrir conteúdo */
-    padding-bottom: 7rem; 
+    padding-bottom: 7rem;
   }
 
   main h1 {
     font-size: 1.5rem;
   }
-  
+
   /* Empilha os campos 'Data' e 'Método' no modal */
   .form-row {
     grid-template-columns: 1fr;
     gap: 0; /* .form-group já tem margin-bottom */
   }
-  
-  .modal-body { padding: 1.5rem 1rem; }
-  .modal-header, .modal-footer { padding: 1.25rem 1rem; }
-  .chooser-body { padding: 1.5rem 1rem; }
+
+  .modal-body {
+    padding: 1.5rem 1rem;
+  }
+  .modal-header,
+  .modal-footer {
+    padding: 1.25rem 1rem;
+  }
+  .chooser-body {
+    padding: 1.5rem 1rem;
+  }
 
   /* Botão flutuante vira apenas ícone */
   .btn-float-add {
@@ -757,10 +826,26 @@ header.scrolled {
   .btn-float-add i {
     font-size: 1.75rem;
   }
-  
+
   .mobile-action-button-container {
     bottom: 1.5rem;
     right: 1.5rem;
+  }
+
+  .card-table-container {
+    display: none;
+  }
+
+  .section-title-transactions {
+    display: none;
+  }
+
+  .element-style {
+    margin-top: -1rem;
+  }
+
+  .btn-primary {
+    display: block;
   }
 }
 
@@ -769,11 +854,12 @@ header.scrolled {
   main h1 {
     font-size: 1.4rem;
   }
-  
+
   .geral-card h2 {
     font-size: 1.5rem;
+    width: 100%;
   }
-  
+
   .logo {
     font-size: 1.4rem;
   }
@@ -782,17 +868,5 @@ header.scrolled {
   .transactions-table th,
   .transactions-table td {
     padding: 0.8rem 1rem;
-  }
-}
-
-/* Mobile S (320px) */
-@media (max-width: 320px) {
-  .container,
-  .navbar {
-    padding: 0 0.75rem;
-  }
-
-  .logo {
-    display: none; /* Esconde o logo em telas minúsculas */
   }
 }
