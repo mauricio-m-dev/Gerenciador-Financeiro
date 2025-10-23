@@ -141,8 +141,9 @@ main p {
     transition: all 0.3s ease-in-out;
 }
 .title{
-    margin-left: 3rem;
-    margin-right: 3rem;
+    margin-left: 4rem;
+    margin-right: 4rem;
+    
 }
 .geral-container {
   display: grid;
@@ -200,6 +201,7 @@ main p {
   padding: 1.5rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   border: 1px solid rgba(0, 0, 0, 0.05);
+ 
 }
 
 .geral-card-metas h2 {
@@ -208,6 +210,25 @@ main p {
   margin-top: 0.5rem;
   margin-left: 1.4rem;
 }
+
+.geral-card-taxa {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  
+ 
+}
+
+.geral-card-taxa h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  margin-left: 1.4rem;
+}
+
 
 
 .green{
@@ -243,7 +264,7 @@ main p {
     font-size: 1.25rem;
     font-weight: 600;
     color: #000;
-    margin-bottom: 0; /* Remove margem para ficar perto do sub-title */
+    margin-bottom: 0; /* Remove margem para ficar perto do sub-e */
 }
 
 .chart-card .sub-title {
@@ -264,14 +285,90 @@ main p {
 }
 
 .comparativo{
+    /* Ajusta o container principal para centralização */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    
+    
+    /* Zera estilos antigos para evitar conflito, mantendo o margin-top */
     margin-top: 2rem;
     margin-left: 5rem;    
     margin-right: 5rem;
+    flex-direction: column;
+    
 }
 
-.comparativo p{
-    opacity: 0.5;
+.comparativo .mensal {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 0;
 }
+
+.mes{
+    opacity: 1; /* Força a opacidade total para o subtítulo */
+    font-size: 0.7rem;
+    color: #888;
+    font-weight: 400;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    padding: 0;
+}
+
+.comparison-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 0.75rem; 
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    border: 1px solid #f0f0f0;
+}
+
+.comparison-card:last-child {
+    margin-bottom: 0;
+}
+
+.comparison-details h3 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #333;
+    margin: 0;
+}
+
+.comparison-details .prev-value {
+    font-size: 0.85rem;
+    color: #888;
+    margin: 0;
+    padding: 0;
+}
+
+.comparison-metrics {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.comparison-metrics .current-value {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #222;
+}
+
+.comparison-metrics .growth {
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    /* Fundo da bolha de crescimento */
+    padding: 0.25rem 0.5rem; 
+    border-radius: 6px;
+}
+
+
+
 
 /* --- Responsividade (Mobile) --- */
 @media (max-width: 992px) {
@@ -349,7 +446,26 @@ main p {
         margin-top: 2rem;
         margin-left: auto;
         margin-right: auto;
+        
+    }   
+
+    .comparativo{
+        width: 100%;
+        margin: auto;
+        
+       
+        
     }
+    .geral-container {
+        margin: auto;
+        
+        
+    }
+    
+    .title{
+        margin: auto;
+    }
+    
 
     
 }

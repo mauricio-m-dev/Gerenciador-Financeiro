@@ -33,11 +33,11 @@
             </div>
 
             <ul class="nav-links">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Sobre</a></li>
-                <li><a href="#">Serviços</a></li>
-                <li><a href="#">Projetos</a></li>
-                <li><a href="#">Contato</a></li>
+                <li><a href="#">Visão Geral</a></li>
+                <li><a href="#">Investimentos</a></li>
+                <li><a href="#">Análise</a></li>
+                <li><a href="#">Metas</a></li>
+                <li><a href="#">Cartões</a></li>
             </ul>
 
             <div class="user-area">
@@ -58,6 +58,7 @@
         </div>
 
         <div class="geral-container">
+            
             <div class="geral-card-renda">
                 <p class="mini">Patrimônio Total</p>
                 <h2>R$45.000</h2>
@@ -85,7 +86,7 @@
                             d="M14 13.5a.5.5 0 0 1-.5.5h-6a.5.5 0 0 1 0-1h4.793L2.146 2.854a.5.5 0 1 1 .708-.708L13 12.293V7.5a.5.5 0 0 1 1 0z" />
                     </svg>+1.9% vs mês anterior</p>
             </div>
-            <div class="geral-card-metas">
+            <div class="geral-card-taxa">
                 <p class="mini">Taxa Poupança</p>
                 <h2>42.4%</h2>
                 <p class="green"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -112,11 +113,74 @@
                     <canvas id="expenses-chart"></canvas>
                 </div>
             </div>
+            
         </div>
         <div class="comparativo">
-            <h3>Comparativo Mensável</h3>
-            <p>Junho de 2025 vs Maio 2025</p>
+            <h3 class="mensal">Comparativo Mensal</h3>
+            <p class="mes">Junho 2025 vs Maio 2025</p>
+
+            <div class="comparison-card">
+                <div class="comparison-details">
+                    <h3>Receitas</h3>
+                    <p class="prev-value">Anterior: R$ 8.500</p>
+                </div>
+                <div class="comparison-metrics">
+                    <span class="current-value">R$ 9.200</span>
+                    <span class="growth green">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M14 2.5a.5   .5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0z" />
+                        </svg>+8.2%
+                    </span>
+                </div>
+            </div>
+
+            <div class="comparison-card">
+                <div class="comparison-details">
+                    <h3>Despesas</h3>
+                    <p class="prev-value">Anterior: R$ 5.100</p>
+                </div>
+                <div class="comparison-metrics">
+                    <span class="current-value">R$ 5.300</span>
+                    <span class="growth red">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M14 2.5a.5   .5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0z" />
+                        </svg>+3.9%
+                    </span>
+                </div>
+            </div>
+
+            <div class="comparison-card">
+                <div class="comparison-details">
+                    <h3>Investimentos</h3>
+                    <p class="prev-value">Anterior: R$ 2.500</p>
+                </div>
+                <div class="comparison-metrics">
+                    <span class="current-value">R$ 3.000</span>
+                    <span class="growth green">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M14 2.5a.5   .5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0z" />
+                        </svg>+20%
+                    </span>
+                </div>
+            </div>
+
+            <div class="comparison-card">
+                <div class="comparison-details">
+                    <h3>Poupanças</h3>
+                    <p class="prev-value">Anterior: R$ 3.400</p>
+                </div>
+                <div class="comparison-metrics">
+                    <span class="current-value">R$ 3.900</span>
+                    <span class="growth green">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M14 2.5a.5   .5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0z" />
+                        </svg>+14.7%
+                    </span>
+                </div>
+            </div>
+
         </div>
+        
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
