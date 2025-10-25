@@ -675,6 +675,20 @@ body {
         flex-basis: auto !important;
         height: 150px; /* Altura ajustada para telas menores */
     }
+    .chart-section {
+    flex: 1 1 100% !important; 
+    width: 100% !important;
+    /* Adicione padding: 0 !important; se a seção tiver padding extra que cause estouro */
+}
+/* Diminui as dimensões do contêiner do gráfico no celular */
+.chart-container {
+    /* 💥 DIMENSÕES BEM REDUZIDAS PARA CABER EM TELAS DE 320PX 💥 */
+    max-width: 180px !important; /* Reduz de 200px para 180px */
+    height: 180px !important;    /* Mantém a proporção circular */
+    
+    margin: 10px auto !important; /* Garante que fique centralizado */
+    padding: 0 !important; 
+}
 
     /* --- SEÇÃO 2: RENDA / DESPESA / METAS --- */
     
