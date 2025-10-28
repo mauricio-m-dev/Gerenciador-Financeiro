@@ -310,7 +310,7 @@ main p {
     color: #888;
     font-weight: 400;
     margin-top: 0;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     padding: 0;
 }
 
@@ -367,7 +367,105 @@ main p {
     border-radius: 6px;
 }
 
+.recomendacoes-container {
+    /* Container principal - define a margem superior */
+     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    
+    
+    /* Zera estilos antigos para evitar conflito, mantendo o margin-top */
+    margin-top: 2rem;
+    margin-left: 5rem;    
+    margin-right: 5rem;
+    flex-direction: column;
+}
 
+.recomen {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 0;
+}
+
+.rec{
+    opacity: 1; /* Força a opacidade total para o subtítulo */
+    font-size: 0.7rem;
+    color: #888;
+    font-weight: 400;
+    margin-top: 0;
+    margin-bottom: 2rem;
+    padding: 0;
+}
+
+
+
+
+.reco-card {
+    background: #ffffff;
+    border-radius: 12px; /* Mantendo o border-radius de 12px como no comparison-card */
+    padding: 1.5rem;
+    /* Espaçamento entre os cards, como no .comparison-card */
+    margin-bottom: 0.75rem; 
+    /* Sombra mais suave, como no comparison-card */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03); 
+    /* Borda neutra para garantir a cor de fundo */
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.reco-card:last-child {
+    margin-bottom: 0; /* Remove a margem do último card */
+}
+
+.reco-card h3 {
+   font-size: 0.9rem;
+    font-weight: 500;
+    color: #333;
+    margin: 0;
+}
+
+.reco-card p {
+    font-size: 0.78rem;
+    color: #333;
+    padding: 0;
+    margin-left: 1.4rem; /* Alinha o parágrafo com o texto do h3 */
+    margin-top: 0.2rem;
+    
+}
+
+/* Bolinhas de Destaque */
+.reco-card h3::before {
+    content: "•"; 
+    /* Ajuste de tamanho e cor para a bolinha */
+    font-size: 1.5rem; 
+    margin-right: 0.5rem;
+    line-height: 0;
+    align-self: flex-start;
+}
+.green-bg {
+    background-color: rgba(28, 179, 86, 0.12); /* Fundo verde suave */
+    border-color: #1CA75E; /* Borda verde média */
+}
+
+.green-bg h3 {
+    color: #14532D; /* Verde escuro elegante para o texto */
+}
+
+.green-bg h3::before {
+    color: #32CD73; /* Destaque verde vibrante */
+}
+
+/* --- Amarelo / Dourado --- */
+.yellow-bg {
+    background-color: rgba(213, 158, 56, 0.15); /* Fundo dourado suave */
+    border-color: #E0B74F; /* Borda dourada média */
+}
+
+.yellow-bg h3 {
+    color: #FF8F00; /* Dourado escuro para o texto principal */
+}
+
+.yellow-bg h3::before {
+    color: #F7C948; /* Destaque dourado vivo */
+}
 
 
 /* --- Responsividade (Mobile) --- */
@@ -452,12 +550,14 @@ main p {
     .comparativo{
         width: 100%;
         margin: auto;
+        margin-top: 2rem;
+        
         
        
-        
     }
     .geral-container {
         margin: auto;
+        margin-top: 2rem;
         
         
     }
@@ -466,6 +566,37 @@ main p {
         margin: auto;
     }
     
+    .current-value{
+        margin-left: 0.8rem;
+    }
+    .recomendacoes-container  {
+        width: 100%;
+        margin: auto;
+        margin-top: 2rem;
+    }
+    
+    .recomendacoes-content {
+        /* Garante que o conteúdo de recomendações use o padding de 1.5rem no mobile */
+        margin: auto; 
+       
+    }
 
+    
+    
+@media (max-width: 375px){
+    .prev-value {
+        display: none;
+    }
+
+    .comparison-card{
+        display: flex; 
+    }
+
+    .current-value{
+        margin-left: 0.7rem;
+    }
+
+   
+}
     
 }
