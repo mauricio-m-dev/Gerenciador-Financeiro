@@ -1,4 +1,11 @@
-<?php ?>
+<?php 
+// Dados de exemplo para o gráfico (baseado nas % mostradas na lista)
+$labels = ['Casa', 'Cartão de crédito', 'Transporte', 'Mantimentos', 'Compras'];
+$valores = [4135, 2151, 1347, 997, 335]; // valores que darão as % corretas
+
+$chartLabelsJSON = json_encode($labels);
+$chartValoresJSON = json_encode($valores);
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Gerenciador - testes</title>
     <link rel="stylesheet" href="../template/asset/css/Cartao.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
         integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -45,6 +52,7 @@
             <i class='bx bx-plus'></i>
             <span>Adicionar Cartão</span>
         </div>
+        
         <div class="Minha-carteira">
             <h2> Minhas Carteiras</h2>
             <h5>Selecione uma carteira para ver os detalhes</h5>
@@ -108,9 +116,17 @@
         <div class="main-content3">
     
    <div class="chart-section">
-    <h2>Despesas por categoria</h2>
-    <div class="donut-chart-placeholder"></div>
-    
+   <div class="sidebar-area">
+                    <div class="category-chart-section">
+                        <h2 class="section-title">Despesas por Categoria</h2>
+                        <div class="chart-card">
+                            <canvas id="expenseDoughnutChart" data-labels='<?= $chartLabelsJSON ?>'
+                                data-valores='<?= $chartValoresJSON ?>'></canvas>
+                        </div>
+                    </div>
+                </div>
+      
+
     <ul class="category-list">
         <li class="category-item">
             <span class="category-icon-wrapper dot-casa">
@@ -158,7 +174,8 @@
         <h2>Últimas transações</h2>
         <p class="section-subtitle">Verifique suas últimas transações</p>
         
-        <table class="transactions-table">
+    <div class="transactions-list">
+    <table class="transactions-table">
             <thead>
                 <tr>
                     <th>Descrição</th>
@@ -169,7 +186,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><span class="initials orlando">OR</span> Orlando Rodrigues</td>
+                    <td><span class="initials orlando">OS</span> Orlando Silva</td>
                     <td>Conta Bancária</td>
                     <td>2024/04/01</td>
                     <td class="income">+R$750,00</td>
@@ -182,18 +199,64 @@
                     <td class="expense">-R$9,90</td>
                     <td><i class='bx bx-dots-vertical-rounded'></i></td>
                 </tr>
+                <tr>
+                    <td><span class="initials spotify"><i class='bx bxl-spotify'></i></span> Spotify</td>
+                    <td>Cartão de crédito</td>
+                    <td>2024/03/28</td>
+                    <td class="expense">-R$19,90</td>
+                    <td><i class='bx bx-dots-vertical-rounded'></i></td>
+                </tr>
+                <tr>
+                    <td><span class="initials mercado"><i class='bx bx-store'></i></span> Mercado</td>
+                    <td>Conta Bancária</td>
+                    <td>2024/03/27</td>
+                    <td class="expense">-R$123,45</td>
+                    <td><i class='bx bx-dots-vertical-rounded'></i></td>
+                </tr>
+                <tr>
+                    <td><span class="initials uber"><i class='bx bxs-car'></i></span> Uber</td>
+                    <td>Cartão de crédito</td>
+                    <td>2024/03/26</td>
+                    <td class="expense">-R$34,20</td>
+                    <td><i class='bx bx-dots-vertical-rounded'></i></td>
+                </tr>
+                <tr>
+                    <td><span class="initials salario"><i class='bx bx-wallet'></i></span> Salário</td>
+                    <td>Depósito</td>
+                    <td>2024/03/25</td>
+                    <td class="income">+R$4.200,00</td>
+                    <td><i class='bx bx-dots-vertical-rounded'></i></td>
+                </tr>
+                <tr>
+                    <td><span class="initials loja"><i class='bx bx-shopping-bag'></i></span> Loja Online</td>
+                    <td>Cartão de crédito</td>
+                    <td>2024/03/24</td>
+                    <td class="expense">-R$249,00</td>
+                    <td><i class='bx bx-dots-vertical-rounded'></i></td>
+                </tr>
+                <tr>
+                    <td><span class="initials ifood"><i class='bx bx-food-menu'></i></span> iFood</td>
+                    <td>Cartão de débito</td>
+                    <td>2024/03/23</td>
+                    <td class="expense">-R$29,50</td>
+                    <td><i class='bx bx-dots-vertical-rounded'></i></td>
+                </tr>
                 </tbody>
-        </table>
+    </table>
+    </div>
 
        
-        </div>
+    </div>
         
     </div>
 </div>
 
-    
+</main>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-        <script src="../template/asset/js/Cartao.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<script src="../template/asset/js/Cartao.js"></script>
 </body>
 
 </html>

@@ -8,8 +8,14 @@
 }
 
 body {
-    font-family: '', sans-serif;
+    font-family: 'Poppins', sans-serif;
     background-color: #f9f9f9;
+}
+
+/* Evita movimento horizontal indesejado em layouts menores/tablet */
+html, body {
+    overflow-x: hidden;
+    touch-action: pan-y; /* permite apenas scroll vertical em touch devices */
 }
 
 .header {
@@ -97,6 +103,7 @@ body {
 }
 
 
+
 .main-content1 h2 {
     font-size: 24px;
     font-weight: 600;
@@ -135,6 +142,8 @@ body {
     border: 1px solid #ECEFF2;
     
 }
+
+/* (Botão 'Ver transações' removido) */
 
 
 
@@ -248,7 +257,16 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    /* transições para destaque ao ativar */
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
 
+/* Estilo para placeholder ativo (selecionado) */
+.card-placeholder.active {
+    /* Mantém destaque visual sem deslocar a página */
+    transform: none;
+    box-shadow: 0 6px 18px rgba(16,24,40,0.12);
+    border: 1px solid rgba(21,94,239,0.18); /* tom suave azul */
 }
 
 .card-content {
@@ -386,11 +404,52 @@ body {
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     padding: 20px;
-    flex: 1; /* Faz com que ambos ocupem a mesma largura */
+    flex: 1;
 }
 
 .transactions-section {
-    flex: 2; /* Faz a tabela ser um pouco mais larga que o gráfico */
+    flex: 1.5; /* Reduzido de 2 para 1.4 para um card menor */
+
+}
+
+/* Contêiner rolável da lista de transações (possibilita scroll interno) */
+/* Ajuste: o container de transações agora ajusta sua altura ao conteúdo
+   para preencher exatamente até a última linha (ex.: iFood). Mantemos
+   comportamento de rolagem apenas se o conteúdo exceder um limite grande.
+*/
+.transactions-list {
+    max-height: fit-content; /* cresce até o conteúdo atual */
+    overflow-y: visible; /* permite que a lista expanda sem barra interna */
+    scroll-behavior: auto;
+    padding-right: 0;
+}
+
+@media (max-width: 480px) {
+    /* Em telas muito pequenas ainda limitamos para evitar layout muito longo */
+    .transactions-list {
+        max-height: 420px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* Cabeçalho fixo dentro da lista de transações (thead sticky) */
+.transactions-list thead th {
+    position: sticky;
+    top: 0;
+    background: #ffffff; /* mantém fundo branco para contraste */
+    z-index: 3;
+    padding-top: 10px; /* garante espaçamento visual */
+}
+
+/* Pequeno sombreamento para destacar o cabeçalho quando a lista rola */
+.transactions-list thead th {
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+/* Melhor suporte em iOS para rolagem suave */
+.transactions-list {
+    -webkit-overflow-scrolling: touch;
 }
 
 /* --- TÍTULOS DE SEÇÃO --- */
@@ -418,14 +477,37 @@ body {
     margin-bottom: 15px;
 }
 
-/* --- ESTILO DO GRÁFICO (Lado Esquerdo) --- */
-.donut-chart-placeholder {
-    width: 200px; /* Tamanho do donut */
-    height: 200px;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="%23e0e0e0" stroke-width="10"/><circle cx="50" cy="50" r="30" fill="%23ffffff"/></svg>');
-    margin: 10px auto 25px auto;
-    border-radius: 50%;
+.chart-card {
+    background: transparent;
+  border-radius: 16px;
+
+    border: none;
+  padding: 1.5rem;
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  max-width: 400px;
+  /* Limite para telas pequenas/médias */
+    /* Mantém o gráfico quadrado e garante área mínima para evitar canvas 0x0 */
+    aspect-ratio: 1 / 1;
+    min-width: 260px;
+    min-height: 260px;
+
+
+/* Garante que o canvas ocupe todo o espaço do card (evita 0x0 em flex/layouts) */
+.chart-card canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
 }
+  
+  min-width: 260px; /* para evitar largura 0 em flex containers /
+min-height: 260px; / garante área para o canvas quando maintainAspectRatio:false */
+box-sizing: border-box;
+}
+
+
+
 
 /* LISTA DE CATEGORIAS */
 .category-list {
@@ -498,8 +580,15 @@ body {
     padding: 10px 0;
     border-bottom: 1px solid #f7f7f7; 
     vertical-align: middle;
-    
+}
 
+/* Linha selecionada nas transações */
+.transactions-table tr.row-selected td {
+    background-color: rgba(21,94,239,0.06); /* leve destaque azul */
+}
+
+.transactions-table tr.row-selected td .bx-dots-vertical-rounded {
+    color: rgba(21,94,239,0.9);
 }
 
 .income {
@@ -514,13 +603,15 @@ body {
 
 
 .initials {
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    line-height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
     text-align: center;
     border-radius: 50%;
-    font-size: 0.75em;
+    font-size: 0.9em;
     font-weight: 700;
     color: #ffffff;
     margin-right: 8px;
@@ -529,6 +620,21 @@ body {
 
 .orlando { background-color: #898b8b; }
 .netflix { background-color: #ff1100; }
+/* Cores para novas iniciais/logos */
+.spotify { background-color: #1DB954; }
+.mercado { background-color: #FF6F00; }
+.uber { background-color: #000000; }
+.salario { background-color: #155EEF; }
+.loja { background-color: #8B5CF6; }
+
+/* iFood */
+.ifood { background-color: #FF7043; }
+
+/* Ícones dentro das iniciais */
+.initials i {
+    font-size: 1.1em;
+    color: #ffffff;
+}
 /* --- ESTILO BASE DA SEÇÃO DO GRÁFICO --- */
 .chart-section {
     /* Garante que o conteúdo use todo o espaço disponível */
@@ -543,13 +649,8 @@ body {
     font-family: 'Inter', sans-serif;
 }
 
-/* PLACEHOLDER DO GRÁFICO (para referência de contexto) */
-.donut-chart-placeholder {
-    width: 250px; /* Tamanho do círculo */
-    height: 250px;
-    margin: 10px auto 25px auto;
-    border-radius: 50%;
-}
+
+
 
 
 /* --- LISTA DE CATEGORIAS (Itens) --- */
@@ -807,6 +908,50 @@ body {
     
     }
     
+    /* --- SEÇÃO 3: manter lado a lado similar a 1175px --- */
+    .main-content3 {
+        /* evitar empilhamento neste breakpoint: manter lado-a-lado como em 1175px */
+        flex-wrap: nowrap;
+        gap: 30px;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+
+    .chart-section {
+        flex: 1 1 40%;
+        min-width: 260px; /* mantém tamanho normal do card */
+        box-sizing: border-box;
+    }
+
+    .transactions-section {
+        flex: 1 1 60%;
+        min-width: 360px; /* prioridade de espaço semelhante ao desktop */
+        box-sizing: border-box;
+    }
+    /* Ajustes de posicionamento das colunas dentro da seção de transações
+       para que Descrição, Método, Data e Quantia fiquem deslocados à direita
+       (visual próximo ao layout em 1175px). */
+    .transactions-section .transactions-table th:nth-child(1),
+    .transactions-section .transactions-table td:nth-child(1) {
+        padding-left: 26px; /* Descrição */
+        text-align: left;
+    }
+    .transactions-section .transactions-table th:nth-child(2),
+    .transactions-section .transactions-table td:nth-child(2) {
+        padding-left: 18px; /* Método */
+        text-align: left;
+    }
+    .transactions-section .transactions-table th:nth-child(3),
+    .transactions-section .transactions-table td:nth-child(3) {
+        padding-left: 12px; /* Data */
+        text-align: left;
+    }
+    .transactions-section .transactions-table th:nth-child(4),
+    .transactions-section .transactions-table td:nth-child(4) {
+        padding-left: 12px; /* Quantia */
+        text-align: right; /* valor alinhado à direita */
+    }
+    
 
 }
 /* =======================================
@@ -831,4 +976,3 @@ body {
     }
 }
     
-  
