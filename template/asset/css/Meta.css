@@ -138,7 +138,6 @@ header.scrolled {
 main {
     margin: 80px 0 0 0;
     padding: 2rem 1.5rem;
-
 }
 
 .container {
@@ -514,6 +513,161 @@ main {
     font-size: 18px;
 }
 
+
+.modal-overlay {
+    /* CRÍTICO: Esconde o modal por padrão */
+    display: none; 
+    
+    /* CRÍTICO: Fixa o modal na tela, ignorando o scroll da página */
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    /* Fundo semi-transparente escuro */
+    background-color: rgba(0, 0, 0, 0.6);
+    
+    /* Centraliza o conteúdo */
+    justify-content: center;
+    align-items: center;
+    
+    /* Garante que o modal fique acima de todos os outros elementos */
+    z-index: 10000; 
+    
+    /* Propriedades para transição de abertura */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none; 
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+/* Classe que o JS adiciona para MOSTRAR o modal */
+.modal-overlay.open {
+    /* Torna o modal visível */
+    display: flex;
+    opacity: 1; 
+    visibility: visible;
+    pointer-events: auto; 
+}
+
+.modal-content {
+    background-color: #ffffff;
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 500px;
+
+    max-height: 90vh;
+    overflow-y: auto;
+
+    /* Efeito de zoom */
+    transform: translateY(-20px) scale(0.95);
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background-color: #cccccc;
+    border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background-color: #f0f0f0;
+    border-radius: 4px;
+}
+
+.modal-overlay.open .modal-content {
+    transform: translateY(0) scale(1);
+}
+
+/* Estilos internos do Formulário */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 1rem;
+}
+
+.modal-header h2 {
+    font-size: 1.8rem;
+    color: #333;
+    font-weight: 700;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 2.2rem;
+    color: #a0a0a0;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+
+.close-button:hover {
+    color: #f00;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 1rem;
+    color: #444444;
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #f9f9f9;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #2a68ff;
+    box-shadow: 0 0 0 4px rgba(42, 104, 255, 0.2);
+    background-color: #ffffff;
+}
+
+.submit-button {
+    width: 100%;
+    background-color: #2a68ff;
+    color: white;
+    padding: 1rem 1rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.15rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 2rem;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.submit-button:hover {
+    background-color: #1a56e0;
+}
+
+.submit-button:active {
+    transform: scale(0.99); /* Pequeno efeito de clique */
+}
 
 
 /* --- Responsividade (Tablet e Desktop menor) --- */

@@ -160,4 +160,45 @@ document.addEventListener("DOMContentLoaded", () => {
   createChart("chartApartamento", ChartApartamento);
   createChart("chartCarro", ChartCarro);
 
+  const addMetaButton = document.querySelector(".add-meta-button"); // DEVE SER ESTE SELETOR!
+  const modal = document.getElementById("addMetaModal");
+  const closeModalButton = document.getElementById("closeModal");
+
+  const openModal = () => {
+    // Usa JS para forçar o display: flex ANTES de adicionar a classe open
+    if (modal) {
+      modal.style.display = "flex";
+      setTimeout(() => {
+        modal.classList.add("open");
+      }, 10);
+    }
+  };
+
+  const closeModal = () => {
+    if (modal) {
+      modal.classList.remove("open");
+      // Esconde o modal APÓS a transição (300ms do CSS)
+      setTimeout(() => {
+        modal.style.display = "none";
+      }, 300);
+    }
+  };
+
+  // CRÍTICO: ANEXAR OS EVENTOS
+  if (addMetaButton && modal && closeModalButton) {
+    addMetaButton.addEventListener("click", openModal);
+    closeModalButton.addEventListener("click", closeModal);
+
+    // Evento de fechar ao clicar no fundo
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+  } else {
+    // Se este aviso aparecer no console, o seletor está errado
+    console.error(
+      "Erro: Elementos do Modal (Botão ou Modal principal) não encontrados no DOM."
+    );
+  }
 });

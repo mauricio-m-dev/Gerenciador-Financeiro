@@ -1,3 +1,63 @@
+<?php
+$data_file = 'metas.json';
+
+// --- FUNÇÕES DE SIMULAÇÃO DE BANCO DE DADOS ---
+function load_goals($file)
+{
+    if (file_exists($file)) {
+        $json_data = file_get_contents($file);
+        // O true no json_decode retorna um array associativo (objetos em PHP)
+        return json_decode($json_data, true) ?: [];
+    }
+    return [];
+}
+
+function save_goals($file, $goals)
+{
+    // Salva com JSON_PRETTY_PRINT para formatar o arquivo de forma legível
+    $json_data = json_encode($goals, JSON_PRETTY_PRINT);
+    file_put_contents($file, $json_data);
+}
+
+// --- TRATAMENTO DO FORMULÁRIO DO MODAL ---
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['form_action']) && $_POST['form_action'] === 'add_goal') {
+
+    $goals = load_goals($data_file);
+
+    // Cria um ID simples para a nova meta
+    $new_id = str_replace(' ', '', strtolower($_POST['nome']));
+
+    $new_goal = [
+        'id' => $new_id,
+        'name' => htmlspecialchars($_POST['nome']),
+        'objective' => (float) $_POST['objetivo'],
+        'monthlyContribution' => (float) $_POST['mensal'],
+        'endDate' => $_POST['prazo'],
+        'category' => htmlspecialchars($_POST['categoria']),
+
+        // Valores iniciais para nova meta
+        'currentSaved' => 0.00,
+        'color' => '#38A169', // Cor padrão (verde)
+        'dataHistory' => [0.00]
+    ];
+
+    $goals[] = $new_goal;
+    save_goals($data_file, $goals);
+
+    // Redireciona para evitar re-submissão e recarrega a página com a nova meta
+    header('Location: ' . $_SERVER['PHP_SELF']);
+    exit;
+}
+
+// Carrega a lista final de metas que será usada para renderizar o HTML e o JS
+$all_goals = load_goals($data_file);
+
+?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -296,6 +356,53 @@
             </div>
         </div>
     </main>
+
+
+    <div id="addMetaModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Adicionar Nova Meta</h2>
+                <button id="closeModal" class="close-button">&times;</button>
+            </div>
+
+            <form id="newMetaForm">
+                <div class="form-group">
+                    <label for="meta-nome">Nome da Meta:</label>
+                    <input type="text" id="meta-nome" name="nome" required placeholder="Ex: Fundo de Emergência">
+                </div>
+
+                <div class="form-group">
+                    <label for="meta-objetivo">Valor Objetivo (R$):</label>
+                    <input type="number" id="meta-objetivo" name="objetivo" required placeholder="Ex: 12000.00"
+                        step="0.01">
+                </div>
+
+                <div class="form-group">
+                    <label for="meta-mensal">Contribuição Mensal (R$):</label>
+                    <input type="number" id="meta-mensal" name="mensal" required placeholder="Ex: 850.00" step="0.01">
+                </div>
+
+                <div class="form-group">
+                    <label for="meta-prazo">Prazo Final:</label>
+                    <input type="date" id="meta-prazo" name="prazo" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="meta-categoria">Categoria:</label>
+                    <select id="meta-categoria" name="categoria">
+                        <option value="seguranca">Segurança</option>
+                        <option value="lazer">Lazer</option>
+                        <option value="moradia">Moradia</option>
+                        <option value="veiculo">Veículo</option>
+                        <option value="educacao">Educação</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="submit-button">Criar Meta</button>
+            </form>
+        </div>
+    </div>
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
