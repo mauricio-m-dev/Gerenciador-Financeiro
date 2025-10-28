@@ -195,6 +195,7 @@ header.scrolled {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
   margin-top: 2rem;
+  width: 100%;
 }
 
 .titulo {
@@ -202,20 +203,20 @@ header.scrolled {
   justify-content: space-between;
 }
 
-.adicionar {
-  background-color: white;
-  color: black;
-  border: gray solid 1px;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.titulo .btn {
+  display: inline-flex;
+  align-items: center;   /* centraliza verticalmente */
+  justify-content: center;
+  gap: 0.5rem;           /* espaço entre ícone e texto */
+  line-height: 1;        /* evita desalinhamento por line-height */
+  padding: 0.55rem 0.9rem; /* ajuste fino do padding */
 }
 
-.bxr.bx-plus {
-  margin-right: 5px;
-  margin-bottom: 5px;
+/* Garante que o ícone não afete o alinhamento vertical */
+.titulo .btn i {
+  display: inline-block;
+  line-height: 1;
+  vertical-align: middle;
 }
 
 .geral-card-renda {
@@ -321,46 +322,131 @@ header.scrolled {
   /* Previne overflow */
 }
 
-.charts-container {
-    max-width: 1700px;
-    margin: 3rem auto 0 auto;
-    padding: 0 1.5rem;
-    /* Configuração para duas colunas lado a lado */
-    display: grid;
-    grid-template-columns: 1fr 1fr; 
-    gap: 2rem;
+.carteira{
+  display: flex;
+  gap: 1rem;
 }
 
-.chart-card {
-    background: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    padding: 1.5rem;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+.grafico {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  margin-top: 2rem;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
 }
 
-.chart-card h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #000;
-    margin-bottom: 0; /* Remove margem para ficar perto do sub-title */
+.seus {background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  margin-top: 2rem;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
-.chart-card .sub-title {
-    font-size: 0.9rem;
-    color: #888;
-    font-weight: 400;
-    margin-top: 0;
-    margin-bottom: 1rem;
-    padding: 0; /* Garante que não tenha padding extra do main p */
+
+
+.card-table-container {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  overflow: hidden;
 }
 
-.chart-content {
-    /* Altura para que o gráfico tenha espaço para ser desenhado */
-    height: 350px; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.table-scroll-wrapper {
+ 
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.transactions-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto; /* permite que a tabela ajuste a largura das colunas automaticamente */
+}
+
+/* Permite que o conteúdo quebre e a tabela diminua */
+.transactions-table th,
+.transactions-table td {
+  padding: 1.25rem 1.5rem;
+  text-align: left;
+  border-bottom: 1px solid #f0f0f0;
+  white-space: normal;      /* permite quebra de linha */
+  word-break: break-word;   /* quebra palavras longas quando necessário */
+}
+
+/* Primeira coluna flexível (nome) */
+.transactions-table th:first-child,
+.transactions-table td:first-child {
+  width: auto;
+  text-align: left;
+}
+
+/* Coluna de quantia fixa ao final, sem quebra */
+.transactions-table th.align-right,
+.transactions-table td.align-right {
+  width: 1%;
+  white-space: nowrap; /* mantém o valor em uma linha */
+  text-align: right;
+}
+
+/* Evita que o wrapper force barras horizontais e reduz espaçamento em telas menores */
+.table-scroll-wrapper {
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 768px) {
+
+  .carteira {
+    flex-direction: column;
+  }
+
+  .grafico {
+    width: 100%;
+  }
+
+  .table-scroll-wrapper {
+    overflow-x: hidden;
+  }
+  .transactions-table th,
+  .transactions-table td {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.95rem;
+  }
+}
+
+.transactions-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.transaction-name {
+  font-weight: 600;
+  color: #333;
+}
+.transaction-method,
+.transaction-date {
+  color: #666;
+  font-size: 0.95rem;
+}
+.amount-income {
+  color: #17b26a;
+  font-weight: 600;
+}
+.amount-expense {
+  color: #f04438;
+  font-weight: 600;
+}
+.empty-table-message {
+  text-align: center;
+  color: #777;
+  padding: 2rem;
 }
 
 /* Responsividade (opcional) */
@@ -452,7 +538,64 @@ header.scrolled {
 }
 
 @media (max-width: 576px) {
+  
+  .titulo {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+  
   .acoes {
     grid-template-columns: 1fr;
   }
+
+  .pesquisa{
+    flex-direction: column;
+  }
+
+  .pesquisa form {
+    width: 100%;
+  }
 }
+
+/* Autocomplete dropdown */
+.autocomplete-list {
+  position: absolute;
+  z-index: 2000;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 8px;
+  width: 100%;
+  max-height: 220px;
+  overflow-y: auto;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  margin-top: 0.4rem;
+  display: none; /* mostrado pelo JS */
+}
+
+.autocomplete-item {
+  padding: 0.6rem 0.8rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.autocomplete-item:hover,
+.autocomplete-item[aria-selected="true"] {
+  background: #f5f8ff;
+}
+
+.autocomplete-symbol {
+  font-weight: 600;
+  color: #222;
+}
+
+.autocomplete-name {
+  color: #666;
+  font-size: 0.9rem;
+}
+/* Garante posicionamento relativo do modal-body para a lista */
+.modal-body { position: relative; }
