@@ -927,6 +927,21 @@ box-sizing: border-box;
         line-height: 1 !important;
     
     }
+    /* 💥 NOVO: Afasta o ÍCONE do valor da Quantia */
+    .transactions-table td i.bx-dots-vertical-rounded {
+        /* Adiciona um espaço de 15px à esquerda do ícone */
+        margin-left: 12px; 
+        /* Garante que ele flutue à direita da célula se necessário */
+        float: right; 
+    }
+    
+    /* Opcional: Garante que a célula tenha espaço na direita para o ícone */
+    .transactions-table td:last-child {
+        padding-right: 15px;
+    }
+    
+    /* ... outras regras existentes para tablets ... */
+
     
     /* --- SEÇÃO 3: manter lado a lado similar a 1175px --- */
     .main-content3 {
