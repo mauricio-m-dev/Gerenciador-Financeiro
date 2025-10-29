@@ -202,27 +202,7 @@ document.addEventListener('DOMContentLoaded', function () {
       el.addEventListener('click', () => setCardActive(i));
     });
 
-    // 2) Botão 'Adicionar Cartão' (prompt simples) — cria um placeholder novo
-    const addBtn = document.querySelector('.add-cartao');
-    const cardList = document.querySelector('.card-list');
-    if (addBtn && cardList) {
-      addBtn.addEventListener('click', () => {
-        const name = prompt('Nome do novo cartão:');
-        if (!name) return;
-        const wrapper = document.createElement('div');
-        wrapper.className = 'card-placeholder';
-        wrapper.innerHTML = `
-          <div class="card-content">
-            <div class="inner-block large"></div>
-            <div class="inner-block small"></div>
-          </div>`;
-        cardList.appendChild(wrapper);
-        // vincula handler de seleção
-        const newIndex = cardPlaceholders.length;
-        wrapper.addEventListener('click', () => setCardActive(newIndex));
-      });
-    }
-
+    
     // 3) Realce por categoria: ao clicar em item da lista de categorias, destaca a fatia correspondente
     const categoryItems = document.querySelectorAll('.category-item');
     const baseColors = [
@@ -269,6 +249,73 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+/*
+|--------------------------------------------------------------------------
+| 2. Adicionar Cartão (Ação Simples)
+|--------------------------------------------------------------------------
+*/
+const addCardButton = document.querySelector('.add-cartao');
 
+if (addCardButton) {
+    addCardButton.addEventListener('click', function() {
+        // Alerta simples para demonstrar a ação. 
+        // Em um projeto real, aqui você abriria um modal/formulário.
+        alert("Funcionalidade 'Adicionar Cartão' ativada! Abrir modal para novo cadastro.");
+        
+        // (Opcional) Você pode adicionar uma classe temporária para feedback visual:
+        addCardButton.classList.add('clicked-feedback');
+        setTimeout(() => {
+            addCardButton.classList.remove('clicked-feedback');
+        }, 500);
+    });
+}
+/*
+|--------------------------------------------------------------------------
+| 3. Uso da Seleção: Lógica de Filtro
+|--------------------------------------------------------------------------
+| Esta é uma função de exemplo que você chamaria para atualizar o painel
+| quando um cartão é selecionado.
+*/
+function filterDashboardBySelectedCard() {
+    // 1. Obtém o índice do cartão ativo salvo no localStorage
+    const savedCardIndex = localStorage.getItem(SELECTED_CARD_KEY); 
+    const selectedCard = document.querySelector('.card-placeholder.active'); // Ou pega o elemento ativo
+    
+    // Se nenhum cartão estiver ativo, o filtro deve mostrar 'todos'
+    if (!selectedCard) {
+        console.log("Nenhum cartão selecionado. Exibindo dados de todas as contas.");
+        // Implementar lógica de 'Mostrar Todos' aqui (ex: re-renderizar transações)
+        return; 
+    }
+    
+    // Obtém o ID (ou outro identificador) do cartão
+    const cardId = selectedCard.dataset.cardId || `Card ${savedCardIndex}`;
+    
+    console.log(`Painel filtrado pelo: ${cardId}`);
+    
+    // AQUI VOCÊ IMPLEMENTARIA A LÓGICA REAL:
+    // a) Fazer uma chamada AJAX (fetch) para o backend, enviando 'cardId'
+    // b) O backend retornaria novos dados para:
+    //    - Atualizar os valores de Renda/Despesa/Metas
+    //    - Atualizar os dados do Gráfico (expenseChart.update())
+    //    - Atualizar as linhas da Tabela de Transações
+}
+
+// ⚠️ Se você quiser que o painel atualize imediatamente após a seleção do cartão:
+// Modifique a função de clique na linha 263 do seu código:
+
+/*
+// Linha 263:
+cardPlaceholders.forEach((el, i) => {
+    el.addEventListener('click', () => {
+        setCardActive(i);
+        filterDashboardBySelectedCard(); // <-- Adiciona a chamada de filtro
+    });
+});
+*/
+
+// Chame o filtro uma vez no carregamento da página para refletir o estado salvo:
+// (Você pode adicionar isso logo após o código que restaura a seleção na linha 261)
+filterDashboardBySelectedCard();
 
 });

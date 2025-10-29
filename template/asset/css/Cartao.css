@@ -122,8 +122,33 @@ html, body {
     
 
 }
+.transactions-list {
+    /* Altura máxima para a lista de transações */
+    max-height: 550px; 
+    
+    /* 💥 ESSENCIAL 💥: Ativa a barra de rolagem vertical quando a tabela for maior que 400px */
+    overflow-y: auto; 
+    background-color: #fff;
+    width: 100%; /* Garante que ocupe o espaço disponível */
+    padding-right: 2px; /* Espaço para a barra de rolagem */
+  
+}
 
+/* Opcional: Para manter o cabeçalho da tabela fixo */
+/* Esta técnica é mais avançada, mas melhora a experiência */
+.transactions-list table {
+    width: 100%;
+    border-collapse: collapse; /* Remove espaçamento entre bordas */
+}
 
+.transactions-list thead {
+    /* Faz o cabeçalho ficar grudado no topo ao rolar */
+    position: sticky;
+    top: 0; 
+    background-color: #ffffff; /* Cor de fundo para cobrir o conteúdo atrás */
+    z-index: 20;
+   box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.05);
+}
 
 .add-cartao {
     float: right;
@@ -417,12 +442,7 @@ html, body {
    para preencher exatamente até a última linha (ex.: iFood). Mantemos
    comportamento de rolagem apenas se o conteúdo exceder um limite grande.
 */
-.transactions-list {
-    max-height: fit-content; /* cresce até o conteúdo atual */
-    overflow-y: visible; /* permite que a lista expanda sem barra interna */
-    scroll-behavior: auto;
-    padding-right: 0;
-}
+
 
 @media (max-width: 480px) {
     /* Em telas muito pequenas ainda limitamos para evitar layout muito longo */
@@ -430,17 +450,12 @@ html, body {
         max-height: 420px;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
+       
     }
 }
 
 /* Cabeçalho fixo dentro da lista de transações (thead sticky) */
-.transactions-list thead th {
-    position: sticky;
-    top: 0;
-    background: #ffffff; /* mantém fundo branco para contraste */
-    z-index: 3;
-    padding-top: 10px; /* garante espaçamento visual */
-}
+
 
 /* Pequeno sombreamento para destacar o cabeçalho quando a lista rola */
 .transactions-list thead th {
@@ -469,6 +484,7 @@ html, body {
  .transactions-section p {
     font-family: 'Inter', sans-serif;
     font-size: 15px;
+   
  }
 
 .section-subtitle {
@@ -573,6 +589,7 @@ box-sizing: border-box;
     font-weight: 500;
     padding: 10px 0;
     border-bottom: 1px solid #e0e0e0;
+    padding: 10px 0 10px 0;
 
 }
 
@@ -728,6 +745,7 @@ box-sizing: border-box;
         margin-bottom: 10px;
  
     }
+    
 
     /* Navegação ocupa 100% da largura e alinha à esquerda */
     .nav-links {
@@ -850,11 +868,13 @@ box-sizing: border-box;
     /* Torna a tabela horizontalmente rolável para evitar quebra */
     .transactions-section {
         overflow-x: auto;
+     
     }
     .transactions-table {
         /* Garante que a tabela não encolha demais, forçando a rolagem lateral */
         min-width: 600px; 
     }
+  
 }
 @media (min-width: 769px) and (max-width: 1024px) {
 
@@ -868,14 +888,14 @@ box-sizing: border-box;
     }
     
     /* --- CABEÇALHO --- */
-    
+ 
     .nav-links {
         /* Permite que a navegação se quebre se o espaço for muito apertado */
         flex-wrap: wrap; 
         gap: 15px;
         flex: 1; /* Mantém a distribuição centralizada */
     }
-
+  
     /* --- SEÇÃO 1: CARTÕES / CARTEIRAS --- */
     
     /* Permite que o card-list quebre para caber mais de 3 cards em uma linha */
@@ -951,6 +971,7 @@ box-sizing: border-box;
         padding-left: 12px; /* Quantia */
         text-align: right; /* valor alinhado à direita */
     }
+
     
 
 }

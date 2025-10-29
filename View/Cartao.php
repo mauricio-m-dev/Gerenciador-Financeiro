@@ -241,6 +241,34 @@ $chartValoresJSON = json_encode($valores);
                     <td class="expense">-R$29,50</td>
                     <td><i class='bx bx-dots-vertical-rounded'></i></td>
                 </tr>
+                <tr>
+                    <td><span class="initials ifood"><i class='bx bx-food-menu'></i></span> iFood</td>
+                    <td>Cartão de débito</td>
+                    <td>2024/03/23</td>
+                    <td class="expense">-R$29,50</td>
+                    <td><i class='bx bx-dots-vertical-rounded'></i></td>
+                </tr>
+                <tr>
+                    <td><span class="initials ifood"><i class='bx bx-food-menu'></i></span> iFood</td>
+                    <td>Cartão de débito</td>
+                    <td>2024/03/23</td>
+                    <td class="expense">-R$29,50</td>
+                    <td><i class='bx bx-dots-vertical-rounded'></i></td>
+                </tr>
+                <tr>
+                    <td><span class="initials ifood"><i class='bx bx-food-menu'></i></span> iFood</td>
+                    <td>Cartão de débito</td>
+                    <td>2024/03/23</td>
+                    <td class="expense">-R$29,50</td>
+                    <td><i class='bx bx-dots-vertical-rounded'></i></td>
+                </tr>
+                <tr>
+                    <td><span class="initials netflix">N</span> Netflix</td>
+                    <td>Cartão de crédito</td>
+                    <td>2024/03/29</td>
+                    <td class="expense">-R$9,90</td>
+                    <td><i class='bx bx-dots-vertical-rounded'></i></td>
+                </tr>
                 </tbody>
     </table>
     </div>
