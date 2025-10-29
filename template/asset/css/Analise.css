@@ -18,6 +18,12 @@ a {
     text-decoration: none;
     color: inherit;
 }
+.container{
+    max-width: 1400px;
+    min-width: 320px;
+    margin: 0 auto;
+    padding: 0rem;
+}
 
 /* --- Estilo do Header e Navbar --- */
 header {
@@ -143,7 +149,12 @@ main p {
 .title{
     margin-left: 4rem;
     margin-right: 4rem;
+}
+
+.title h1 {
     
+    font-weight: 550;
+    color: #222;
 }
 .geral-container {
   display: grid;
@@ -579,6 +590,10 @@ main p {
         /* Garante que o conteúdo de recomendações use o padding de 1.5rem no mobile */
         margin: auto; 
        
+    }
+
+    .title{
+        margin: -1rem;
     }
 
     
