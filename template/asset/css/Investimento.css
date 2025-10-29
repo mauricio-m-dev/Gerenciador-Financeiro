@@ -297,15 +297,26 @@ header.scrolled {
 
 .pesquisa {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   gap: 1.5rem;
 }
 
-.pesquisa form {
-  width: 50%;
+.barra {
+  width: 70%;
 }
+
+.barra form {
+  width: 100%;
+}
+
+.result-box ul{
+  border-top: 1px solid #999;
+  padding: 15px 10px;
+}
+
+.result-box ul li{}
 
 .acoes {
   margin-top: 2rem;
@@ -404,6 +415,20 @@ header.scrolled {
 
 @media (max-width: 768px) {
 
+
+  .pesquisa{
+    flex-direction: column;
+  }
+
+ .barra{
+  width: 100%;
+ } 
+
+  .pesquisa form {
+    width: 100%;
+  }
+  
+
   .carteira {
     flex-direction: column;
   }
@@ -420,6 +445,7 @@ header.scrolled {
     padding: 0.6rem 0.8rem;
     font-size: 0.95rem;
   }
+
 }
 
 .transactions-table tbody tr:last-child td {
@@ -549,13 +575,7 @@ header.scrolled {
     grid-template-columns: 1fr;
   }
 
-  .pesquisa{
-    flex-direction: column;
-  }
-
-  .pesquisa form {
-    width: 100%;
-  }
+  
 }
 
 /* Autocomplete dropdown */

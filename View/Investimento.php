@@ -139,14 +139,18 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
                                 <form id="add-investment-form" autocomplete="off">
                                     <div class="mb-3">
                                         <label for="investment-name" class="form-label">Nome</label>
-                                        <input type="text" class="form-control" id="investment-name" name="name" placeholder="Nome do investimento">
+                                        <input type="text" class="form-control" id="investment-name" name="name"
+                                            placeholder="Nome do investimento">
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="stock-search" class="form-label">Pesquisar ação</label>
-                                        <input type="text" class="form-control" id="stock-search" name="stock" placeholder="Ex: PETR4 ou Petrobras" aria-autocomplete="list" aria-controls="stock-suggestions" aria-expanded="false" />
+                                        <input type="text" class="form-control" id="stock-search" name="stock"
+                                            placeholder="Ex: PETR4 ou Petrobras" aria-autocomplete="list"
+                                            aria-controls="stock-suggestions" aria-expanded="false" />
                                         <input type="hidden" id="stock-symbol" name="stock_symbol" />
-                                        <div id="stock-suggestions" class="autocomplete-list" role="listbox" aria-label="Sugestões de ações"></div>
+                                        <div id="stock-suggestions" class="autocomplete-list" role="listbox"
+                                            aria-label="Sugestões de ações"></div>
                                     </div>
 
                                     <div class="mb-3">
@@ -188,10 +192,18 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
                 <div class="pesquisa">
                     <h2>Mercado de Ações</h2>
 
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+                    <!-- Barra de pesquisa com o autocomplete -->
+                    <div class="barra">
+                        <form class="d-flex" role="search">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                                autocomplete="off" id="pesquisa-mercado">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                        <div class="result-box">
+                            
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="acoes">
