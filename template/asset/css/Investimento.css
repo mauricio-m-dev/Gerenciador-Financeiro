@@ -305,18 +305,38 @@ header.scrolled {
 
 .barra {
   width: 70%;
+  position: relative;
 }
 
 .barra form {
   width: 100%;
 }
 
-.result-box ul{
-  border-top: 1px solid #999;
-  padding: 15px 10px;
+.barra:hover {
+  border: none !important;
 }
 
-.result-box ul li{}
+
+
+.result-box ul{
+  margin-top: 5px;
+  border: 1px solid #999;
+  border-radius: 6px;
+  padding: 15px 10px;
+  position: absolute;
+  max-height: 200px;
+  overflow-y: auto;   /* Adiciona scroll se a lista for muito longa */
+  z-index: 999;  
+  width: 696px;  
+  background-color: #f9f9f9;   /* Garante que fique por cima dos outros elementos */
+  border: none;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+
+}
+
+.result-box ul li{
+  cursor: pointer;
+}
 
 .acoes {
   margin-top: 2rem;

@@ -242,35 +242,103 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  //Autocomplete da div Mercado
+  // Autocomplete da div Mercado
   const resultsbox = document.querySelector(".result-box");
   const pesquisa = document.getElementById("pesquisa-mercado");
 
-  pesquisa.onkeyup = function () {
+
+  resultsbox.addEventListener('click', function (event) {
+    if (event.target.tagName == "LI") {
+      selectInput(event.target);
+    }
+  })
+
+  // pesquisa.onkeyup = function () {
+  //   let resultado = [];
+  //   let input = pesquisa.value;
+
+  //   if (input.length) {
+  //     resultado = stocks.filter((keyword) => {
+  //       return keyword.toLowerCase().includes(input.toLowerCase());
+  //     });
+  //     console.log(resultado)
+
+  //     display(resultado)
+  //   } else{
+  //     resultsbox.innerHTML= "";
+  //   }
+  // }
+
+  pesquisa.addEventListener("input", function () {
     let resultado = [];
     let input = pesquisa.value;
 
     if (input.length) {
+      // A lógica de filtragem continua a mesma
       resultado = stocks.filter((keyword) => {
         return keyword.toLowerCase().includes(input.toLowerCase());
       });
-      console.log(resultado)
-      
-      display(resultado)
+      console.log(resultado);
+      display(resultado);
+    } else {
+      // Se o input estiver vazio (clique no 'x' ou apagar com backspace), limpa a caixa de resultados
+      resultsbox.innerHTML = "";
     }
-  }
+  });
 
-  function display(resultado){
-    const content = resultado.map((list)=>{
-      return "<li onclick=selectInput(this)>" + list + "</li>";
+  function display(resultado) {
+    const content = resultado.map((list) => {
+      return "<li>" + list + "</li>";
     });
 
     resultsbox.innerHTML = "<ul>" + content.join('') + "</ul>";
   }
 
-  function selectInput(list){
+  function selectInput(list) {
     pesquisa.value = list.innerHTML;
+    resultsbox.innerHTML = "";
   }
+
+  // const resultsbox = document.querySelector(".result-box");
+  // const pesquisa = document.getElementById("pesquisa-mercado");
+
+  // // Adiciona o event listener ao elemento pai (resultsbox)
+  // resultsbox.addEventListener("click", function (event) {
+  //   // Verifica se o elemento clicado é uma <li>
+  //   if (event.target.tagName === "LI") {
+  //     // Chama a função selectInput com o elemento clicado
+  //     selectInput(event.target);
+  //   }
+  // });
+
+  // pesquisa.onkeyup = function () {
+  //   let resultado = [];
+  //   let input = pesquisa.value;
+
+  //   if (input.length) {
+  //     resultado = stocks.filter((keyword) => {
+  //       return keyword.toLowerCase().includes(input.toLowerCase());
+  //     });
+  //     console.log(resultado);
+  //     display(resultado);
+  //   } else {
+  //     // Limpa a caixa de resultados se a pesquisa for vazia
+  //     resultsbox.innerHTML = "";
+  //   }
+  // };
+
+  // function display(resultado) {
+  //   const content = resultado.map((list) => {
+  //     return "<li>" + list + "</li>";
+  //   });
+
+  //   resultsbox.innerHTML = "<ul>" + content.join("") + "</ul>";
+  // }
+
+  // function selectInput(element) {
+  //   pesquisa.value = element.innerHTML;
+  //   resultsbox.innerHTML = ""; // Oculta a lista após a seleção
+  // }
 
 
 
