@@ -48,9 +48,11 @@ $chartValoresJSON = json_encode($valores);
     <main class="main-content1">
     
         <h1>Cartões</h1>
-        <div class="add-cartao">
-            <i class='bx bx-plus'></i>
-            <span>Adicionar Cartão</span>
+        <div class="add-cartao" data-bs-toggle="modal" data-bs-target="#modalAddCartao" style="cursor: pointer;">
+    <i class='bx bx-plus'></i>
+    <span>Adicionar Cartão</span>
+</div>
+
         </div>
         
         <div class="Minha-carteira">
@@ -280,11 +282,84 @@ $chartValoresJSON = json_encode($valores);
 </div>
 
 </main>
+<!-- Modal de Adicionar Cartão -->
+<div class="modal fade" id="modalAddCartao" tabindex="-1" aria-labelledby="modalAddCartaoLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalAddCartaoLabel">Adicionar Novo Cartão</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+
+      <div class="modal-body">
+        <form id="formAddCartao" method="POST" action="../config/salvar_cartao.php">
+          
+          <!-- Nome do Cartão -->
+          <div class="mb-3">
+            <label for="nomeCartao" class="form-label">Nome do Cartão</label>
+            <input type="text" class="form-control" id="nomeCartao" name="nomeCartao" placeholder="Ex: Cartão Pessoal" required>
+          </div>
+
+          <!-- Número do Cartão -->
+          <div class="mb-3">
+            <label for="numeroCartao" class="form-label">Número do Cartão</label>
+            <input type="text" class="form-control" id="numeroCartao" name="numeroCartao" maxlength="19" placeholder="XXXX XXXX XXXX XXXX" required>
+          </div>
+
+          <!-- Data de Validade -->
+          <div class="mb-3">
+            <label for="validadeCartao" class="form-label">Data de Validade</label>
+            <input type="month" class="form-control" id="validadeCartao" name="validadeCartao" required>
+          </div>
+
+          <!-- CVV -->
+          <div class="mb-3">
+            <label for="cvvCartao" class="form-label">CVV</label>
+            <input type="text" class="form-control" id="cvvCartao" name="cvvCartao" maxlength="4" placeholder="XXX" required>
+          </div>
+
+          <!-- Bandeira -->
+          <div class="mb-3">
+            <label for="bandeiraCartao" class="form-label">Bandeira</label>
+            <select class="form-select" id="bandeiraCartao" name="bandeiraCartao" required>
+              <option value="">Selecione</option>
+              <option value="Visa">Visa</option>
+              <option value="Mastercard">Mastercard</option>
+              <option value="Elo">Elo</option>
+              <option value="American Express">American Express</option>
+            </select>
+          </div>
+
+          <!-- Tipo de Cartão -->
+          <div class="mb-3">
+            <label for="tipoCartao" class="form-label">Tipo de Cartão</label>
+            <select class="form-select" id="tipoCartao" name="tipoCartao" required>
+              <option value="">Selecione</option>
+              <option value="credito">Crédito</option>
+              <option value="debito">Débito</option>
+              <option value="pre-pago">Pré-pago</option>
+            </select>
+          </div>
+
+          <!-- Limite (apenas para crédito) -->
+          <div class="mb-3">
+            <label for="limiteCartao" class="form-label">Limite (R$)</label>
+            <input type="number" step="0.01" class="form-control" id="limiteCartao" name="limiteCartao" placeholder="Ex: 2000.00">
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100">Salvar Cartão</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
 <script src="../template/asset/js/Cartao.js"></script>
+
 </body>
 
 </html>

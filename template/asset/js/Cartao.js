@@ -249,26 +249,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-/*
-|--------------------------------------------------------------------------
-| 2. Adicionar Cartão (Ação Simples)
-|--------------------------------------------------------------------------
-*/
-const addCardButton = document.querySelector('.add-cartao');
 
-if (addCardButton) {
-    addCardButton.addEventListener('click', function() {
-        // Alerta simples para demonstrar a ação. 
-        // Em um projeto real, aqui você abriria um modal/formulário.
-        alert("Funcionalidade 'Adicionar Cartão' ativada! Abrir modal para novo cadastro.");
-        
-        // (Opcional) Você pode adicionar uma classe temporária para feedback visual:
-        addCardButton.classList.add('clicked-feedback');
-        setTimeout(() => {
-            addCardButton.classList.remove('clicked-feedback');
-        }, 500);
-    });
-}
 /*
 |--------------------------------------------------------------------------
 | 3. Uso da Seleção: Lógica de Filtro
@@ -317,5 +298,33 @@ cardPlaceholders.forEach((el, i) => {
 // Chame o filtro uma vez no carregamento da página para refletir o estado salvo:
 // (Você pode adicionar isso logo após o código que restaura a seleção na linha 261)
 filterDashboardBySelectedCard();
+ // Máscara para número do cartão (XXXX XXXX XXXX XXXX)
+  const numeroCartaoInput = document.getElementById('numeroCartao');
+  numeroCartaoInput.addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, '');
+    value = value.match(/.{1,4}/g);
+    if(value) e.target.value = value.join(' ');
+  });
 
+  // Limita CVV apenas para números
+  const cvvInput = document.getElementById('cvvCartao');
+  cvvInput.addEventListener('input', function(e){
+    e.target.value = e.target.value.replace(/\D/g, '');
+  });
+
+  // Mostrar/ocultar campo de limite conforme tipo de cartão
+  const tipoCartaoSelect = document.getElementById('tipoCartao');
+  const limiteInput = document.getElementById('limiteCartao');
+  function toggleLimite() {
+    if(tipoCartaoSelect.value === 'credito') {
+      limiteInput.required = true;
+      limiteInput.parentElement.style.display = 'block';
+    } else {
+      limiteInput.required = false;
+      limiteInput.parentElement.style.display = 'none';
+      limiteInput.value = '';
+    }
+  }
+  tipoCartaoSelect.addEventListener('change', toggleLimite);
+  toggleLimite(); // inicial
 });
