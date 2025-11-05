@@ -115,6 +115,14 @@ header.scrolled {
     /* Espaçamento entre os links */
 }
 
+.nav-links .active{
+    color: #155EEF;
+    background-color: #F5F8FF;
+    padding: 0.8rem;
+    border-radius: 1rem;
+    transform: translateY(-5px);
+}
+
 .nav-links li a {
     font-weight: 500;
     color: #555;
@@ -180,6 +188,7 @@ header.scrolled {
     transition: all 0.3s ease-in-out;
 }
 
+/* Fim do header */
 
 .titulo {
   display: flex;
@@ -218,6 +227,13 @@ header.scrolled {
   line-height: 1;
   vertical-align: middle;
 }
+
+/* Alterações no modal */
+.autocomplete-list.ul{
+  padding-left: 0;
+}
+
+
 
 .geral-card-renda {
   background: #ffffff;
@@ -447,6 +463,10 @@ header.scrolled {
   .pesquisa form {
     width: 100%;
   }
+
+  .result-box ul{
+    width: 100%;
+  }
   
 
   .carteira {
@@ -590,6 +610,11 @@ header.scrolled {
     gap: 1rem;
     align-items: center;
   }
+
+  .mercado{
+    height: 50rem;
+    overflow-y: hidden;
+  }
   
   .acoes {
     grid-template-columns: 1fr;
@@ -605,7 +630,7 @@ header.scrolled {
   background: #fff;
   border: 1px solid rgba(0,0,0,0.08);
   border-radius: 8px;
-  width: 100%;
+  width: 94%;
   max-height: 220px;
   overflow-y: auto;
   box-shadow: 0 6px 18px rgba(0,0,0,0.06);

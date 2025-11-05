@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+
   // --- 1. Funcionalidade do Menu Hamburguer ---
   const hamburger = document.querySelector('.hamburger');
   const navLinks = document.querySelector('.nav-links');
@@ -114,6 +115,35 @@ document.addEventListener('DOMContentLoaded', () => {
     new Chart(ctx, config);
   }
 
+  // Processo para chamar as informações da API
+
+  const URL_LISTA = `https://brapi.dev/api/quote/list?type=stock&limit=1000`;
+  const TOKEN_BRAPI = 'pz4ZsbSAgwP96rCKvp52Pq';
+
+  const config_token = {
+    headers: {
+      'Authorization': `Bearer ${TOKEN_BRAPI}` // ESSENCIAL!
+    }
+  }
+  async function chamarAPI(params) {
+    const resp = await fetch(URL_LISTA, config_token);
+    if (resp.status === 200) {
+      const obj = await resp.json();
+      objFiltro = obj.stocks.map(acao => {
+
+        return {
+          ticket: acao.stock,
+          nome: acao.name,
+          valor: acao.close,
+
+        };
+      }
+      );
+
+      console.log(objFiltro);
+    }
+  }
+
 
   /* ---------- Autocomplete de ações (mock, trocar por API depois) ---------- */
   const stockInput = document.getElementById('stock-search');
@@ -143,94 +173,65 @@ document.addEventListener('DOMContentLoaded', () => {
     'TSLA34',
   ]
 
-  let debounceTimer = null;
-  let activeIndex = -1;
-  let currentList = [];
+ // 1. Listener de Input (lógica 100% do 2º script)
+stockInput.addEventListener("input", function () {
+    let resultado = [];
+    let input = stockInput.value; // Pega o valor do input 1
 
-  function openList() {
-    suggestionsEl.style.display = 'block';
-    stockInput.setAttribute('aria-expanded', 'true');
-  }
-  function closeList() {
-    suggestionsEl.style.display = 'none';
-    stockInput.setAttribute('aria-expanded', 'false');
-    activeIndex = -1;
-  }
-
-  function renderList(list) {
-    suggestionsEl.innerHTML = '';
-    currentList = list;
-    if (!list.length) { closeList(); return; }
-    list.forEach((item, i) => {
-      const el = document.createElement('div');
-      el.className = 'autocomplete-item';
-      el.setAttribute('role', 'option');
-      el.setAttribute('data-index', i);
-      el.innerHTML = `<span class="autocomplete-symbol">${item.symbol}</span>
-                        <span class="autocomplete-name">${item.name}</span>`;
-      el.addEventListener('click', () => selectItem(i));
-      suggestionsEl.appendChild(el);
-    });
-    openList();
-  }
-
-  function selectItem(index) {
-    const item = currentList[index];
-    if (!item) return;
-    stockInput.value = `${item.symbol} — ${item.name}`;
-    hiddenSymbol.value = item.symbol;
-    closeList();
-  }
-
-  function filterStocks(query) {
-    if (!query) return [];
-    const q = query.trim().toLowerCase();
-    // procura por símbolo ou nome
-    return mockStocks.filter(s =>
-      s.symbol.toLowerCase().includes(q) || s.name.toLowerCase().includes(q)
-    ).slice(0, 8); // limite
-  }
-
-  stockInput.addEventListener('input', (e) => {
-    clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(() => {
-      const q = e.target.value;
-      // se for API, aqui chamaria fetch(...) e depois renderList(...)
-      const results = filterStocks(q);
-      renderList(results);
-    }, 250);
-  });
-
-  stockInput.addEventListener('keydown', (e) => {
-    const items = suggestionsEl.querySelectorAll('.autocomplete-item');
-    if (suggestionsEl.style.display === 'none' || items.length === 0) return;
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      activeIndex = Math.min(activeIndex + 1, items.length - 1);
-      updateActive(items);
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      activeIndex = Math.max(activeIndex - 1, 0);
-      updateActive(items);
-    } else if (e.key === 'Enter') {
-      e.preventDefault();
-      if (activeIndex >= 0) selectItem(activeIndex);
-    } else if (e.key === 'Escape') {
-      closeList();
+    if (input.length) {
+        // lógica de filtragem (do 2º)
+        resultado = stocks.filter((keyword) => {
+            return keyword.toLowerCase().includes(input.toLowerCase());
+        });
+        // Chama a função de display (do 2º)
+        displaySuggestions(resultado); 
+    } else {
+        // Se o input estiver vazio (do 2º)
+        suggestionsEl.innerHTML = "";
+        suggestionsEl.style.display = 'none'; // Adicionado para garantir que feche
     }
-  });
+});
 
-  function updateActive(items) {
-    items.forEach((it, idx) => {
-      it.setAttribute('aria-selected', idx === activeIndex ? 'true' : 'false');
-      if (idx === activeIndex) it.scrollIntoView({ block: 'nearest' });
+// 2. Função de Renderização (lógica 100% do 'display' do 2º script)
+function displaySuggestions(resultado) {
+    if (!resultado.length) {
+        suggestionsEl.innerHTML = "";
+        suggestionsEl.style.display = 'none';
+        return;
+    }
+    
+    const content = resultado.map((list) => {
+        return "<li>" + list + "</li>"; // Gera <li> exatamente como o 2º
     });
-  }
 
-  // Fecha ao clicar fora
-  document.addEventListener('click', (e) => {
-    if (!suggestionsEl.contains(e.target) && e.target !== stockInput) closeList();
-  });
+    // Coloca dentro de um <ul>, como o 2º script
+    suggestionsEl.innerHTML = "<ul>" + content.join('') + "</ul>";
+    suggestionsEl.style.display = 'block'; // Mostra o container
+}
+
+// 3. Função de Seleção (lógica 100% do 'selectInput' do 2º script)
+function selectSuggestion(list) {
+    stockInput.value = list.innerHTML; // Seta o valor do input 1
+    hiddenSymbol.value = list.innerHTML; // **Seta o hidden input também**
+    suggestionsEl.innerHTML = ""; // Limpa os resultados 1
+    suggestionsEl.style.display = 'none'; // Esconde
+}
+
+// 4. Listener de Clique (lógica 100% do 2º)
+suggestionsEl.addEventListener('click', function (event) {
+    // Exatamente a lógica do 2º
+    if (event.target.tagName == "LI") {
+        selectSuggestion(event.target);
+    }
+});
+
+// 5. Bônus: Fechar ao clicar fora (o 2º não tem, mas é vital)
+document.addEventListener('click', (e) => {
+    if (!suggestionsEl.contains(e.target) && e.target !== stockInput) {
+        suggestionsEl.innerHTML = "";
+        suggestionsEl.style.display = 'none';
+    }
+});
 
   // Se o modal for fechado via bootstrap, limpa estado
   const modalEl = document.getElementById('staticBackdrop');
@@ -242,39 +243,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+
+
   // Autocomplete da div Mercado
   const resultsbox = document.querySelector(".result-box");
   const pesquisa = document.getElementById("pesquisa-mercado");
 
-
+  // Seleciona o item das sugestões 
   resultsbox.addEventListener('click', function (event) {
     if (event.target.tagName == "LI") {
       selectInput(event.target);
     }
   })
 
-  // pesquisa.onkeyup = function () {
-  //   let resultado = [];
-  //   let input = pesquisa.value;
-
-  //   if (input.length) {
-  //     resultado = stocks.filter((keyword) => {
-  //       return keyword.toLowerCase().includes(input.toLowerCase());
-  //     });
-  //     console.log(resultado)
-
-  //     display(resultado)
-  //   } else{
-  //     resultsbox.innerHTML= "";
-  //   }
-  // }
-
   pesquisa.addEventListener("input", function () {
     let resultado = [];
     let input = pesquisa.value;
 
     if (input.length) {
-      // A lógica de filtragem continua a mesma
+      // lógica de filtragem 
       resultado = stocks.filter((keyword) => {
         return keyword.toLowerCase().includes(input.toLowerCase());
       });
@@ -298,50 +285,5 @@ document.addEventListener('DOMContentLoaded', () => {
     pesquisa.value = list.innerHTML;
     resultsbox.innerHTML = "";
   }
-
-  // const resultsbox = document.querySelector(".result-box");
-  // const pesquisa = document.getElementById("pesquisa-mercado");
-
-  // // Adiciona o event listener ao elemento pai (resultsbox)
-  // resultsbox.addEventListener("click", function (event) {
-  //   // Verifica se o elemento clicado é uma <li>
-  //   if (event.target.tagName === "LI") {
-  //     // Chama a função selectInput com o elemento clicado
-  //     selectInput(event.target);
-  //   }
-  // });
-
-  // pesquisa.onkeyup = function () {
-  //   let resultado = [];
-  //   let input = pesquisa.value;
-
-  //   if (input.length) {
-  //     resultado = stocks.filter((keyword) => {
-  //       return keyword.toLowerCase().includes(input.toLowerCase());
-  //     });
-  //     console.log(resultado);
-  //     display(resultado);
-  //   } else {
-  //     // Limpa a caixa de resultados se a pesquisa for vazia
-  //     resultsbox.innerHTML = "";
-  //   }
-  // };
-
-  // function display(resultado) {
-  //   const content = resultado.map((list) => {
-  //     return "<li>" + list + "</li>";
-  //   });
-
-  //   resultsbox.innerHTML = "<ul>" + content.join("") + "</ul>";
-  // }
-
-  // function selectInput(element) {
-  //   pesquisa.value = element.innerHTML;
-  //   resultsbox.innerHTML = ""; // Oculta a lista após a seleção
-  // }
-
-
-
-
 
 });
