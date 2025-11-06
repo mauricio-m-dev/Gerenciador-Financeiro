@@ -4,57 +4,57 @@
 | Lógica de Cadastro
 |--------------------------------------------------------------------------
 */
-// session_start();
-// require_once 'db.php'; // Inclui a conexão com o banco
+session_start();
+require_once 'db.php'; // Inclui a conexão com o banco
+use Controller\UserController; 
+$error_message = ''; // Variável para armazenar mensagens de erro
 
-// $error_message = ''; // Variável para armazenar mensagens de erro
-
-// // Verifica se o formulário foi submetido
-// if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// Verifica se o formulário foi submetido
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
-//     // 1. Obter e limpar dados do formulário
-//     $nome = trim($_POST['nome']);
-//     $email = trim($_POST['email']);
-//     $senha = trim($_POST['password']);
+    // 1. Obter e limpar dados do formulário
+    $user_fullname = trim($_POST['name']);
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
 
-//     // 2. Validação simples
-//     if (empty($nome) || empty($email) || empty($senha)) {
-//         $error_message = "Por favor, preencha todos os campos.";
-//     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-//         $error_message = "Formato de e-mail inválido.";
-//     } else {
+    // 2. Validação simples
+    if (empty($user_fullname) || empty($email) || empty($password)) {
+        $error_message = "Por favor, preencha todos os campos.";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error_message = "Formato de e-mail inválido.";
+    } else {
         
-//         try {
-//             // 3. Verificar se o e-mail já existe
-//             $sql = "SELECT id FROM usuarios WHERE email = ?";
-//             $stmt = $pdo->prepare($sql);
-//             $stmt->execute([$email]);
+        try {
+            // 3. Verificar se o e-mail já existe
+            $sql = "SELECT id FROM usuarios WHERE email = ?";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([$email]);
             
-//             if ($stmt->rowCount() > 0) {
-//                 $error_message = "Este e-mail já está cadastrado.";
-//             } else {
-//                 // 4. Se não existe, criar o usuário
+            if ($stmt->rowCount() > 0) {
+                $error_message = "Este e-mail já está cadastrado.";
+            } else {
+                // 4. Se não existe, criar o usuário
                 
-//                 // Criptografa a senha (NUNCA armazene senhas em texto puro)
-//                 $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
+                // Criptografa a senha (NUNCA armazene senhas em texto puro)
+                $hashedPassword   = password_hash($password, PASSWORD_DEFAULT);
                 
-//                 // 5. Inserir no banco de dados
-//                 $sql_insert = "INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)";
-//                 $stmt_insert = $pdo->prepare($sql_insert);
+                // 5. Inserir no banco de dados
+                $sql_insert = "INSERT INTO usuarios (name, email, password) VALUES (?, ?, ?)";
+                $stmt_insert = $pdo->prepare($sql_insert);
                 
-//                 if ($stmt_insert->execute([$nome, $email, $senha_hash])) {
-//                     // 6. Redirecionar para o login com mensagem de sucesso
-//                     header("Location: Login.php?status=success");
-//                     exit;
-//                 } else {
-//                     $error_message = "Erro ao criar a conta. Tente novamente.";
-//                 }
-//             }
-//         } catch (PDOException $e) {
-//             $error_message = "Erro no banco de dados: " . $e->getMessage();
-//         }
-//     }
-// }
+                if ($stmt_insert->execute([$user_fullname, $email, $hashedPassword])) {
+                    // 6. Redirecionar para o login com mensagem de sucesso
+                    header("Location: Login.php?status=success");
+                    exit;
+                } else {
+                    $error_message = "Erro ao criar a conta. Tente novamente.";
+                }
+            }
+        } catch (PDOException $e) {
+            $error_message = "Erro no banco de dados: " . $e->getMessage();
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt">
@@ -94,13 +94,13 @@
                 <input 
                     type="text" 
                     class="form-control minimal-input" 
-                    id="floatingNome" 
-                    placeholder="Seu nome"
+                    id="floatingName" 
+                    placeholder="Seu name"
                     autocomplete="name"
-                    name="nome"
+                    name="name"
                     required
                 >
-                <label for="floatingNome">Nome</label>
+                <label for="floatingName">Nome</label>
             </div>
             
             <div class="form-floating mb-3">
@@ -121,7 +121,7 @@
                     type="password" 
                     class="form-control minimal-input" 
                     id="floatingPassword" 
-                    placeholder="Senha"
+                    placeholder= "password"
                     autocomplete="new-password"
                     name="password"
                     required

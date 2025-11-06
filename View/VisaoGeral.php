@@ -7,7 +7,7 @@
 */
 
 // 1. Dados do Usuário (Sessão)
-$userName = "Mauricio";
+$user_fullname = "";
 $userProfilePic = "https://via.placeholder.com/40";
 
 // 2. Dados dos Cards Principais (Consulta SQL)
@@ -122,7 +122,7 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
                     </span>
                 </a>
                 <img src="<?= htmlspecialchars($userProfilePic) ?>"
-                    alt="Foto de Perfil de <?= htmlspecialchars($userName) ?>" class="profile-pic">
+                    alt="Foto de Perfil de <?= htmlspecialchars($user_fullname) ?>" class="profile-pic">
             </div>
         </nav>
     </header>
@@ -130,7 +130,7 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
     <main>
 
         <div class="container">
-            <h1>Olá, <?= htmlspecialchars($userName) ?></h1>
+            <h1>Olá, <?= htmlspecialchars($user_fullname) ?></h1>
 
             <div class="geral-container">
                 <div class="geral-card">
