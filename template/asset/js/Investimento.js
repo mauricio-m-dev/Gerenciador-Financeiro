@@ -125,6 +125,9 @@ document.addEventListener('DOMContentLoaded', () => {
       'Authorization': `Bearer ${TOKEN_BRAPI}` // ESSENCIAL!
     }
   }
+
+  let objFiltro = []
+
   async function chamarAPI(params) {
     const resp = await fetch(URL_LISTA, config_token);
     if (resp.status === 200) {
@@ -143,6 +146,8 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log(objFiltro);
     }
   }
+
+  chamarAPI()
 
 
   /* ---------- Autocomplete de ações (mock, trocar por API depois) ---------- */
@@ -173,117 +178,132 @@ document.addEventListener('DOMContentLoaded', () => {
     'TSLA34',
   ]
 
- // 1. Listener de Input (lógica 100% do 2º script)
-stockInput.addEventListener("input", function () {
-    let resultado = [];
+  let resultado = [];
+
+  // 1. Listener de Input (lógica 100% do 2º script)
+  stockInput.addEventListener("input", function () {
     let input = stockInput.value; // Pega o valor do input 1
+    let  q = input.trim().toLowerCase()
 
     if (input.length) {
-        // lógica de filtragem (do 2º)
-        resultado = stocks.filter((keyword) => {
-            return keyword.toLowerCase().includes(input.toLowerCase());
-        });
-        // Chama a função de display (do 2º)
-        displaySuggestions(resultado); 
-    } else {
-        // Se o input estiver vazio (do 2º)
-        suggestionsEl.innerHTML = "";
-        suggestionsEl.style.display = 'none'; // Adicionado para garantir que feche
+      // lógica de filtragem (do 2º)
+      resultado = objFiltro.filter(item => {
+        // Procura no ticker OU no nome
+        return item.ticket.toLowerCase().includes(q) ||
+          item.nome.toLowerCase().includes(q);
+      }).slice(0, 8); // Limita a 8 resultados
+
+      displaySuggestions(resultado);
     }
+
+    else {
+    // Se o input estiver vazio (do 2º)
+    suggestionsEl.innerHTML = "";
+    suggestionsEl.style.display = 'none'; // Adicionado para garantir que feche
+  }
 });
 
 // 2. Função de Renderização (lógica 100% do 'display' do 2º script)
 function displaySuggestions(resultado) {
-    if (!resultado.length) {
-        suggestionsEl.innerHTML = "";
-        suggestionsEl.style.display = 'none';
-        return;
-    }
-    
-    const content = resultado.map((list) => {
-        return "<li>" + list + "</li>"; // Gera <li> exatamente como o 2º
-    });
+  if (!resultado.length) {
+    suggestionsEl.innerHTML = "";
+    suggestionsEl.style.display = 'none';
+    return;
+  }
 
-    // Coloca dentro de um <ul>, como o 2º script
-    suggestionsEl.innerHTML = "<ul>" + content.join('') + "</ul>";
-    suggestionsEl.style.display = 'block'; // Mostra o container
+  const content = resultado.map((item, index) => { // Mudei 'list' para 'item' para clareza
+        // Use a formatação do objeto (ticker e nome)
+        // Adicionei o data-index para o clique funcionar corretamente, como discutimos antes.
+        return `<li data-index="${index}"><strong>${item.ticket}</strong> - ${item.nome}</li>`; 
+    }).join('');
+
+  // Coloca dentro de um <ul>, como o 2º script
+  suggestionsEl.innerHTML = "<ul>" + content + "</ul>";
+  suggestionsEl.style.display = 'block'; // Mostra o container
 }
 
 // 3. Função de Seleção (lógica 100% do 'selectInput' do 2º script)
-function selectSuggestion(list) {
-    stockInput.value = list.innerHTML; // Seta o valor do input 1
-    hiddenSymbol.value = list.innerHTML; // **Seta o hidden input também**
-    suggestionsEl.innerHTML = ""; // Limpa os resultados 1
-    suggestionsEl.style.display = 'none'; // Esconde
+function selectSuggestion(listItem) {
+    const index = parseInt(listItem.getAttribute('data-index'), 10);
+    const item = resultado[index]; 
+
+    if (!item) return;
+
+    // CORRIGIDO: Agora usa consistentemente 'item.ticker'
+    stockInput.value = `${item.ticket} — ${item.nome}`; 
+    hiddenSymbol.value = item.ticket; 
+
+    suggestionsEl.innerHTML = "";
+    suggestionsEl.style.display = 'none';
 }
 
 // 4. Listener de Clique (lógica 100% do 2º)
 suggestionsEl.addEventListener('click', function (event) {
-    // Exatamente a lógica do 2º
-    if (event.target.tagName == "LI") {
-        selectSuggestion(event.target);
-    }
+  // Exatamente a lógica do 2º
+  if (event.target.tagName == "LI") {
+    selectSuggestion(event.target);
+  }
 });
 
 // 5. Bônus: Fechar ao clicar fora (o 2º não tem, mas é vital)
 document.addEventListener('click', (e) => {
-    if (!suggestionsEl.contains(e.target) && e.target !== stockInput) {
-        suggestionsEl.innerHTML = "";
-        suggestionsEl.style.display = 'none';
-    }
+  if (!suggestionsEl.contains(e.target) && e.target !== stockInput) {
+    suggestionsEl.innerHTML = "";
+    suggestionsEl.style.display = 'none';
+  }
 });
 
-  // Se o modal for fechado via bootstrap, limpa estado
-  const modalEl = document.getElementById('staticBackdrop');
-  if (modalEl) {
-    modalEl.addEventListener('hidden.bs.modal', () => {
-      stockInput.value = '';
-      hiddenSymbol.value = '';
-      closeList();
-    });
-  }
-
-
-
-  // Autocomplete da div Mercado
-  const resultsbox = document.querySelector(".result-box");
-  const pesquisa = document.getElementById("pesquisa-mercado");
-
-  // Seleciona o item das sugestões 
-  resultsbox.addEventListener('click', function (event) {
-    if (event.target.tagName == "LI") {
-      selectInput(event.target);
-    }
-  })
-
-  pesquisa.addEventListener("input", function () {
-    let resultado = [];
-    let input = pesquisa.value;
-
-    if (input.length) {
-      // lógica de filtragem 
-      resultado = stocks.filter((keyword) => {
-        return keyword.toLowerCase().includes(input.toLowerCase());
-      });
-      console.log(resultado);
-      display(resultado);
-    } else {
-      // Se o input estiver vazio (clique no 'x' ou apagar com backspace), limpa a caixa de resultados
-      resultsbox.innerHTML = "";
-    }
+// Se o modal for fechado via bootstrap, limpa estado
+const modalEl = document.getElementById('staticBackdrop');
+if (modalEl) {
+  modalEl.addEventListener('hidden.bs.modal', () => {
+    stockInput.value = '';
+    hiddenSymbol.value = '';
+    closeList();
   });
+}
 
-  function display(resultado) {
-    const content = resultado.map((list) => {
-      return "<li>" + list + "</li>";
-    });
 
-    resultsbox.innerHTML = "<ul>" + content.join('') + "</ul>";
+
+// Autocomplete da div Mercado
+const resultsbox = document.querySelector(".result-box");
+const pesquisa = document.getElementById("pesquisa-mercado");
+
+// Seleciona o item das sugestões 
+resultsbox.addEventListener('click', function (event) {
+  if (event.target.tagName == "LI") {
+    selectInput(event.target);
   }
+})
 
-  function selectInput(list) {
-    pesquisa.value = list.innerHTML;
+pesquisa.addEventListener("input", function () {
+  let resultado = [];
+  let input = pesquisa.value;
+
+  if (input.length) {
+    // lógica de filtragem 
+    resultado = stocks.filter((keyword) => {
+      return keyword.toLowerCase().includes(input.toLowerCase());
+    });
+    console.log(resultado);
+    display(resultado);
+  } else {
+    // Se o input estiver vazio (clique no 'x' ou apagar com backspace), limpa a caixa de resultados
     resultsbox.innerHTML = "";
   }
+});
+
+function display(resultado) {
+  const content = resultado.map((list) => {
+    return "<li>" + list + "</li>";
+  });
+
+  resultsbox.innerHTML = "<ul>" + content.join('') + "</ul>";
+}
+
+function selectInput(list) {
+  pesquisa.value = list.innerHTML;
+  resultsbox.innerHTML = "";
+}
 
 });

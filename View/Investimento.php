@@ -137,11 +137,6 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
                             <div class="modal-body">
                                 <!-- formulário / conteúdo do modal -->
                                 <form id="add-investment-form" autocomplete="off">
-                                    <div class="mb-3">
-                                        <label for="investment-name" class="form-label">Nome</label>
-                                        <input type="text" class="form-control" id="investment-name" name="name"
-                                            placeholder="Nome do investimento">
-                                    </div>
 
                                     <div class="mb-3">
                                         <label for="stock-search" class="form-label">Pesquisar ação</label>
@@ -154,8 +149,30 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="investment-value" class="form-label">Valor</label>
-                                        <input type="text" class="form-control" id="investment-value">
+                                        <label for="qtd-input" class="form-label">Quantidade de Cotas</label>
+                                        <div class="input-group" style="width: 100%;">
+
+                                            <button class="btn btn-outline-secondary" type="button" id="btn-menos"
+                                                data-acao="-">
+                                                -
+                                            </button>
+
+                                            <input type="text" class="form-control text-center" id="qtd-input" value="1"
+                                                min="1" name="quantidade">
+
+                                            <button class="btn btn-outline-secondary" type="button" id="btn-mais"
+                                                data-acao="+">
+                                                +
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="investment-value-unit" class="form-label">Valor Unitário
+                                            (R$)</label>
+                                        <input type="text" class="form-control" id="investment-value-unit"
+                                            name="valor_unitario" value="0.00" readonly>
+                                        <div class="form-text">Valor atual da ação, carregado da API.</div>
                                     </div>
                                 </form>
                             </div>
@@ -200,7 +217,7 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
                             <button class="btn btn-outline-success" type="submit">Search</button>
                         </form>
                         <div class="result-box">
-                            
+
                         </div>
                     </div>
 

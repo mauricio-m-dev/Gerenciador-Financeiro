@@ -233,6 +233,10 @@ header.scrolled {
   padding-left: 0;
 }
 
+.mb-3-comValor{
+  display: flex;
+}
+
 
 
 .geral-card-renda {
