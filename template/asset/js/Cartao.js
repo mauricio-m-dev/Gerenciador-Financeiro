@@ -1,6 +1,170 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // =========================================================
+    // 🎯 DECLARAÇÕES GLOBAIS UNIFICADAS
+    // =========================================================
     const navLinks = document.querySelectorAll('.nav-links a');
-    const STORAGE_KEY = 'nav-active-index';
+    const STORAGE_KEY = 'nav-active-index'; // Key para navegação lateral
+    
+    // Variáveis para o Filtro de Cartão:
+    const cardPlaceholders = document.querySelectorAll('.card-placeholder');
+    const CARD_SELECT_KEY = 'selected-card-index'; // Key para seleção de cartão
+    let expenseChart; // Declarada com 'let' para ser atualizada por outras funções
+    let highlightedIndex = null; // Variável para controle de destaque do gráfico
+
+    // Função auxiliar para esmaecer a cor
+    function dimColor(hex, alpha) {
+        const h = hex.replace('#', '');
+        const bigint = parseInt(h, 16);
+        const r = (bigint >> 16) & 255;
+        const g = (bigint >> 8) & 255;
+        const b = bigint & 255;
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    }
+
+    // =========================================================
+    // 1. FUNÇÕES DE FILTRO E ATUALIZAÇÃO DO DASHBOARD
+    // =========================================================
+
+    // NOVA FUNÇÃO: Atualiza porcentagem e seta ícone UP/DOWN nos cards de sumário
+    function updateSummaryPercent(name, percent, trend) {
+        const card = document.querySelector(`.${name}.mini-summary-card`);
+        if (!card) return;
+        
+        // Localiza o bloco de indicador de porcentagem (ex: div com a classe .increase-indicator)
+        const indicator = card.querySelector('.inner-block.small2');
+        if (!indicator) return;
+
+        // Limpa classes antigas de tendência
+        indicator.classList.remove('increase-indicator', 'decrease-indicator');
+        
+        // Define a nova classe de tendência e o ícone
+        const arrowIcon = (trend === 'up') 
+            ? '<i class=\'bx bx-up-arrow-alt\'></i>' 
+            : '<i class=\'bx bx-down-arrow-alt\'></i>';
+        
+        const trendClass = (trend === 'up') ? 'increase-indicator' : 'decrease-indicator';
+        
+        // Aplica a nova classe e o conteúdo HTML
+        indicator.classList.add(trendClass);
+        // O PHP já está enviando a vírgula, mas garantimos que o '.' seja tratado se necessário
+        const displayPercent = percent.toString().replace('.', ','); 
+        indicator.innerHTML = arrowIcon + ' ' + displayPercent + '%';
+    }
+
+
+    function updateDashboard(data) {
+        // 1. Atualiza Cards de Sumário
+        document.getElementById('renda-valor').textContent = data.sumario.renda_formatada; 
+        document.getElementById('despesas-valor').textContent = data.sumario.despesas_formatada;
+        document.getElementById('metas-valor').textContent = data.sumario.metas_formatada;
+        
+        // 🚨 NOVO: Atualiza Porcentagens e Tendências
+        updateSummaryPercent('Renda', data.sumario.renda_percent, data.sumario.renda_trend);
+        updateSummaryPercent('Despesas', data.sumario.despesas_percent, data.sumario.despesas_trend);
+        updateSummaryPercent('Metas', data.sumario.metas_percent, data.sumario.metas_trend);
+
+
+        // 2. Atualiza a Tabela de Transações
+        const tbody = document.querySelector('.transactions-table tbody');
+        if (tbody) {
+            tbody.innerHTML = data.tabela_html;
+            // Re-adiciona o listener dos "três pontos" para as novas linhas da tabela
+            const newDots = document.querySelectorAll('.transactions-table td i.bx-dots-vertical-rounded');
+            newDots.forEach(d => {
+                d.addEventListener('click', (e) => {
+                    const tr = e.target.closest('tr');
+                    if (tr) tr.classList.toggle('row-selected');
+                });
+            });
+        }
+        
+        // 3. Atualiza o Gráfico Doughnut
+        if (typeof expenseChart !== 'undefined' && expenseChart && data.grafico) {
+            expenseChart.data.labels = data.grafico.labels; 
+            expenseChart.data.datasets[0].data = data.grafico.data; 
+            
+            const baseColors = ['#EF4438', '#9B51E0', '#4CAF50', '#2D9CDB', '#F2C94C'];
+            expenseChart.data.datasets[0].backgroundColor = baseColors.slice(0, data.grafico.labels.length);
+            
+            expenseChart.update(); 
+        }
+
+        // 🚨 NOVO: 4. Atualiza a Lista de Categorias e religa os eventos
+        const categoryList = document.querySelector('.category-list');
+        if (categoryList && data.category_list_html) {
+            categoryList.innerHTML = data.category_list_html;
+            rebindCategoryListeners();
+        }
+    }
+    
+    // NOVO: Função para re-adicionar listeners às novas categorias (mantido e isolado)
+    function rebindCategoryListeners() {
+        const categoryItems = document.querySelectorAll('.category-item');
+        const baseColors = ['#EF4438', '#9B51E0', '#4CAF50', '#2D9CDB', '#F2C94C'];
+        
+        categoryItems.forEach((li, i) => {
+            li.addEventListener('click', () => {
+                if (!expenseChart) return;
+                
+                // Diminui/aumenta o realce no índice clicado
+                if (highlightedIndex === i) {
+                    // reset
+                    expenseChart.data.datasets[0].backgroundColor = baseColors.slice(0, expenseChart.data.labels.length);
+                    highlightedIndex = null;
+                } else {
+                    highlightedIndex = i;
+                    const newColors = baseColors.slice(0, expenseChart.data.labels.length).map((c, idx) => {
+                        return idx === i ? c : dimColor(c, 0.18);
+                    });
+                    expenseChart.data.datasets[0].backgroundColor = newColors;
+                }
+                expenseChart.update();
+            });
+        });
+    }
+
+    function filterDashboardByCardId(cardId) {
+        const idParaFiltro = cardId || 0; 
+        
+        // 🚨 CAMINHO CORRIGIDO NOVAMENTE, assumindo /config/ é o certo
+        const url = `../config/filtro_dados.php?cartao_id=${idParaFiltro}`; 
+
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao buscar dados filtrados do servidor. Status: ' + response.status);
+                }
+                return response.json(); 
+            })
+            .then(data => {
+                updateDashboard(data);
+            })
+            .catch(error => {
+                console.error('Falha na comunicação com o servidor:', error);
+            });
+    }
+
+    function setCardActive(index) {
+        let cardId = null;
+
+        cardPlaceholders.forEach((el, i) => {
+            if (i === index) {
+                el.classList.add('active');
+                cardId = el.dataset.cardId; // Pega o ID (19 ou 20)
+            }
+            else {
+                el.classList.remove('active');
+            }
+        });
+        localStorage.setItem(CARD_SELECT_KEY, String(index));
+        
+        filterDashboardByCardId(cardId);
+    }
+    
+    
+    // =========================================================
+    // 2. INICIALIZAÇÃO DE NAVEGAÇÃO E SCROLL (Mantido)
+    // =========================================================
 
     function setActive(index) {
         navLinks.forEach((a, i) => {
@@ -13,15 +177,10 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
-
-    // Restore from localStorage
+    
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved !== null) {
-        /*
-        |--------------------------------------------------------------------------
-        | Scroll automático para telas estreitas
-        |--------------------------------------------------------------------------
-        */
+        // ... (Seu código de scroll automático permanece aqui) ...
         (function() {
             const THRESHOLD = 843;
 
@@ -29,7 +188,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 const list = document.querySelector('.transactions-list');
                 if (!list) return;
                 if (window.innerWidth <= THRESHOLD) {
-                    // espera um pequeno atraso para garantir layout completo (imagens/fonts)
                     setTimeout(() => {
                         try {
                             list.scrollTo({ top: list.scrollHeight, behavior: 'smooth' });
@@ -40,14 +198,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
 
-            // Chama no carregamento
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', scrollTransactionsIfNarrow);
             } else {
                 scrollTransactionsIfNarrow();
             }
 
-            // Detecta mudança de tamanho e rola quando cruzar para abaixo do limite
             let lastNarrow = window.innerWidth <= THRESHOLD;
             window.addEventListener('resize', () => {
                 const nowNarrow = window.innerWidth <= THRESHOLD;
@@ -57,14 +213,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 lastNarrow = nowNarrow;
             });
         })();
-
+        
         const idx = parseInt(saved, 10);
         if (!Number.isNaN(idx) && idx >= 0 && idx < navLinks.length) {
             setActive(idx);
         }
     }
 
-    // Click handlers
+    // Click handlers (Navegação lateral)
     navLinks.forEach((link, idx) => {
         link.addEventListener('click', function (e) {
             if (link.getAttribute('href') === '#') e.preventDefault();
@@ -72,7 +228,6 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.setItem(STORAGE_KEY, String(idx));
         });
 
-        // Allow keyboard Enter/Space to activate
         link.addEventListener('keydown', function (e) {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
@@ -81,11 +236,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    /*
-    |--------------------------------------------------------------------------
-    | Seção 2: Gráfico de Despesas (Chart.js)
-    |--------------------------------------------------------------------------
-    */
+
+    // =========================================================
+    // 3. INICIALIZAÇÃO DO GRÁFICO (Chart.js)
+    // =========================================================
     const ctx = document.getElementById('expenseDoughnutChart');
     
     if (ctx) {
@@ -100,8 +254,6 @@ document.addEventListener('DOMContentLoaded', function () {
             chartValores = [100];
         }
 
-        console.log('expenseDoughnutChart datasets:', chartLabels, chartValores);
-    
         const data = {
             labels: chartLabels,
             datasets: [{
@@ -146,106 +298,50 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const ctx2d = ctx.getContext('2d');
-        const expenseChart = new Chart(ctx2d, config);
+        // ATRIBUIÇÃO CORRIGIDA: Usa a variável global 'expenseChart'
+        expenseChart = new Chart(ctx2d, config);
 
         /* ---------------------------
             Interações adicionais
         --------------------------- */
 
-        // 1) Seleção de card placeholders (salva no localStorage)
-        const cardPlaceholders = document.querySelectorAll('.card-placeholder');
-        const SELECTED_CARD_KEY = 'selected-card-index';
-
-        function setCardActive(index) {
-            cardPlaceholders.forEach((el, i) => {
-                if (i === index) el.classList.add('active');
-                else el.classList.remove('active');
-            });
-            localStorage.setItem(SELECTED_CARD_KEY, String(index));
-        }
-
-        // Restaura seleção
-        const savedCard = localStorage.getItem(SELECTED_CARD_KEY);
-        if (savedCard !== null) {
-            const idx = parseInt(savedCard, 10);
-            if (!Number.isNaN(idx) && idx >= 0 && idx < cardPlaceholders.length) setCardActive(idx);
+        // 1) Seleção de Cartão (Filtro AJAX)
+        const savedCardIndex = localStorage.getItem(CARD_SELECT_KEY);
+        if (savedCardIndex !== null) {
+            const idx = parseInt(savedCardIndex, 10);
+            if (!Number.isNaN(idx) && idx >= 0 && idx < cardPlaceholders.length) {
+                setCardActive(idx); 
+            } else {
+                if (cardPlaceholders.length > 0) setCardActive(0);
+            }
+        } else {
+            // Define o primeiro cartão como ativo e executa o filtro geral
+            if (cardPlaceholders.length > 0) setCardActive(0);
         }
 
         cardPlaceholders.forEach((el, i) => {
             el.addEventListener('click', () => setCardActive(i));
         });
 
-        
-        // 3) Realce por categoria: ao clicar em item da lista de categorias, destaca a fatia correspondente
-        const categoryItems = document.querySelectorAll('.category-item');
-        const baseColors = [
-            '#EF4438', '#9B51E0', '#4CAF50', '#2D9CDB', '#F2C94C'
-        ];
+        // 3) Realce por categoria: Chama a função para ligar os eventos
+        // NOTE: Isso deve ser chamado no final da inicialização E após o filtro, 
+        // mas a lógica de rebindCategoryListeners está dentro de updateDashboard.
+        // O listener de click do cartão em setCardActive já cuida disso.
 
-        function dimColor(hex, alpha) {
-            const h = hex.replace('#', '');
-            const bigint = parseInt(h, 16);
-            const r = (bigint >> 16) & 255;
-            const g = (bigint >> 8) & 255;
-            const b = bigint & 255;
-            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-        }
-
-        let highlightedIndex = null;
-        categoryItems.forEach((li, i) => {
-            li.addEventListener('click', () => {
-                if (!expenseChart) return;
-                if (highlightedIndex === i) {
-                    // reset
-                    expenseChart.data.datasets[0].backgroundColor = baseColors.slice(0, expenseChart.data.labels.length);
-                    highlightedIndex = null;
-                } else {
-                    highlightedIndex = i;
-                    const newColors = baseColors.slice(0, expenseChart.data.labels.length).map((c, idx) => {
-                        return idx === i ? c : dimColor(c, 0.18);
-                    });
-                    expenseChart.data.datasets[0].backgroundColor = newColors;
-                }
-                expenseChart.update();
-            });
-        });
-
-        // 4) Interação na tabela de transações: destaque da linha ao clicar nos três pontos
+        // 4) Interação na tabela de transações: (Mantido - para dados iniciais)
         const dots = document.querySelectorAll('.transactions-table td i.bx-dots-vertical-rounded');
         dots.forEach(d => {
             d.addEventListener('click', (e) => {
                 const tr = e.target.closest('tr');
-                if (!tr) return;
-                tr.classList.toggle('row-selected');
+                if (tr) tr.classList.toggle('row-selected');
             });
         });
     }
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | 3. Uso da Seleção: Lógica de Filtro
-    |--------------------------------------------------------------------------
-    */
-    const SELECTED_CARD_KEY = 'selected-card-index'; // Redefinido aqui para evitar erro de escopo
-
-    function filterDashboardBySelectedCard() {
-        const savedCardIndex = localStorage.getItem(SELECTED_CARD_KEY); 
-        const selectedCard = document.querySelector('.card-placeholder.active'); 
-        
-        if (!selectedCard) {
-            console.log("Nenhum cartão selecionado. Exibindo dados de todas as contas.");
-            return; 
-        }
-        
-        const cardId = selectedCard.dataset.cardId || `Card ${savedCardIndex}`;
-        
-        console.log(`Painel filtrado pelo: ${cardId}`);
-    }
-
-    // Chama o filtro uma vez no carregamento da página para refletir o estado salvo:
-    filterDashboardBySelectedCard();
-
+    // =========================================================
+    // 4. LÓGICA DO FORMULÁRIO (Máscara, Limite, AJAX) (Mantido)
+    // =========================================================
+    
     // Máscara para número do cartão (XXXX XXXX XXXX XXXX)
     const numeroCartaoInput = document.getElementById('numeroCartao');
     if (numeroCartaoInput) {
@@ -261,7 +357,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const limiteInput = document.getElementById('limiteCartao');
 
     function toggleLimite() {
-        if (!limiteInput) return; // Proteção extra
+        if (!limiteInput) return;
 
         if(tipoCartaoSelect.value === 'credito') {
             limiteInput.required = true;
@@ -278,52 +374,36 @@ document.addEventListener('DOMContentLoaded', function () {
         toggleLimite(); // inicial
     }
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | CORREÇÃO: Integração AJAX para Envio do Formulário de Cartão (Fetch API)
-    |--------------------------------------------------------------------------
-    | Este bloco foi movido para DENTRO do DOMContentLoaded.
-    */
+    // Integração AJAX para Envio do Formulário de Cartão (Fetch API)
     const formAddCartao = document.getElementById('formAddCartao');
     const modalAddCartaoElement = document.getElementById('modalAddCartao');
-    // Verifica se a classe Bootstrap está disponível e inicializa o modal
     const modalAddCartao = (typeof bootstrap !== 'undefined' && modalAddCartaoElement) 
-                           ? new bootstrap.Modal(modalAddCartaoElement) 
-                           : null;
+                               ? new bootstrap.Modal(modalAddCartaoElement) 
+                               : null;
 
     if (formAddCartao && modalAddCartao) {
         formAddCartao.addEventListener('submit', function(e) {
-            // 🛑 CRUCIAL: IMPEDE O ENVIO TRADICIONAL
             e.preventDefault();
 
-            // Coleta os dados do formulário
             const formData = new FormData(this);
             const actionUrl = this.getAttribute('action');
 
-            // Envia os dados usando Fetch
             fetch(actionUrl, {
                 method: 'POST',
                 body: formData
             })
             .then(response => {
                 if (!response.ok) {
-                    // Captura e lança o erro retornado pelo PHP (Status 400 ou 500)
                     return response.text().then(text => { throw new Error(text) });
                 }
                 return response.text();
             })
             .then(data => {
-                // SUCESSO
                 modalAddCartao.hide(); 
-                
                 window.location.reload(); 
             })
             .catch(error => {
-                // ERRO
                 console.error("Erro no Servidor/Validação:", error.message);
-                // Exibe a mensagem de erro que veio do PHP
-                
             });
         });
     }

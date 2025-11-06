@@ -1014,12 +1014,7 @@ box-sizing: border-box;
     /* --- SEÇÃO 1: CARTÕES / CARTEIRAS --- */
     
     /* Permite que o card-list quebre para caber mais de 3 cards em uma linha */
-    .card-list {
-        flex-wrap: wrap; 
-        justify-content: flex-start;
-        gap: 15px; /* Reduz o espaçamento */
-    }
-    
+   
     /* Ajusta a largura dos placeholders para permitir 2 ou 3 cards por linha */
     .card-placeholder {
         /* Permite 3 cards por linha com espaçamento */
