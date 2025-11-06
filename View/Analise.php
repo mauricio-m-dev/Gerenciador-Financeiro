@@ -1,4 +1,5 @@
-<?php ?>
+<?php 
+?>
 
 <html lang="en">
 
@@ -20,6 +21,19 @@
 
 <body>
 
+<!-- Código do vLibras -->
+<div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+    </div>
+</div>
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
+
+    
     <header>
         <nav class="navbar">
 
@@ -35,7 +49,7 @@
             <ul class="nav-links">
                 <li><a href="#">Visão Geral</a></li>
                 <li><a href="#">Investimentos</a></li>
-                <li><a href="#">Análise</a></li>
+                <li><a href="#" class="active">Análise</a></li>
                 <li><a href="#">Metas</a></li>
                 <li><a href="#">Cartões</a></li>
             </ul>
@@ -87,15 +101,7 @@
                                 d="M14 13.5a.5.5 0 0 1-.5.5h-6a.5.5 0 0 1 0-1h4.793L2.146 2.854a.5.5 0 1 1 .708-.708L13 12.293V7.5a.5.5 0 0 1 1 0z" />
                         </svg>+1.9% vs mês anterior</p>
                 </div>
-                <div class="geral-card-taxa">
-                    <p class="mini">Taxa Poupança</p>
-                    <h2>42.4%</h2>
-                    <p class="green"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-arrow-up-right" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M14 2.5a.5   .5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0z" />
-                        </svg>+12.5% vs mês anterior</p>
-                </div>
+              
             </div>
 
             <div class="geral-container">
@@ -204,7 +210,7 @@
 
                     <div class="reco-card green-bg">
                         <h3>Metas</h3>
-                        <p>Crie metas financeiras!</p>
+                        <p>Crie metas financeiras!,</p>
                     </div>
 
                     <div class="reco-card yellow-bg">

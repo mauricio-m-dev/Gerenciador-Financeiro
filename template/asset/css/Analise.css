@@ -81,6 +81,14 @@ main p {
     gap: 2.5rem;
     /* Espaçamento entre os links */
 }
+.nav-links .active{
+    color: #155EEF;
+    background-color: #F5F8FF;
+    padding: 0.8rem;
+    border-radius: 1rem;
+    transform: translateY(-5px);
+
+}
 
 .nav-links li a {
     font-weight: 500;
