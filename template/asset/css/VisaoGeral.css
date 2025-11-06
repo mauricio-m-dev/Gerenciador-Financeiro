@@ -80,12 +80,12 @@ header.scrolled {
 
 .navbar {
   margin: 0 auto;
-  padding: 0 1.5rem; /* Espaçamento padrão */
+  padding: 0 1rem; /* Espaçamento padrão */
   height: 70px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
+  max-width: 1700px;
 }
 
 .nav-left {
@@ -116,6 +116,12 @@ header.scrolled {
   transition: all 0.3s ease-in-out;
 }
 
+.nav-links .active {
+  color: #155eef;
+  background-color: #f5f8ff;
+  border-radius: 1rem;
+  outline: none;
+}
 .nav-links {
   display: flex;
   gap: 2.5rem;
@@ -716,7 +722,7 @@ header.scrolled {
     transition: max-height 0.4s ease-out, padding 0.4s ease-out;
   }
 
-  .nav-links.active {
+  .nav-links .active {
     max-height: 500px;
     padding: 1rem 0;
   }

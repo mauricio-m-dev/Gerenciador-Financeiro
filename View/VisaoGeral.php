@@ -108,7 +108,7 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
             </div>
 
             <ul class="nav-links">
-                <li><a href="Visaogera.php">Visão Geral</a></li>
+                <li><a href="VisaoGeral.php" class="active">Visão Geral</a></li>
                 <li><a href="#">Investimentos</a></li>
                 <li><a href="#">Análise</a></li>
                 <li><a href="#">Metas</a></li>
