@@ -1,10 +1,40 @@
 <?php 
-// Dados de exemplo para o gráfico (baseado nas % mostradas na lista)
+// =========================================================
+// 1. BLOCÃO PHP: CONEXÃO E BUSCA DE DADOS (MOVIDO PARA O TOPO)
+// =========================================================
+
+// Certifique-se de que a conexão está incluída e funcionando
+require_once '../Config/conexao.php'; // Ajuste o caminho conforme necessário
+
+$cartoes = []; // Array para armazenar os cartões
+
+// Prepara a consulta para buscar ID, nome, últimos 4 dígitos, bandeira e tipo
+$sql = "SELECT id, nome, ultimos4, bandeira, tipo FROM cartoes ORDER BY id ASC";
+$stmt = $conn->prepare($sql);
+
+if ($stmt) {
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Loop para preencher o array $cartoes
+    while ($cartao = $result->fetch_assoc()) {
+        $cartoes[] = $cartao;
+    }
+
+    $stmt->close();
+} else {
+    // Em produção, você pode remover ou comentar isso:
+    // echo "Erro ao preparar a consulta: " . $conn->error;
+}
+// Não feche a conexão aqui se for usá-la em outros lugares!
+
+// Dados de exemplo para o gráfico (mantido)
 $labels = ['Casa', 'Cartão de crédito', 'Transporte', 'Mantimentos', 'Compras'];
-$valores = [4135, 2151, 1347, 997, 335]; // valores que darão as % corretas
+$valores = [4135, 2151, 1347, 997, 335]; 
 
 $chartLabelsJSON = json_encode($labels);
 $chartValoresJSON = json_encode($valores);
+
 ?>
 
 <!DOCTYPE html>
@@ -58,38 +88,66 @@ $chartValoresJSON = json_encode($valores);
         <div class="Minha-carteira">
             <h2> Minhas Carteiras</h2>
             <h5>Selecione uma carteira para ver os detalhes</h5>
+            
             <div class="card-list">
-                <div class="card-placeholder">
-                    <div class="card-content">
-                        <div class="inner-block large"></div>
-                        <div class="inner-block small"></div>
-                    </div>
-                </div>
+                <?php
+                // Mapa de cores para as bandeiras
+                $cores_cartao = [
+                    'Visa' => '#0054a6',
+                    'Mastercard' => '#f7971b',
+                    'Elo' => '#00a89d',
+                    'American Express' => '#4c93d9',
+                    'default' => '#3498db', // Cor padrão
+                ];
 
-                <div class="card-placeholder">
-                    <div class="card-content">
-                        <div class="inner-block large"></div>
-                        <div class="inner-block small"></div>
+                // Verifica se há cartões antes de iniciar o loop
+                if (!empty($cartoes)) {
+                    foreach ($cartoes as $cartao) {
+                        // Define a cor com base na bandeira, usando a cor default se não encontrar
+                        $bandeira_key = array_key_exists($cartao['bandeira'], $cores_cartao) 
+                                        ? $cartao['bandeira'] 
+                                        : 'default';
+                        $cor = $cores_cartao[$bandeira_key];
+                    ?>
+                    
+                    <div 
+                        class="card-placeholder card-carteira" 
+                        style="border-left: 5px solid <?php echo $cor; ?>;"
+                        data-card-id="<?php echo $cartao['id']; ?>"
+                        data-card-bandeira="<?php echo htmlspecialchars($cartao['bandeira']); ?>"
+                    >
+                        <div class="card-header-info">
+                            <p class="card-name">
+                                <?php echo htmlspecialchars($cartao['nome']); ?>
+                            </p>
+                            <p class="card-number">
+                                **** **** **** <?php echo htmlspecialchars($cartao['ultimos4']); ?>
+                            </p>
+                        </div>
+                        <div class="card-type">
+                            <span class="badge badge-<?php echo $cartao['tipo']; ?>">
+                                <?php echo ucfirst($cartao['tipo']); ?>
+                            </span>
+                        </div>
                     </div>
-                </div>
 
-                <div class="card-placeholder">
-                    <div class="card-content">
-                        <div class="inner-block large"></div>
-                        <div class="inner-block small"></div>
-                    </div>
-                </div>
+                    <?php
+                    } // Fim do loop foreach
+                } else {
+                    // Mensagem se não houver cartões cadastrados
+                    echo '<p style="margin-top: 15px; color: #777;">Nenhum cartão cadastrado. Use o botão "Adicionar Cartão" para começar.</p>';
+                }
+                ?>
             </div>
-        </div>
+            </div>
 
         <div class="main-content2">
             <div class="Renda mini-summary-card income-card">
                 <h4 class="summary-title">Renda</h4>
-                <p class="summary-value">R$5.502,45</p>
-               <div class="inner-block small2 increase-indicator">
+                <p class="summary-value" id="renda-valor">R$5.502,45</p> 
+                <div class="inner-block small2 increase-indicator">
     <i class='bx bx-up-arrow-alt'></i> 12,5%
 </div>
-
 
 
                 </span>
@@ -97,7 +155,7 @@ $chartValoresJSON = json_encode($valores);
 
             <div class="Despesas mini-summary-card expense-card">
                 <h4 class="summary-title">Despesas</h4>
-                <p class="summary-value">R$9.450,00</p>
+                <p class="summary-value" id="despesas-valor">R$9.450,00</p> 
                 <div class="inner-block small2 increase-indicator">
     <i class='bx bx-up-arrow-alt'></i> 27,1%
 </div>
@@ -108,8 +166,8 @@ $chartValoresJSON = json_encode($valores);
 
             <div class="Metas mini-summary-card goal-card">
                 <h4 class="summary-title">Metas</h4>
-                <p class="summary-value goal-value">R$3.945,55</p>
-               <div class="inner-block small2 decrease-indicator">
+                <p class="summary-value goal-value" id="metas-valor">R$3.945,55</p> 
+                <div class="inner-block small2 decrease-indicator">
     <i class='bx bx-down-arrow-alt'></i> -15% 
 </div>
 
@@ -117,8 +175,8 @@ $chartValoresJSON = json_encode($valores);
         </div>
         <div class="main-content3">
     
-   <div class="chart-section">
-   <div class="sidebar-area">
+    <div class="chart-section">
+    <div class="sidebar-area">
                     <div class="category-chart-section">
                         <h2 class="section-title">Despesas por Categoria</h2>
                         <div class="chart-card">
@@ -127,7 +185,7 @@ $chartValoresJSON = json_encode($valores);
                         </div>
                     </div>
                 </div>
-      
+        
 
     <ul class="category-list">
         <li class="category-item">
@@ -275,84 +333,73 @@ $chartValoresJSON = json_encode($valores);
     </table>
     </div>
 
-       
+        
     </div>
         
     </div>
 </div>
 
 </main>
-<!-- Modal de Adicionar Cartão -->
 <div class="modal fade" id="modalAddCartao" tabindex="-1" aria-labelledby="modalAddCartaoLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalAddCartaoLabel">Adicionar Novo Cartão</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-      </div>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalAddCartaoLabel">Adicionar Novo Cartão</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
 
-      <div class="modal-body">
-        <form id="formAddCartao" method="POST" action="../config/salvar_cartao.php">
-          
-          <!-- Nome do Cartão -->
-          <div class="mb-3">
-            <label for="nomeCartao" class="form-label">Nome do Cartão</label>
-            <input type="text" class="form-control" id="nomeCartao" name="nomeCartao" placeholder="Ex: Cartão Pessoal" required>
-          </div>
+            <div class="modal-body">
+                <form id="formAddCartao" method="POST" action="../config/salvar_cartao.php">
+                    
+                    <div class="mb-3">
+                        <label for="nomeCartao" class="form-label">Nome do Cartão</label>
+                        <input type="text" class="form-control" id="nomeCartao" name="nomeCartao" placeholder="Ex: Cartão Pessoal" required>
+                    </div>
 
-          <!-- Número do Cartão -->
-          <div class="mb-3">
-            <label for="numeroCartao" class="form-label">Número do Cartão</label>
-            <input type="text" class="form-control" id="numeroCartao" name="numeroCartao" maxlength="19" placeholder="XXXX XXXX XXXX XXXX" required>
-          </div>
+                    <div class="mb-3">
+                        <label for="numeroCartao" class="form-label">Número do Cartão</label>
+                        <input type="text" class="form-control" id="numeroCartao" name="numeroCartao" maxlength="19" placeholder="XXXX XXXX XXXX XXXX" required>
+                    </div>
 
-          <!-- Data de Validade -->
-          <div class="mb-3">
-            <label for="validadeCartao" class="form-label">Data de Validade</label>
-            <input type="month" class="form-control" id="validadeCartao" name="validadeCartao" required>
-          </div>
+                    <div class="mb-3">
+                        <label for="validadeCartao" class="form-label">Data de Validade</label>
+                        <input type="month" class="form-control" id="validadeCartao" name="validadeCartao" required>
+                    </div>
 
-          <!-- CVV -->
-          <div class="mb-3">
-            <label for="cvvCartao" class="form-label">CVV</label>
-            <input type="text" class="form-control" id="cvvCartao" name="cvvCartao" maxlength="4" placeholder="XXX" required>
-          </div>
+                    
 
-          <!-- Bandeira -->
-          <div class="mb-3">
-            <label for="bandeiraCartao" class="form-label">Bandeira</label>
-            <select class="form-select" id="bandeiraCartao" name="bandeiraCartao" required>
-              <option value="">Selecione</option>
-              <option value="Visa">Visa</option>
-              <option value="Mastercard">Mastercard</option>
-              <option value="Elo">Elo</option>
-              <option value="American Express">American Express</option>
-            </select>
-          </div>
+                    <div class="mb-3">
+                        <label for="bandeiraCartao" class="form-label">Bandeira</label>
+                        <select class="form-select" id="bandeiraCartao" name="bandeiraCartao" required>
+                            <option value="">Selecione</option>
+                            <option value="Visa">Visa</option>
+                            <option value="Mastercard">Mastercard</option>
+                            <option value="Elo">Elo</option>
+                            <option value="American Express">American Express</option>
+                        </select>
+                    </div>
 
-          <!-- Tipo de Cartão -->
-          <div class="mb-3">
-            <label for="tipoCartao" class="form-label">Tipo de Cartão</label>
-            <select class="form-select" id="tipoCartao" name="tipoCartao" required>
-              <option value="">Selecione</option>
-              <option value="credito">Crédito</option>
-              <option value="debito">Débito</option>
-              <option value="pre-pago">Pré-pago</option>
-            </select>
-          </div>
+                    <div class="mb-3">
+                        <label for="tipoCartao" class="form-label">Tipo de Cartão</label>
+                        <select class="form-select" id="tipoCartao" name="tipoCartao" required>
+                            <option value="">Selecione</option>
+                            <option value="credito">Crédito</option>
+                            <option value="debito">Débito</option>
+                            <option value="pre-pago">Pré-pago</option>
+                        </select>
+                    </div>
 
-          <!-- Limite (apenas para crédito) -->
-          <div class="mb-3">
-            <label for="limiteCartao" class="form-label">Limite (R$)</label>
-            <input type="number" step="0.01" class="form-control" id="limiteCartao" name="limiteCartao" placeholder="Ex: 2000.00">
-          </div>
+                    <div class="mb-3">
+                        <label for="limiteCartao" class="form-label">Limite (R$)</label>
+                        <input type="number" step="0.01" class="form-control" id="limiteCartao" name="limiteCartao" placeholder="Ex: 2000.00">
+                    </div>
 
-          <button type="submit" class="btn btn-primary w-100">Salvar Cartão</button>
-        </form>
-      </div>
+                    <button type="submit" class="btn btn-primary w-100">Salvar Cartão</button>
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
