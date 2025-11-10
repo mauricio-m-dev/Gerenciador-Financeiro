@@ -1,0 +1,83 @@
+/* Fonte Global */
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    flex-direction: column;
+}
+
+.logo {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #000;
+    display: flex;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+/* Container do Formulário */
+.form-container {
+    margin-top: 25px;
+    max-width: 370px;
+    width: 100%;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 2px 16px rgba(60, 60, 60, 0.06);
+    padding: 2.5rem 2rem 2rem;
+}
+
+/* Inputs Minimalistas */
+.form-floating > .minimal-input {
+    border-radius: 10px;
+    background: #f8f9fb;
+}
+
+/* Foco nos Inputs */
+.form-floating > .minimal-input:focus {
+    border-color: #b0b6c1;
+    background: #fff;
+    box-shadow: none;
+}
+
+/* Botão Minimalista */
+.btn-minimal {
+    background: #222;
+    color: #fff;
+    border-radius: 10px;
+    border: none;
+    font-weight: 600;
+    font-size: 1.08rem;
+    padding: 0.7rem 0;
+    transition: background 0.2s, color 0.2s;
+}
+
+.btn-minimal:hover,
+.btn-minimal:focus {
+    background: #444;
+    color: #fff;
+}
+
+/* Container para links de cadastro/login */
+.cadastro-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Link de cadastro/login */
+.cadastro-link {
+    display: inline-block;
+    color: #222;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.cadastro-link:hover {
+    color: #888;
+}
+
+.btn-minimal a {
+    color: inherit;
+    text-decoration: none;
+}
