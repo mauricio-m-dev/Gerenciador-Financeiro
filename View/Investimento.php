@@ -152,18 +152,10 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
                                         <label for="qtd-input" class="form-label">Quantidade de Cotas</label>
                                         <div class="input-group" style="width: 100%;">
 
-                                            <button class="btn btn-outline-secondary" type="button" id="btn-menos"
-                                                data-acao="-">
-                                                -
-                                            </button>
 
                                             <input type="text" class="form-control text-center" id="qtd-input" value="1"
                                                 min="1" name="quantidade">
 
-                                            <button class="btn btn-outline-secondary" type="button" id="btn-mais"
-                                                data-acao="+">
-                                                +
-                                            </button>
                                         </div>
                                     </div>
 
@@ -171,9 +163,18 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
                                         <label for="investment-value-unit" class="form-label">Valor Unitário
                                             (R$)</label>
                                         <input type="text" class="form-control" id="investment-value-unit"
-                                            name="valor_unitario" value="0.00" readonly>
+                                            name="valor_unitario" value="0.00">
                                         <div class="form-text">Valor atual da ação, carregado da API.</div>
                                     </div>
+
+                                    <div class="mb-3">
+                                        <label for="investment-value-unit" class="form-label">Valor total
+                                            (R$)</label>
+                                        <input type="text" class="form-control" id="investment-value-total"
+                                            name="valor_total" value="0.00" readonly>
+                                        <div class="form-text">Valor total da ação, carregado da API.</div>
+                                    </div>
+
                                 </form>
                             </div>
                             <div class="modal-footer">
