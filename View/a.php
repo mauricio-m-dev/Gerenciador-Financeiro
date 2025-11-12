@@ -1,39 +1,12 @@
-<?php 
-// =========================================================
-// 1. BLOCÃO PHP: CONEXÃO E BUSCA DE DADOS (MOVIDO PARA O TOPO)
-// =========================================================
+<?php
 
-// Certifique-se de que a conexão está incluída e funcionando
-require_once '../Config/conexao.php'; // Ajuste o caminho conforme necessário
+use Controller\CartaoController;
+session_start();
+require '../vendor/autoload.php';
 
-$cartoes = []; // Array para armazenar os cartões
+$cartaoController = new CartaoController();
 
-// Prepara a consulta para buscar ID, nome, últimos 4 dígitos, bandeira e tipo
-$sql = "SELECT id, nome, ultimos4, bandeira, tipo FROM cartoes ORDER BY id ASC";
-$stmt = $conn->prepare($sql);
-
-if ($stmt) {
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    // Loop para preencher o array $cartoes
-    while ($cartao = $result->fetch_assoc()) {
-        $cartoes[] = $cartao;
-    }
-
-    $stmt->close();
-} else {
-    // Em produção, você pode remover ou comentar isso:
-    // echo "Erro ao preparar a consulta: " . $conn->error;
-}
-// Não feche a conexão aqui se for usá-la em outros lugares!
-
-// Dados de exemplo para o gráfico (mantido)
-$labels = ['Casa', 'Cartão de crédito', 'Transporte', 'Mantimentos', 'Compras'];
-$valores = [4135, 2151, 1347, 997, 335]; 
-
-$chartLabelsJSON = json_encode($labels);
-$chartValoresJSON = json_encode($valores);
+$cartao = $cartaoController->getCardDetails(1); 
 
 ?>
 
@@ -415,9 +388,9 @@ $chartValoresJSON = json_encode($valores);
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
             <div class="modal-body">
-                <p>Selecione um cartão. **Todas as transações associadas serão apagadas.**</p>
+                <p>Selecione um cartão.</p>
                 <select class="form-select" id="selectCardToDelete" required>
-                    <option value="">-- Selecione o Cartão --</option>
+                    <option value=""></option>
                     <?php 
                     // Populando o SELECT com os cartões buscados no topo da página
                     if (!empty($cartoes)) {
