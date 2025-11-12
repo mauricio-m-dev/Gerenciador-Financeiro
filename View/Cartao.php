@@ -86,9 +86,14 @@ $chartValoresJSON = json_encode($valores);
         </div>
         
         <div class="Minha-carteira">
-            <h2> Minhas Carteiras</h2>
-            <h5>Selecione uma carteira para ver os detalhes</h5>
-            
+    <h2> Minhas Carteiras</h2>
+    <h5>Selecione uma carteira para ver os detalhes</h5>
+    
+    <div class="delete-cartao-container">
+        <button id="btn-delete-card-trigger" class="btn btn-danger btn-sm mb-3" data-bs-toggle="modal" data-bs-target="#modalDeleteCartao">
+            <i class='bx bx-trash'></i> Deletar Cartão
+        </button>
+    </div>
             <div class="card-list">
                 <?php
                 // Mapa de cores para as bandeiras
@@ -138,6 +143,7 @@ $chartValoresJSON = json_encode($valores);
                     echo '<p style="margin-top: 15px; color: #777;">Nenhum cartão cadastrado. Use o botão "Adicionar Cartão" para começar.</p>';
                 }
                 ?>
+                
             </div>
             </div>
 
@@ -401,7 +407,36 @@ $chartValoresJSON = json_encode($valores);
         </div>
     </div>
 </div>
-
+<div class="modal fade" id="modalDeleteCartao" tabindex="-1" aria-labelledby="modalDeleteCartaoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalDeleteCartaoLabel">Selecione o Cartão para Deletar</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <p>Selecione um cartão. **Todas as transações associadas serão apagadas.**</p>
+                <select class="form-select" id="selectCardToDelete" required>
+                    <option value="">-- Selecione o Cartão --</option>
+                    <?php 
+                    // Populando o SELECT com os cartões buscados no topo da página
+                    if (!empty($cartoes)) {
+                        foreach ($cartoes as $cartao_opt) {
+                            echo '<option value="' . htmlspecialchars($cartao_opt['id']) . '">';
+                            echo htmlspecialchars($cartao_opt['nome']) . ' (Final: ' . htmlspecialchars($cartao_opt['ultimos4']) . ')';
+                            echo '</option>';
+                        }
+                    }
+                    ?>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteCardBtn">Deletar</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
