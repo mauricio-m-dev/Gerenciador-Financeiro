@@ -136,6 +136,7 @@ header.scrolled {
 }
 
 main {
+    font-family: 'Poppins', sans-serif;
     margin: 80px 0 0 0;
     padding: 2rem 1.5rem;
 }

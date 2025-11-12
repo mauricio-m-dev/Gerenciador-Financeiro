@@ -133,11 +133,11 @@ function getTransactionIcon(string $tipo): string
             </div>
 
             <ul class="nav-links">
-                <li><a href="Visaogeral.php">Visão Geral</a></li>
-                <li><a href="#">Investimentos</a></li>
-                <li><a href="#">Análise</a></li>
-                <li><a href="#">Metas</a></li>
-                <li><a href="#">Cartões</a></li>
+                <li><a href="VisaoGeral.php" class="active">Visão Geral</a></li>
+                <li><a href="Investimento.php">Investimentos</a></li>
+                <li><a href="Analise.php">Análise</a></li>
+                <li><a href="Meta.php">Metas</a></li>
+                <li><a href="Cartoes.php">Cartões</a></li>
             </ul>
 
             <div class="user-area">

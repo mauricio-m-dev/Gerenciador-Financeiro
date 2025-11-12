@@ -65,7 +65,9 @@ $all_goals = load_goals($data_file);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>gerenciador - testes</title>
+    <title>Metas - NOVYX
+        
+    </title>
 
     <link rel="stylesheet" href="../template/asset/css/Meta.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -92,11 +94,11 @@ $all_goals = load_goals($data_file);
             </div>
 
             <ul class="nav-links">
-                <li><a href="#">Visão Geral</a></li>
-                <li><a href="#">Investimentos</a></li>
-                <li><a href="#">Análise</a></li>
-                <li><a href="#">Metas</a></li>
-                <li><a href="#">Cartões</a></li>
+                <li><a href="VisaoGeral.php" >Visão Geral</a></li>
+                <li><a href="Investimento.php">Investimentos</a></li>
+                <li><a href="Analise.php">Análise</a></li>
+                <li><a href="Metas.php"class="active">Metas</a></li>
+                <li><a href="Cartoes.php">Cartões</a></li>
             </ul>
 
             <div class="user-area">

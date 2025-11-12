@@ -47,11 +47,11 @@
             </div>
 
             <ul class="nav-links">
-                <li><a href="#">Visão Geral</a></li>
-                <li><a href="#">Investimentos</a></li>
-                <li><a href="#" class="active">Análise</a></li>
-                <li><a href="#">Metas</a></li>
-                <li><a href="#">Cartões</a></li>
+                 <li><a href="VisaoGeral.php" >Visão Geral</a></li>
+                <li><a href="Investimento.php" >Investimentos</a></li>
+                <li><a href="Analise.php" class="active">Análise</a></li>
+                <li><a href="Meta.php">Metas</a></li>
+                <li><a href="Cartoes.php">Cartões</a></li>
             </ul>
 
             <div class="user-area">

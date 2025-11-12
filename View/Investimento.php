@@ -58,7 +58,7 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visao Geral - NOVYX</title>
+    <title>Investimentos - NOVYX</title>
 
     <!-- Bootstrap CSS primeiro -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -93,11 +93,11 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
 
             <ul class="nav-links">
 
-                <li><a href="#">Visão Geral</a></li>
-                <li><a href="#" class="active">Investimentos</a></li>
-                <li><a href="#">Análise</a></li>
-                <li><a href="#">Metas</a></li>
-                <li><a href="#">Cartões</a></li>
+                <li><a href="VisaoGeral.php" >Visão Geral</a></li>
+                <li><a href="Investimento.php" class="active">Investimentos</a></li>
+                <li><a href="Analise.php">Análise</a></li>
+                <li><a href="Meta.php">Metas</a></li>
+                <li><a href="Cartoes.php">Cartões</a></li>
 
             </ul>
 
