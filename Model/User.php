@@ -8,8 +8,7 @@ use PDO;
 use PDOException;
 use Exception;
 
-class User
-{
+class User {
     private $db;
 
     /*
@@ -17,17 +16,15 @@ class User
      * FOR CRIADO UM OBJETO DA CLASSE -> USER
      */
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->db = Connection::getInstance();
     }
 
     // FUNÇÃO DE CRIAR USUÁRIO
-    public function registerUser($user_fullname, $email, $password)
-    {
+    public function registerUser($user_fullname, $email, $password){
         try {
             // INSERÇÃO DE DADOS NA LINGUAGEM SQL
-            $sql = 'INSERT INTO user (user_fullname, email, password, created_at) VALUES (:user_fullname, :email, :password, NOW())';
+            $sql = 'INSERT INTO user (user_fullname, email, password) VALUES (:user_fullname, :email, :password)';
 
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
@@ -40,7 +37,6 @@ class User
             $stmt->bindParam(":password", $hashedPassword, PDO::PARAM_STR);
 
             // EXECUTAR TUDO
-
             return $stmt->execute();
 
         } catch (PDOException $error) {

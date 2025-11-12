@@ -4,14 +4,15 @@
 | Lógica de Cadastro
 |--------------------------------------------------------------------------
 */
-session_start();
-require_once 'db.php'; // Inclui a conexão com o banco
+require_once '../Config/configuration.php'; 
+require_once '../vendor/autoload.php'; 
+
 use Controller\UserController; 
-$error_message = ''; // Variável para armazenar mensagens de erro
+$userController = new UserController();
+
 
 // Verifica se o formulário foi submetido
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
     // 1. Obter e limpar dados do formulário
     $user_fullname = trim($_POST['name']);
     $email = trim($_POST['email']);
@@ -26,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         try {
             // 3. Verificar se o e-mail já existe
-            $sql = "SELECT id FROM usuarios WHERE email = ?";
+            $sql = "SELECT id FROM user WHERE email = ?";
             $stmt = $pdo->prepare($sql);
             $stmt->execute([$email]);
             
@@ -39,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $hashedPassword   = password_hash($password, PASSWORD_DEFAULT);
                 
                 // 5. Inserir no banco de dados
-                $sql_insert = "INSERT INTO usuarios (name, email, password) VALUES (?, ?, ?)";
+                $sql_insert = "INSERT INTO user (user_fullname, email, password) VALUES (?, ?, ?)";
                 $stmt_insert = $pdo->prepare($sql_insert);
                 
                 if ($stmt_insert->execute([$user_fullname, $email, $hashedPassword])) {

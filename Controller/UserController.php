@@ -5,55 +5,34 @@ namespace Controller;
 use Model\User;
 use Exception;
 
-class UserController
-{
+class UserController {
     private $userModel;
 
-    public function __construct(User $userModel)
-    {
-        $this->userModel = $userModel;
+    public function __construct() {
+        $this->userModel = new User();
     }
 
     // REGISTRO DE USUÁRIO
-    public function createUser($user_fullname, $email, $password)
-    {
-
+    public function createUser($user_fullname, $email, $password){
         if (empty($user_fullname) or empty($email) or empty($password)) {
             return false;
         }
 
         // $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
         return $this->userModel->registerUser($user_fullname, $email, $password);
-
     }
 
     // E-MAIL JÁ CADASTRADO?
-    public function checkUserByEmail($email)
-    {
+    public function checkUserByEmail($email){
         return $this->userModel->getUserByEmail($email);
     }
 
     // LOGIN DE USUÁRIO
-    public function login($email, $password)
-    {
+    public function login($email, $password){
         $user = $this->userModel->getUserByEmail($email);
 
-        /**
-         * $user = [
-         *    "id" => 1,
-         *    "user_fullname" => "Teste",
-         *    "email" => "teste@example.com",
-         *    "password" => "$2y$10$19ujCfISbUFtFqPRJx9PN.G8fGcqNCkWTnitJpMOdJZ0x6TYL6EzC",
-         *    ...
-         * ]
-         */
         if ($user && password_verify($password, $user['password'])) {
-            $_SESSION['id'] = $user['id'];
-            $_SESSION['user_fullname'] = $user['user_fullname'];
-            $_SESSION['email'] = $user['email'];
-            var_dump($_SESSION);
-            return true;
+            return $user;
         }
         return false;
     }
