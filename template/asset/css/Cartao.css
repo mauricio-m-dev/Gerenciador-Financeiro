@@ -693,11 +693,7 @@ box-sizing: border-box;
     font-family: 'Inter', sans-serif;
     color: black;
 }
-.transactions-table td i.bx-dots-vertical-rounded {
-    font-size: 1.3em;
-    vertical-align: middle;
-    cursor: pointer;
-}
+
 .transactions-table th {
     text-align: left;
     color: #666;
