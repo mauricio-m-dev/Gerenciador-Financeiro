@@ -81,16 +81,16 @@
                             class="bi bi-arrow-up-right" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
                                 d="M14 2.5a.5   .5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0z" />
-                        </svg>+12.5% vs mês anterior</p>
+                        </svg>+0% vs mês anterior</p>
                 </div>
                 <div class="geral-card-despesas">
-                    <p class="mini">Receita Mensal</p>
+                    <p class="mini">Metas</p>
                     <h2>R$9.200</h2>
                     <p class="green"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-arrow-up-right" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
                                 d="M14 2.5a.5   .5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0z" />
-                        </svg>+12.5% vs mês anterior</p>
+                        </svg> Faça acontecer. Comece já!</p>
                 </div>
                 <div class="geral-card-metas">
                     <p class="mini">Despesas Mensais</p>
@@ -99,7 +99,7 @@
                             class="bi bi-arrow-down-right" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
                                 d="M14 13.5a.5.5 0 0 1-.5.5h-6a.5.5 0 0 1 0-1h4.793L2.146 2.854a.5.5 0 1 1 .708-.708L13 12.293V7.5a.5.5 0 0 1 1 0z" />
-                        </svg>+1.9% vs mês anterior</p>
+                        </svg>+0.0% vs mês anterior</p>
                 </div>
               
             </div>
@@ -124,11 +124,11 @@
             </div>
             <div class="comparativo">
                 <h3 class="mensal">Comparativo Mensal</h3>
-                <p class="mes">Junho 2025 vs Maio 2025</p>
+                <p class="mes"> Maio 2025 vs  Junho 2025</p>
 
                 <div class="comparison-card">
                     <div class="comparison-details">
-                        <h3>Receitas</h3>
+                        <h3>Patrimônio Total</h3>
                         <p class="prev-value">Anterior: R$ 8.500</p>
                     </div>
                     <div class="comparison-metrics">
@@ -138,14 +138,14 @@
                                 class="bi bi-arrow-up-right" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
                                     d="M14 2.5a.5   .5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0z" />
-                            </svg>+8.2%
+                            </svg>+0.0%
                         </span>
                     </div>
                 </div>
 
                 <div class="comparison-card">
                     <div class="comparison-details">
-                        <h3>Despesas</h3>
+                        <h3>Despesas Mensais</h3>
                         <p class="prev-value">Anterior: R$ 5.100</p>
                     </div>
                     <div class="comparison-metrics">
@@ -155,7 +155,7 @@
                                 class="bi bi-arrow-down-right" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
                                     d="M14 13.5a.5.5 0 0 1-.5.5h-6a.5.5 0 0 1 0-1h4.793L2.146 2.854a.5.5 0 1 1 .708-.708L13 12.293V7.5a.5.5 0 0 1 1 0z" />
-                            </svg>+3.9%
+                            </svg>-0.0%
                         </span>
                     </div>
                 </div>
@@ -172,28 +172,12 @@
                                 class="bi bi-arrow-up-right" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
                                     d="M14 2.5a.5   .5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0z" />
-                            </svg>+20%
+                            </svg>+0.0%
                         </span>
                     </div>
                 </div>
 
-                <div class="comparison-card">
-                    <div class="comparison-details">
-                        <h3>Poupanças</h3>
-                        <p class="prev-value">Anterior: R$ 3.400</p>
-                    </div>
-                    <div class="comparison-metrics">
-                        <span class="current-value">R$ 3.900</span>
-                        <span class="growth green">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-arrow-up-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M14 2.5a.5   .5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0z" />
-                            </svg>+14.7%
-                        </span>
-                    </div>
-                </div>
-
+             
             </div>
             <div class="recomendacoes-container">
                 <div class="title-rec">
@@ -210,7 +194,7 @@
 
                     <div class="reco-card green-bg">
                         <h3>Metas</h3>
-                        <p>Crie metas financeiras!,</p>
+                        <p>Crie metas financeiras!</p>
                     </div>
 
                     <div class="reco-card yellow-bg">
