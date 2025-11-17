@@ -83,7 +83,7 @@
                                 d="M14 2.5a.5   .5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0z" />
                         </svg>+0% vs mês anterior</p>
                 </div>
-                <div class="geral-card-despesas">
+                <div class="geral-card-metas">
                     <p class="mini">Metas</p>
                     <h2>R$9.200</h2>
                     <p class="green"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -92,7 +92,7 @@
                                 d="M14 2.5a.5   .5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0z" />
                         </svg> Faça acontecer. Comece já!</p>
                 </div>
-                <div class="geral-card-metas">
+                <div class="geral-card-despesas">
                     <p class="mini">Despesas Mensais</p>
                     <h2>R$5.300</h2>
                     <p class="red"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -129,7 +129,7 @@
                 <div class="comparison-card">
                     <div class="comparison-details">
                         <h3>Patrimônio Total</h3>
-                        <p class="prev-value">Anterior: R$ 8.500</p>
+                        <p class="prev-value">Anterior: R$ 0</p>
                     </div>
                     <div class="comparison-metrics">
                         <span class="current-value">R$ 9.200</span>
@@ -146,7 +146,7 @@
                 <div class="comparison-card">
                     <div class="comparison-details">
                         <h3>Despesas Mensais</h3>
-                        <p class="prev-value">Anterior: R$ 5.100</p>
+                        <p class="prev-value">Anterior: R$ 0</p>
                     </div>
                     <div class="comparison-metrics">
                         <span class="current-value">R$ 4.700</span>
@@ -163,7 +163,7 @@
                 <div class="comparison-card">
                     <div class="comparison-details">
                         <h3>Investimentos</h3>
-                        <p class="prev-value">Anterior: R$ 2.500</p>
+                        <p class="prev-value">Anterior: R$ 0</p>
                     </div>
                     <div class="comparison-metrics">
                         <span class="current-value">R$ 3.000</span>
