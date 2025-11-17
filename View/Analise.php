@@ -75,7 +75,7 @@
             <div class="geral-container">
 
                 <div class="geral-card-renda">
-                    <p class="mini">Patrimônio Total</p>
+                    <p class="mini">Renda</p>
                     <h2>R$45.000</h2>
                     <p class="green"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-arrow-up-right" viewBox="0 0 16 16">
@@ -93,7 +93,7 @@
                         </svg> Faça acontecer. Comece já!</p>
                 </div>
                 <div class="geral-card-despesas">
-                    <p class="mini">Despesas Mensais</p>
+                    <p class="mini">Despesas </p>
                     <h2>R$5.300</h2>
                     <p class="red"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-arrow-down-right" viewBox="0 0 16 16">
@@ -128,7 +128,7 @@
 
                 <div class="comparison-card">
                     <div class="comparison-details">
-                        <h3>Patrimônio Total</h3>
+                        <h3>Renda</h3>
                         <p class="prev-value">Anterior: R$ 0</p>
                     </div>
                     <div class="comparison-metrics">
@@ -145,7 +145,7 @@
 
                 <div class="comparison-card">
                     <div class="comparison-details">
-                        <h3>Despesas Mensais</h3>
+                        <h3>Despesas</h3>
                         <p class="prev-value">Anterior: R$ 0</p>
                     </div>
                     <div class="comparison-metrics">
