@@ -1,45 +1,28 @@
 <?php
-$transactions = [
-    [
-        "nome" => "ITUB4",
-        "metodo" => "Cartão de Débito",
-        "data" => "21 Out 2025",
-        "cotas" => 45,
-        "tipo" => "despesa"
-    ],
-    [
-        "nome" => "KLBN4",
-        "metodo" => "Pix",
-        "data" => "18 Out 2025",
-        "cotas" => 50,
-        "tipo" => "renda"
-    ],
-    [
-        "nome" => "KNRI11",
-        "metodo" => "Boleto",
-        "data" => "10 Out 2025",
-        "cotas" => 30,
-        "tipo" => "despesa"
-    ],
-    [
-        "nome" => "ITSA4",
-        "metodo" => "Cartão de Crédito",
-        "data" => "20 Out 2025",
-        "cotas" => 25,
-        "tipo" => "despesa"
-    ],
-    [
-        "nome" => "PETR4",
-        "metodo" => "Pix",
-        "data" => "19 Out 2025",
-        "cotas" => 45,
-        "tipo" => "renda"
-    ]
-];
+/**
+ * View: Investimento.php
+ * Página de investimentos integrada com o banco de dados via MVC
+ */
 
+// Carrega o arquivo de inicialização
+require_once __DIR__ . '/../app/init.php';
+
+// IMPORTANTE: Obtenha o user_id do usuário logado
+// Por enquanto, usamos 1 para testes. Você deve integrar com seu sistema de autenticação.
+$userId = $_GET['user_id'] ?? 1;
+
+// Obtém estatísticas da carteira
+$estatisticas = $investimentoController->calcularEstatisticas($userId);
+$patrimonio = number_format($estatisticas['patrimonio_total'], 2, ',', '.');
+$qtdAtivos = $estatisticas['qtd_ativos'];
+
+// Obtém o histórico de transações
+$historico = $investimentoController->obterHistoricoTransacoes($userId);
+
+// Dados para o gráfico (simulado, você pode melhorar isso)
 $categoryData = [
-    "labels" => ["Alimentação", "Moradia", "Transporte", "Lazer"],
-    "valores" => [850.50, 1200.00, 350.20, 400.00]
+    "labels" => ["Ações", "Fundos", "Criptos"],
+    "valores" => [5000, 3000, 2000]
 ];
 
 function formatCurrency($value)
@@ -144,6 +127,7 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
                                             placeholder="Ex: PETR4 ou Petrobras" aria-autocomplete="list"
                                             aria-controls="stock-suggestions" aria-expanded="false" />
                                         <input type="hidden" id="stock-symbol" name="stock_symbol" />
+                                        <input type="hidden" id="stock-name" name="stock_name" />
                                         <div id="stock-suggestions" class="autocomplete-list" role="listbox"
                                             aria-label="Sugestões de ações"></div>
                                     </div>
@@ -201,7 +185,7 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
                 </div>
                 <div class="geral-card-metas">
                     <p>Total de ativos</p>
-                    <h2>5</h2>
+                    <h2><?= $qtdAtivos ?></h2>
                 </div>
             </div>
 
@@ -335,7 +319,7 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
 
                 <div class="seus">
                     <div class="transactions-section">
-                        <h2 class="section-title section-title-transactions">Lista de ativos</h2>
+                        <h2 class="section-title section-title-transactions">Seus ativos</h2>
                         <div class="card-table-container">
                             <div class="table-scroll-wrapper">
                                 <table class="transactions-table">
@@ -346,24 +330,24 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php if (empty($transactions)): ?>
+                                        <?php 
+                                        $carteira = $investimentoController->obterCarteiraUsuario($userId);
+                                        if (empty($carteira)): 
+                                        ?>
                                             <tr>
-                                                <td colspan="4" class="empty-table-message">
-                                                    Nenhuma transação encontrada.
+                                                <td colspan="2" class="empty-table-message">
+                                                    Nenhum ativo na carteira. Adicione um investimento!
                                                 </td>
                                             </tr>
                                         <?php else: ?>
-                                            <?php foreach ($transactions as $tx): ?>
+                                            <?php foreach ($carteira as $ativo): ?>
                                                 <tr>
-                                                    <td class="transaction-name"><?= htmlspecialchars($tx['nome']) ?></td>
-
-
-                                                    <?php
-                                                    $amountClass = ($tx['tipo'] === 'renda') ? 'amount-income' : 'amount-expense';
-                                                    $prefix = ($tx['tipo'] === 'renda') ? '+ ' : '- ';
-                                                    ?>
-                                                    <td class="<?= $amountClass ?> align-right">
-                                                         <?= $tx['cotas'] ?>
+                                                    <td class="transaction-name">
+                                                        <?= htmlspecialchars($ativo['asset_name']) ?> 
+                                                        <small>(<?= htmlspecialchars($ativo['asset_symbol']) ?>)</small>
+                                                    </td>
+                                                    <td class="amount-income align-right">
+                                                        <?= $ativo['total_cotas'] ?>
                                                     </td>
                                                 </tr>
                                             <?php endforeach; ?>

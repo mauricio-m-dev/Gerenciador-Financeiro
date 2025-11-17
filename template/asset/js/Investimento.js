@@ -241,6 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // CORRIGIDO: Agora usa consistentemente 'item.ticker'
     stockInput.value = `${item.ticket} — ${item.nome}`;
     hiddenSymbol.value = item.ticket;
+    document.getElementById('stock-name').value = item.nome;
 
     // Preenche o valor unitário no modal
     const investmentUnit = document.getElementById('investment-value-unit');
@@ -277,7 +278,78 @@ document.addEventListener('DOMContentLoaded', () => {
        investmentUnit.value = '';
       valorTotalInput.value = '';
       qtdInput.value = '1';
-      closeList();
+      suggestionsEl.innerHTML = "";
+      suggestionsEl.style.display = 'none';
+    });
+  }
+
+  // --- 7. Salvar Investimento (Integração com API) ---
+  const btnSalvarInvestimento = document.querySelector('.modal-footer .btn-primary');
+  if (btnSalvarInvestimento) {
+    btnSalvarInvestimento.addEventListener('click', async (e) => {
+      e.preventDefault();
+
+      const assetSymbol = hiddenSymbol.value.trim();
+      const quantidade = parseInt(qtdInput.value, 10);
+      const valorUnitario = parseFloat(investmentUnit.value.replace(',', '.'));
+
+      if (!assetSymbol) {
+        alert('Por favor, selecione uma ação');
+        return;
+      }
+
+      if (!quantidade || quantidade <= 0) {
+        alert('Quantidade deve ser maior que 0');
+        return;
+      }
+
+      if (!valorUnitario || valorUnitario <= 0) {
+        alert('Valor unitário deve ser maior que 0');
+        return;
+      }
+
+      try {
+        const assetName = document.getElementById('stock-name').value;
+        
+        const resposta = await fetch('./api_investimento.php?acao=comprar', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            asset_symbol: assetSymbol,
+            asset_name: assetName,
+            quantidade: quantidade,
+            valor_unitario: valorUnitario
+          })
+        });
+
+        const resultado = await resposta.json();
+
+        if (resultado.sucesso) {
+          alert(resultado.mensagem);
+          
+          // Fecha o modal
+          const modal = bootstrap.Modal.getInstance(modalEl);
+          modal.hide();
+
+          // Limpa o formulário
+          stockInput.value = '';
+          hiddenSymbol.value = '';
+          document.getElementById('stock-name').value = '';
+          investmentUnit.value = '';
+          valorTotalInput.value = '';
+          qtdInput.value = '1';
+
+          // Recarrega a carteira (você pode implementar uma função para isso)
+          carregarCarteira();
+        } else {
+          alert('Erro: ' + resultado.mensagem);
+        }
+      } catch (erro) {
+        console.error('Erro ao salvar investimento:', erro);
+        alert('Erro ao processar a requisição');
+      }
     });
   }
 
@@ -350,10 +422,39 @@ document.addEventListener('DOMContentLoaded', () => {
     valorTotalInput.value = Math.round(numerototal * 100) / 100;
   })
 
+  // --- 8. Carregar Carteira do Banco de Dados ---
+  async function carregarCarteira() {
+    try {
+      const resposta = await fetch('./api_investimento.php?acao=carteira');
+      const resultado = await resposta.json();
 
-  
+      if (resultado.sucesso) {
+        atualizarTabelaCotas(resultado.carteira);
+      }
+    } catch (erro) {
+      console.error('Erro ao carregar carteira:', erro);
+    }
+  }
 
+  // Atualiza a tabela de "Seus ativos" com dados do banco
+  function atualizarTabelaCotas(carteira) {
+    const tbody = document.querySelector('.transactions-table tbody');
+    
+    if (!tbody) return;
 
+    if (carteira.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="2" class="empty-table-message">Nenhum ativo na carteira.</td></tr>';
+      return;
+    }
 
+    tbody.innerHTML = carteira.map(ativo => `
+      <tr>
+        <td class="transaction-name">${ativo.asset_name} (${ativo.asset_symbol})</td>
+        <td class="amount-income align-right">${ativo.total_cotas}</td>
+      </tr>
+    `).join('');
+  }
 
+  // Carrega a carteira ao inicializar a página
+  carregarCarteira();
 });
