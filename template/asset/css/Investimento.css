@@ -506,11 +506,11 @@ header.scrolled {
   font-size: 0.95rem;
 }
 .amount-income {
-  color: #17b26a;
+  color: #000000;
   font-weight: 600;
 }
 .amount-expense {
-  color: #f04438;
+  color: #000000;
   font-weight: 600;
 }
 .empty-table-message {

@@ -1,38 +1,38 @@
 <?php
 $transactions = [
     [
-        "nome" => "Spotify",
+        "nome" => "ITUB4",
         "metodo" => "Cartão de Débito",
         "data" => "21 Out 2025",
-        "quantia" => -29.90,
+        "cotas" => 45,
         "tipo" => "despesa"
     ],
     [
-        "nome" => "Freelance Projeto Y",
+        "nome" => "KLBN4",
         "metodo" => "Pix",
         "data" => "18 Out 2025",
-        "quantia" => 2300.00,
+        "cotas" => 50,
         "tipo" => "renda"
     ],
     [
-        "nome" => "Aluguel",
+        "nome" => "KNRI11",
         "metodo" => "Boleto",
         "data" => "10 Out 2025",
-        "quantia" => -1200.00,
+        "cotas" => 30,
         "tipo" => "despesa"
     ],
     [
-        "nome" => "Supermercado",
+        "nome" => "ITSA4",
         "metodo" => "Cartão de Crédito",
         "data" => "20 Out 2025",
-        "quantia" => -350.75,
+        "cotas" => 25,
         "tipo" => "despesa"
     ],
     [
-        "nome" => "Salário Empresa X",
+        "nome" => "PETR4",
         "metodo" => "Pix",
         "data" => "19 Out 2025",
-        "quantia" => 4500.00,
+        "cotas" => 45,
         "tipo" => "renda"
     ]
 ];
@@ -192,16 +192,16 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
 
             <div class="geral-container">
                 <div class="geral-card-renda">
-                    <p>Renda</p>
-                    <h2>R$ 147.000</h2>
+                    <p>Patrimônio</p>
+                    <h2>R$ 156.000</h2>
                 </div>
                 <div class="geral-card-despesas">
-                    <p>Despesas</p>
-                    <h2>R$ 59.700</h2>
+                    <p>Valorização</p>
+                    <h2>R$ 10.000 </h2>
                 </div>
                 <div class="geral-card-metas">
-                    <p>Metas</p>
-                    <h2>R$ 45.909</h2>
+                    <p>Total de ativos</p>
+                    <h2>5</h2>
                 </div>
             </div>
 
@@ -324,7 +324,7 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
             <div class="carteira">
                 <div class="grafico">
                     <div class="category-chart-section">
-                        <h2 class="section-title">Despesas por Categoria</h2>
+                        <h2 class="section-title">Distribuição dos investimentos</h2>
                         <div class="chart-card">
                             <canvas id="expenseDoughnutChart" data-labels='<?= $chartLabelsJSON ?>'
                                 data-valores='<?= $chartValoresJSON ?>'></canvas>
@@ -335,14 +335,14 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
 
                 <div class="seus">
                     <div class="transactions-section">
-                        <h2 class="section-title section-title-transactions">Últimas Transações</h2>
+                        <h2 class="section-title section-title-transactions">Lista de ativos</h2>
                         <div class="card-table-container">
                             <div class="table-scroll-wrapper">
                                 <table class="transactions-table">
                                     <thead>
                                         <tr>
                                             <th>Nome</th>
-                                            <th class="align-right">Quantia</th>
+                                            <th class="align-right">Cotas</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -363,7 +363,7 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
                                                     $prefix = ($tx['tipo'] === 'renda') ? '+ ' : '- ';
                                                     ?>
                                                     <td class="<?= $amountClass ?> align-right">
-                                                        <?= $prefix . formatCurrency(abs($tx['quantia'])) ?>
+                                                         <?= $tx['cotas'] ?>
                                                     </td>
                                                 </tr>
                                             <?php endforeach; ?>
