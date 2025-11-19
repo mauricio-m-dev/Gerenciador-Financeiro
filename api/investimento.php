@@ -139,6 +139,35 @@ try {
             ]);
             break;
 
+        // ========== APAGAR INVESTIMENTO ==========
+        case 'apagar':
+            if ($metodo !== 'DELETE') {
+                http_response_code(405);
+                echo json_encode(['erro' => 'Método não permitido']);
+                break;
+            }
+
+            $dados = json_decode(file_get_contents('php://input'), true);
+
+            if (!$dados) {
+                http_response_code(400);
+                echo json_encode(['erro' => 'Dados inválidos']);
+                break;
+            }
+
+            $transacaoId = (int)($dados['transacao_id'] ?? 0);
+
+            if ($transacaoId <= 0) {
+                http_response_code(400);
+                echo json_encode(['erro' => 'ID da transação inválido']);
+                break;
+            }
+
+            $resultado = $investimentoController->apagarInvestimento($userId, $transacaoId);
+            http_response_code($resultado['sucesso'] ? 200 : 400);
+            echo json_encode($resultado);
+            break;
+
         default:
             http_response_code(400);
             echo json_encode(['erro' => 'Ação não reconhecida']);

@@ -190,5 +190,52 @@ class InvestimentoController
             'carteira' => $carteira
         ];
     }
+
+    /**
+     * Apaga uma transação de investimento
+     * @param int $userId
+     * @param int $transacaoId
+     * @return array ['sucesso' => bool, 'mensagem' => string]
+     */
+    public function apagarInvestimento($userId, $transacaoId)
+    {
+        try {
+            // Busca a transação para verificar se pertence ao usuário
+            $transacao = $this->transacaoModel->buscarPorId($transacaoId);
+            
+            if (!$transacao) {
+                return [
+                    'sucesso' => false,
+                    'mensagem' => 'Transação não encontrada.'
+                ];
+            }
+
+            // Verifica se a transação pertence ao usuário
+            if ($transacao['user_id'] != $userId) {
+                return [
+                    'sucesso' => false,
+                    'mensagem' => 'Você não tem permissão para apagar esta transação.'
+                ];
+            }
+
+            // Deleta a transação
+            if ($this->transacaoModel->deletar($transacaoId)) {
+                return [
+                    'sucesso' => true,
+                    'mensagem' => 'Investimento apagado com sucesso!'
+                ];
+            } else {
+                return [
+                    'sucesso' => false,
+                    'mensagem' => 'Erro ao apagar a transação.'
+                ];
+            }
+        } catch (Exception $e) {
+            return [
+                'sucesso' => false,
+                'mensagem' => 'Erro: ' . $e->getMessage()
+            ];
+        }
+    }
 }
 ?>

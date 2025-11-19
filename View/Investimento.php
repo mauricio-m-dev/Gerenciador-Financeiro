@@ -19,19 +19,33 @@ $qtdAtivos = $estatisticas['qtd_ativos'];
 // Obtém o histórico de transações
 $historico = $investimentoController->obterHistoricoTransacoes($userId);
 
-// Dados para o gráfico (simulado, você pode melhorar isso)
-$categoryData = [
-    "labels" => ["Ações", "Fundos", "Criptos"],
-    "valores" => [5000, 3000, 2000]
-];
+// Obtém a carteira para dados do gráfico
+$carteira = $investimentoController->obterCarteiraUsuario($userId);
+
+// Prepara dados para o gráfico com base na carteira real
+$chartLabels = [];
+$chartValores = [];
+
+if (!empty($carteira)) {
+    foreach ($carteira as $ativo) {
+        // Usa apenas o ticker (asset_symbol)
+        $chartLabels[] = $ativo['asset_symbol'];
+        // Usa o valor investido
+        $chartValores[] = (float)$ativo['valor_investido'];
+    }
+} else {
+    // Se não há ativos, exibe um gráfico vazio
+    $chartLabels = [];
+    $chartValores = [];
+}
 
 function formatCurrency($value)
 {
     return "R$ " . number_format($value, 2, ',', '.');
 }
 
-$chartLabelsJSON = htmlspecialchars(json_encode($categoryData['labels']), ENT_QUOTES, 'UTF-8');
-$chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_QUOTES, 'UTF-8');
+$chartLabelsJSON = htmlspecialchars(json_encode($chartLabels), ENT_QUOTES, 'UTF-8');
+$chartValoresJSON = htmlspecialchars(json_encode($chartValores), ENT_QUOTES, 'UTF-8');
 ?>
 
 <!DOCTYPE html>
@@ -208,99 +222,9 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
 
                 </div>
 
-                <div class="acoes">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">PETR4</h5>
-                            <h6 class="card-subtitle mb-2 text-body-secondary">Petrobras</h6>
-                            <p class="card-text">53,45</p>
-
-
-                        </div>
+                    <div class="acoes" id="market-cards">
+                        <!-- Market cards will be rendered here by JavaScript (10 stocks from BRAPI) -->
                     </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">PETR4</h5>
-                            <h6 class="card-subtitle mb-2 text-body-secondary">Petrobras</h6>
-                            <p class="card-text"></p>
-
-
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">PETR4</h5>
-                            <h6 class="card-subtitle mb-2 text-body-secondary">Petrobras</h6>
-                            <p class="card-text"></p>
-
-
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">PETR4</h5>
-                            <h6 class="card-subtitle mb-2 text-body-secondary">Petrobras</h6>
-                            <p class="card-text"></p>
-
-
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">PETR4</h5>
-                            <h6 class="card-subtitle mb-2 text-body-secondary">Petrobras</h6>
-                            <p class="card-text"></p>
-
-
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">PETR4</h5>
-                            <h6 class="card-subtitle mb-2 text-body-secondary">Petrobras</h6>
-                            <p class="card-text"></p>
-
-
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">PETR4</h5>
-                            <h6 class="card-subtitle mb-2 text-body-secondary">Petrobras</h6>
-                            <p class="card-text">53,45</p>
-
-
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">PETR4</h5>
-                            <h6 class="card-subtitle mb-2 text-body-secondary">Petrobras</h6>
-                            <p class="card-text">53,45</p>
-
-
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">PETR4</h5>
-                            <h6 class="card-subtitle mb-2 text-body-secondary">Petrobras</h6>
-                            <p class="card-text">53,45</p>
-
-
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">PETR4</h5>
-                            <h6 class="card-subtitle mb-2 text-body-secondary">Petrobras</h6>
-                            <p class="card-text">53,45</p>
-
-
-                        </div>
-                    </div>
-
-                </div>
 
 
             </div>
@@ -311,7 +235,7 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
                         <h2 class="section-title">Distribuição dos investimentos</h2>
                         <div class="chart-card">
                             <canvas id="expenseDoughnutChart" data-labels='<?= $chartLabelsJSON ?>'
-                                data-valores='<?= $chartValoresJSON ?>'></canvas>
+                                data-valores='<?= $chartValoresJSON ?>' style="width:100%;height:350px;display:block;"></canvas>
                         </div>
                     </div>
                 </div>
@@ -331,23 +255,51 @@ $chartValoresJSON = htmlspecialchars(json_encode($categoryData['valores']), ENT_
                                     </thead>
                                     <tbody>
                                         <?php 
+                                        // Obtém o histórico de transações para ter acesso aos IDs
+                                        $historico = $investimentoController->obterHistoricoTransacoes($userId);
                                         $carteira = $investimentoController->obterCarteiraUsuario($userId);
+                                        
+                                        // Cria um mapa de transações por ativo para facilitar o acesso ao ID
+                                        $mapaTransacoes = [];
+                                        foreach ($historico as $transacao) {
+                                            if (!isset($mapaTransacoes[$transacao['ativo_id']])) {
+                                                $mapaTransacoes[$transacao['ativo_id']] = [];
+                                            }
+                                            $mapaTransacoes[$transacao['ativo_id']][] = $transacao;
+                                        }
+                                        
                                         if (empty($carteira)): 
                                         ?>
                                             <tr>
-                                                <td colspan="2" class="empty-table-message">
+                                                <td colspan="3" class="empty-table-message">
                                                     Nenhum ativo na carteira. Adicione um investimento!
                                                 </td>
                                             </tr>
                                         <?php else: ?>
                                             <?php foreach ($carteira as $ativo): ?>
-                                                <tr>
+                                                <?php 
+                                                // Obtém o ID da primeira transação de compra deste ativo
+                                                $transacaoIds = [];
+                                                if (isset($mapaTransacoes[$ativo['ativo_id']])) {
+                                                    $transacaoIds = array_map(fn($t) => $t['transacao_id'], $mapaTransacoes[$ativo['ativo_id']]);
+                                                }
+                                                ?>
+                                                <tr data-ativo-id="<?= $ativo['ativo_id'] ?>">
                                                     <td class="transaction-name">
                                                         <?= htmlspecialchars($ativo['asset_name']) ?> 
                                                         <small>(<?= htmlspecialchars($ativo['asset_symbol']) ?>)</small>
                                                     </td>
                                                     <td class="amount-income align-right">
                                                         <?= $ativo['total_cotas'] ?>
+                                                    </td>
+                                                    <td class="align-center">
+                                                        <div class="btn-group btn-group-sm" role="group">
+                                                            <?php foreach ($transacaoIds as $transacaoId): ?>
+                                                                <button type="button" class="btn btn-danger btn-apagar" data-transacao-id="<?= $transacaoId ?>" title="Apagar esta transação">
+                                                                    <i class='bx bx-trash'></i>
+                                                                </button>
+                                                            <?php endforeach; ?>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                             <?php endforeach; ?>

@@ -305,6 +305,65 @@ try {
             }
             break;
 
+        // Apagar transação
+        case 'apagar':
+            if ($_SERVER['REQUEST_METHOD'] !== 'DELETE') {
+                http_response_code(405);
+                echo json_encode(['erro' => 'Método não permitido']);
+                break;
+            }
+
+            $dados = json_decode(file_get_contents('php://input'), true);
+            
+            if (!$dados) {
+                http_response_code(400);
+                echo json_encode(['erro' => 'Dados inválidos']);
+                break;
+            }
+
+            $transacaoId = (int)($dados['transacao_id'] ?? 0);
+
+            if ($transacaoId <= 0) {
+                http_response_code(400);
+                echo json_encode(['erro' => 'ID da transação inválido']);
+                break;
+            }
+
+            // Verifica se a transação pertence ao usuário
+            $sqlVerifica = "SELECT user_id FROM InvestimentoTransacoes WHERE transacao_id = ?";
+            $stmtVerifica = $db->prepare($sqlVerifica);
+            $stmtVerifica->execute([$transacaoId]);
+            $transacao = $stmtVerifica->fetch(PDO::FETCH_ASSOC);
+
+            if (!$transacao) {
+                http_response_code(404);
+                echo json_encode(['erro' => 'Transação não encontrada']);
+                break;
+            }
+
+            if ($transacao['user_id'] != $userId) {
+                http_response_code(403);
+                echo json_encode(['erro' => 'Você não tem permissão para apagar esta transação']);
+                break;
+            }
+
+            // Deleta a transação
+            $sqlDelete = "DELETE FROM InvestimentoTransacoes WHERE transacao_id = ?";
+            $stmtDelete = $db->prepare($sqlDelete);
+            $result = $stmtDelete->execute([$transacaoId]);
+
+            if ($result) {
+                http_response_code(200);
+                echo json_encode([
+                    'sucesso' => true,
+                    'mensagem' => 'Investimento apagado com sucesso!'
+                ]);
+            } else {
+                http_response_code(500);
+                echo json_encode(['erro' => 'Erro ao apagar a transação']);
+            }
+            break;
+
         default:
             http_response_code(400);
             echo json_encode(['erro' => 'Ação não reconhecida']);

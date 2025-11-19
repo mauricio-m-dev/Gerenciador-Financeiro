@@ -57,42 +57,59 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  //Gráfico
-  const ctx = document.getElementById('expenseDoughnutChart');
+  //Gráfico - Variável global para armazenar a instância do Chart
+  let graficoInstancia = null;
 
-  if (ctx) {
-    let chartLabels = [];
-    let chartValores = [];
-
-    // Tenta ler os dados dinâmicos injetados pelo PHP
-    try {
-      chartLabels = JSON.parse(ctx.dataset.labels);
-      chartValores = JSON.parse(ctx.dataset.valores);
-    } catch (e) {
-      console.error("Erro ao ler dados do gráfico (JSON inválido):", e);
-      chartLabels = ['Erro ao carregar'];
-      chartValores = [100];
+  function inicializarGrafico(labels, valores) {
+    console.log("inicializarGrafico chamada com:", labels, valores);
+    
+    // Busca o elemento do canvas
+    const canvasElement = document.getElementById('expenseDoughnutChart');
+    
+    if (!canvasElement) {
+      console.error("Elemento canvas não encontrado!");
+      return;
     }
 
-    // Configuração dos dados do gráfico
-    const data = {
-      labels: chartLabels,
-      datasets: [{
-        label: 'Despesas (R$)',
-        data: chartValores,
-        backgroundColor: [
-          '#F56565', '#155EEF', '#48BB78', '#ED8936', '#718096'
-        ],
-        borderColor: '#ffffff',
-        borderWidth: 3,
-        hoverOffset: 10
-      }]
-    };
+    console.log("Canvas encontrado, obtendo contexto...");
+    
+    // Destroi gráfico anterior se existir
+    if (graficoInstancia) {
+      console.log("Destruindo gráfico anterior...");
+      graficoInstancia.destroy();
+    }
 
-    // Configuração de opções do gráfico
-    const config = {
+    // Valida dados
+    if (!labels || labels.length === 0 || !valores || valores.length === 0) {
+      console.warn("Dados vazios para o gráfico");
+      return;
+    }
+
+    // Cores para o gráfico
+    const cores = [
+      '#F56565', '#155EEF', '#48BB78', '#ED8936', '#718096',
+      '#38B6FF', '#FF6B9D', '#FDB833', '#33658A', '#86C06F',
+      '#F18F01', '#C73E1D', '#6A994E', '#BC4749', '#2E294E'
+    ];
+
+    const coresAssinadas = labels.map((_, index) => cores[index % cores.length]);
+
+    console.log("Criando configuração do gráfico...");
+
+    // Configuração do gráfico
+    const chartConfig = {
       type: 'doughnut',
-      data: data,
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Valor Investido (R$)',
+          data: valores,
+          backgroundColor: coresAssinadas,
+          borderColor: '#ffffff',
+          borderWidth: 3,
+          hoverOffset: 10
+        }]
+      },
       options: {
         responsive: true,
         maintainAspectRatio: false,
@@ -102,7 +119,18 @@ document.addEventListener('DOMContentLoaded', () => {
             labels: {
               padding: 20,
               font: {
-                family: "'Poppins', sans-serif"
+                family: "'Poppins', sans-serif",
+                size: 12
+              }
+            }
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const value = context.parsed;
+                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                const percentage = ((value / total) * 100).toFixed(1);
+                return `${context.label}: R$ ${value.toFixed(2)} (${percentage}%)`;
               }
             }
           }
@@ -111,8 +139,69 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
 
-    // Cria o gráfico
-    new Chart(ctx, config);
+    try {
+      console.log("Tentando criar novo Chart (modo simples)...");
+      // Cria o gráfico usando o contexto 2D (simples e direto)
+      try {
+        const ctx2d = canvasElement.getContext('2d');
+        graficoInstancia = new Chart(ctx2d, chartConfig);
+        console.log("✓ Gráfico criado com sucesso!");
+      } catch (erroChart) {
+        console.error('Erro ao criar Chart (simples):', erroChart);
+        throw erroChart;
+      }
+    } catch (erro) {
+      console.error("✗ Erro ao criar o gráfico:", erro);
+      console.error("Detalhes do erro:", erro && erro.message ? erro.message : erro);
+
+      // Fallback visual: desenha um arco simples para indicar presença de dados
+      try {
+        const ctxfb = canvasElement.getContext('2d');
+        ctxfb.clearRect(0, 0, canvasElement.width, canvasElement.height);
+        ctxfb.fillStyle = '#e9ecef';
+        ctxfb.fillRect(0, 0, canvasElement.width, canvasElement.height);
+        ctxfb.beginPath();
+        const cx = canvasElement.width / 2;
+        const cy = canvasElement.height / 2;
+        const radius = Math.min(cx, cy) * 0.6;
+        ctxfb.fillStyle = '#6c757d';
+        ctxfb.arc(cx, cy, radius, 0, Math.PI * 2 * 0.75);
+        ctxfb.fill();
+        ctxfb.closePath();
+        console.log('Fallback desenhado no canvas');
+      } catch (fbErr) {
+        console.error('Falha ao desenhar fallback no canvas:', fbErr);
+      }
+    }
+  }
+
+  // Tenta carregar dados iniciais do canvas se existirem
+  const ctxInicial = document.getElementById('expenseDoughnutChart');
+  if (ctxInicial) {
+    console.log("Canvas encontrado!");
+    console.log("data-labels:", ctxInicial.dataset.labels);
+    console.log("data-valores:", ctxInicial.dataset.valores);
+    
+    if (ctxInicial.dataset.labels && ctxInicial.dataset.valores) {
+      try {
+        const chartLabels = JSON.parse(ctxInicial.dataset.labels);
+        const chartValores = JSON.parse(ctxInicial.dataset.valores);
+        
+        console.log("Labels parseados:", chartLabels);
+        console.log("Valores parseados:", chartValores);
+        
+        if (chartLabels.length > 0) {
+          // Inicializa diretamente (modo simples)
+          inicializarGrafico(chartLabels, chartValores);
+        }
+      } catch (e) {
+        console.error("Erro ao fazer parse dos dados:", e);
+      }
+    } else {
+      console.warn("Atributos data-labels ou data-valores não encontrados");
+    }
+  } else {
+    console.error("Canvas expenseDoughnutChart não encontrado no DOM");
   }
 
   // Processo para chamar as informações da API
@@ -144,10 +233,50 @@ document.addEventListener('DOMContentLoaded', () => {
       );
 
       console.log(objFiltro);
+      // Após popular objFiltro, renderiza os cards do mercado
+      try {
+        renderMarketCards();
+      } catch (e) {
+        console.warn('Erro ao renderizar market cards:', e);
+      }
+      return objFiltro;
     }
+    return [];
   }
 
-  chamarAPI()
+  // Chama a API e renderiza os cards
+  chamarAPI();
+
+  /**
+   * Renderiza até 10 cards do mercado dentro de #market-cards
+   */
+  function renderMarketCards() {
+    const container = document.getElementById('market-cards');
+    if (!container) return;
+
+    const lista = objFiltro && objFiltro.length ? objFiltro.slice(0, 10) : [];
+    if (!lista.length) {
+      container.innerHTML = '<p class="text-muted">Não foi possível carregar as ações do mercado.</p>';
+      return;
+    }
+
+    const cardsHtml = lista.map((item) => {
+      const valorNum = typeof item.valor === 'number' ? item.valor : parseFloat(item.valor || 0);
+      const valorFmt = (isNaN(valorNum) ? 0 : valorNum).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      return `
+        <div class="card market-card">
+          <div class="card-body">
+            <h5 class="card-title">${item.ticket}</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">${item.nome}</h6>
+            <p class="card-text">R$ ${valorFmt}</p>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    // Insere os cards diretamente no container .acoes para respeitar o grid CSS
+    container.innerHTML = cardsHtml;
+  }
 
 
   /* ---------- Autocomplete de ações (mock, trocar por API depois) ---------- */
@@ -437,22 +566,106 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Atualiza a tabela de "Seus ativos" com dados do banco
-  function atualizarTabelaCotas(carteira) {
+  async function atualizarTabelaCotas(carteira) {
     const tbody = document.querySelector('.transactions-table tbody');
     
     if (!tbody) return;
 
     if (carteira.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="2" class="empty-table-message">Nenhum ativo na carteira.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="3" class="empty-table-message">Nenhum ativo na carteira.</td></tr>';
       return;
     }
 
-    tbody.innerHTML = carteira.map(ativo => `
-      <tr>
-        <td class="transaction-name">${ativo.asset_name} (${ativo.asset_symbol})</td>
-        <td class="amount-income align-right">${ativo.total_cotas}</td>
-      </tr>
-    `).join('');
+    // Carrega o histórico para obter os IDs das transações
+    const historicoResp = await fetch('./api_investimento.php?acao=historico');
+    const historicoData = await historicoResp.json();
+    const historico = historicoData.sucesso ? historicoData.transacoes : [];
+
+    // Cria um mapa de transações por ativo
+    const mapaTransacoes = {};
+    historico.forEach(transacao => {
+      if (!mapaTransacoes[transacao.ativo_id]) {
+        mapaTransacoes[transacao.ativo_id] = [];
+      }
+      mapaTransacoes[transacao.ativo_id].push(transacao);
+    });
+
+    tbody.innerHTML = carteira.map(ativo => {
+      const transacoes = mapaTransacoes[ativo.ativo_id] || [];
+      const botoesHtml = transacoes.map(t => `
+        <button type="button" class="btn btn-danger btn-sm btn-apagar" data-transacao-id="${t.transacao_id}" title="Apagar esta transação">
+          <i class='bx bx-trash'></i>
+        </button>
+      `).join('');
+
+      return `
+        <tr data-ativo-id="${ativo.ativo_id}">
+          <td class="transaction-name">${ativo.asset_name} (${ativo.asset_symbol})</td>
+          <td class="amount-income align-right">${ativo.total_cotas}</td>
+          <td class="align-center">
+            <div class="btn-group btn-group-sm" role="group">
+              ${botoesHtml}
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join('');
+    
+    // Atualiza o gráfico com os dados da carteira
+    const chartLabels = carteira.map(ativo => ativo.asset_symbol);
+    const chartValores = carteira.map(ativo => parseFloat(ativo.valor_investido) || 0);
+    inicializarGrafico(chartLabels, chartValores);
+    
+    // Reattach listeners para os botões de apagar após atualizar a tabela
+    anexarListenersApagar();
+  }
+
+  // --- 9. Função para anexar listeners aos botões de apagar ---
+  function anexarListenersApagar() {
+    const botoesApagar = document.querySelectorAll('.btn-apagar');
+
+    botoesApagar.forEach(botao => {
+      botao.addEventListener('click', async (e) => {
+        e.preventDefault();
+
+        const transacaoId = botao.getAttribute('data-transacao-id');
+
+        if (!transacaoId) {
+          alert('Erro: ID da transação não encontrado');
+          return;
+        }
+
+        // Confirmação antes de apagar
+        if (!confirm('Tem certeza que deseja apagar este investimento?')) {
+          return;
+        }
+
+        try {
+          const resposta = await fetch('./api_investimento.php?acao=apagar', {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              transacao_id: parseInt(transacaoId, 10)
+            })
+          });
+
+          const resultado = await resposta.json();
+
+          if (resultado.sucesso) {
+            alert(resultado.mensagem);
+            // Recarrega a carteira após apagar
+            carregarCarteira();
+          } else {
+            alert('Erro: ' + resultado.mensagem);
+          }
+        } catch (erro) {
+          console.error('Erro ao apagar investimento:', erro);
+          alert('Erro ao processar a requisição');
+        }
+      });
+    });
   }
 
   // Carrega a carteira ao inicializar a página
