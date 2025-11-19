@@ -148,17 +148,12 @@ header.scrolled {
   gap: 1rem;
 }
 
-.settings-icon .material-symbols-outlined {
+.bx {
   font-size: 28px;
   color: #555;
   align-items: center;
   display: flex;
   transition: transform 0.4s ease, color 0.3s ease;
-}
-
-.settings-icon:hover .material-symbols-outlined {
-  color: #101828;
-  transform: rotate(60deg);
 }
 
 .profile-pic {
@@ -288,19 +283,25 @@ header.scrolled {
   align-items: flex-start;
 }
 
-/* Tabela de Transações */
+/* O CARD PAI:
+   A única função dele é ser o 'card' branco com bordas arredondadas.
+   O 'overflow: hidden' é ESSENCIAL para cortar os cantos da tabela. */
 .card-table-container {
-  background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  overflow: hidden;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    overflow: hidden; /* <-- MANTENHA ISTO! */
+    
 }
 
 .table-scroll-wrapper {
-  overflow-x: auto; /* Garante rolagem horizontal em telas pequenas */
-  -webkit-overflow-scrolling: touch;
-}
+    /* Mude de 400px para 100px */
+    max-height: 100px; 
+    overflow-y: auto;  
+    overflow-x: auto;  
+    width: 100%;
+} 
 
 .transactions-table {
   width: 100%;
@@ -767,6 +768,10 @@ header.scrolled {
 
   main h1 {
     font-size: 1.75rem; /* Reduz o H1 */
+  }
+
+  .btn-primary {
+    display: none;
   }
 
   /* --- AQUI A MUDANÇA --- */

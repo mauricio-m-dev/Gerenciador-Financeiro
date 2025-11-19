@@ -9,7 +9,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /*
   |--------------------------------------------------------------------------
-  | Seção 1: Navbar e Interações do Header
+  | Seção 0: Leitura de Dados Iniciais
+  |--------------------------------------------------------------------------
+  */
+  
+  // Lê a "Data Island" uma vez e armazena os dados.
+  let appData = {
+    categorias: { renda: [], despesa: [] },
+    chartData: { labels: ['Erro'], valores: [100] }
+  };
+  
+  try {
+    const appDataElement = document.getElementById('app-data');
+    if (appDataElement) {
+      appData = JSON.parse(appDataElement.textContent);
+    } else {
+      console.error("Elemento #app-data não encontrado.");
+    }
+  } catch (e) {
+    console.error("Erro ao ler dados JSON do #app-data:", e);
+  }
+
+  /*
+  |--------------------------------------------------------------------------
+  | Seção 1: Navbar e Interações do Header (AQUI ESTÁ A CORREÇÃO)
   |--------------------------------------------------------------------------
   */
   
@@ -55,18 +78,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const ctx = document.getElementById('expenseDoughnutChart');
   
   if (ctx) {
-    let chartLabels = [];
-    let chartValores = [];
-
-    // Tenta ler os dados dinâmicos injetados pelo PHP
-    try {
-      chartLabels = JSON.parse(ctx.dataset.labels);
-      chartValores = JSON.parse(ctx.dataset.valores);
-    } catch (e) {
-      console.error("Erro ao ler dados do gráfico (JSON inválido):", e);
-      chartLabels = ['Erro ao carregar'];
-      chartValores = [100];
-    }
+    // CORREÇÃO: Pega os dados lidos da "Data Island"
+    const chartLabels = appData.chartData.labels;
+    const chartValores = appData.chartData.valores;
   
     // Configuração dos dados do gráfico
     const data = {
@@ -125,6 +139,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalConfirmBtn = document.getElementById('modal-confirm-btn');
   const closeModalBtn = document.getElementById('modal-close-btn');
   const cancelModalBtn = document.getElementById('modal-cancel-btn');
+  const modalCategoriaSelect = document.getElementById('modal-categoria');
+  const modalDataInput = document.getElementById('modal-data');
 
   // Botões de Gatilho (Desktop)
   const btnAddRenda = document.getElementById('btn-add-renda');
@@ -134,11 +150,43 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- Funções ---
 
   /**
-   * Abre o modal de transação e o personaliza.
-   * @param {string} type - 'renda', 'despesa' ou 'meta'
-   * @param {string} title - O título a ser exibido no modal
-   * @param {string} headerClass - A classe CSS para colorir o cabeçalho
+   * NOVO: Formata a data atual para o input datetime-local (YYYY-MM-DDTHH:MM)
    */
+  function getDatetimeLocalNow() {
+    const now = new Date();
+    // Ajusta para o fuso horário local
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    return now.toISOString().slice(0, 16);
+  }
+  
+  /**
+   * NOVO: Preenche o select de categorias
+   */
+  function populateCategorias(tipo) {
+    if (!modalCategoriaSelect) return;
+    
+    modalCategoriaSelect.innerHTML = ''; // Limpa opções antigas
+    
+    const categorias = (tipo === 'renda') ? appData.categorias.renda : appData.categorias.despesa;
+    
+    if (!categorias || categorias.length === 0) {
+      modalCategoriaSelect.innerHTML = `<option value="" disabled selected>Nenhuma categoria de ${tipo} encontrada</option>`;
+      return;
+    }
+  
+    modalCategoriaSelect.innerHTML = `<option value="" disabled selected>Selecione uma categoria</option>`;
+    
+    categorias.forEach(cat => {
+      const option = document.createElement('option');
+      option.value = cat.id;
+      option.textContent = cat.nome;
+      modalCategoriaSelect.appendChild(option);
+    });
+  }
+
+  /**
+    * Abre o modal de transação e o personaliza.
+    */
   function openModal(type, title, headerClass) {
     if (!modal) return;
 
@@ -162,8 +210,13 @@ document.addEventListener("DOMContentLoaded", () => {
       modalConfirmBtn.style.borderColor = '#155eef';
     }
 
-    // Define a data atual como padrão
-    document.getElementById('modal-data').valueAsDate = new Date();
+    // NOVO: Define a data atual como padrão
+    if (modalDataInput) {
+      modalDataInput.value = getDatetimeLocalNow();
+    }
+    
+    // NOVO: Preenche as categorias
+    populateCategorias(type);
 
     // Exibe o modal
     modalOverlay.classList.add('active');
@@ -171,14 +224,18 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /**
-   * Fecha e reseta o modal de transação.
-   */
+    * Fecha e reseta o modal de transação.
+    */
   function closeModal() {
     if (!modal) return;
     modalOverlay.classList.remove('active');
     modal.classList.remove('active');
     if (modalForm) {
       modalForm.reset();
+    }
+    // Reseta o select de categoria
+    if (modalCategoriaSelect) {
+        modalCategoriaSelect.innerHTML = '<option value="" disabled selected>Selecione o tipo primeiro</option>';
     }
   }
 
@@ -195,7 +252,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   if (btnAddMeta) {
     btnAddMeta.addEventListener('click', () => {
-      openModal('meta', 'Adicionar Valor à Meta', 'modal-header-metas');
+      // A lógica 'meta' deve ser tratada aqui
+      // Por enquanto, vamos assumir que é 'renda' para o formulário
+      openModal('renda', 'Adicionar Valor à Meta', 'modal-header-metas');
     });
   }
 
@@ -211,16 +270,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- Event Listener (Submissão do Formulário) ---
   if (modalForm) {
     modalForm.addEventListener('submit', (event) => {
-      event.preventDefault(); // Impede o recarregamento da página
-      
-      const formData = new FormData(modalForm);
-      const data = Object.fromEntries(formData.entries());
-      
-      console.log("Formulário de Transação Enviado:", data);
-      
-      // TODO: Enviar 'data' para o backend (ex: via fetch)
-      
-      closeModal();
+      console.log("Formulário enviado. A página será recarregada.");
+      // O event.preventDefault() foi removido para deixar o formulário enviar
     });
   }
 
@@ -288,7 +339,7 @@ document.addEventListener("DOMContentLoaded", () => {
     chooserBtnMetas.addEventListener('click', () => {
       closeChooserModal();
       setTimeout(() => {
-        openModal('meta', 'Adicionar Valor à Meta', 'modal-header-metas');
+        openModal('renda', 'Adicionar Valor à Meta', 'modal-header-metas');
       }, 300);
     });
   }

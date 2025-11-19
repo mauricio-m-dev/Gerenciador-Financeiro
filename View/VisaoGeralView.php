@@ -16,7 +16,8 @@
 
 // Formata um valor numérico para BRL
 if (!function_exists('formatCurrency')) {
-    function formatCurrency($value) {
+    function formatCurrency($value)
+    {
         if (!is_numeric($value)) {
             return "R$ 0,00";
         }
@@ -26,8 +27,10 @@ if (!function_exists('formatCurrency')) {
 
 // Formata data do DB (YYYY-MM-DD HH:MM:SS) para (DD Mês YYYY)
 if (!function_exists('formatDate')) {
-    function formatDate($dateString) {
-        if (empty($dateString)) return '';
+    function formatDate($dateString)
+    {
+        if (empty($dateString))
+            return '';
         $timestamp = strtotime($dateString);
         // Lista de meses em português
         $meses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
@@ -48,7 +51,6 @@ if (!function_exists('formatDate')) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-    <!-- Caminho do CSS corrigido com ../ (partindo de View/ para a raiz) -->
     <link rel="stylesheet" href="../template/asset/css/VisaoGeral.css">
 </head>
 
@@ -66,7 +68,6 @@ if (!function_exists('formatDate')) {
             </div>
 
             <ul class="nav-links">
-                <!-- Link de VisaoGeral corrigido (não precisa de ../) -->
                 <li><a href="VisaoGeral.php" class="active">Visão Geral</a></li>
                 <li><a href="#">Investimentos</a></li>
                 <li><a href="#">Análise</a></li>
@@ -79,7 +80,7 @@ if (!function_exists('formatDate')) {
                     <i class='bx bx-cog'></i>
                 </a>
                 <img src="<?= htmlspecialchars($userProfilePic) ?>"
-                     alt="Foto de Perfil de <?= htmlspecialchars($userName) ?>" class="profile-pic">
+                    alt="Foto de Perfil de <?= htmlspecialchars($userName) ?>" class="profile-pic">
             </div>
         </nav>
     </header>
@@ -89,13 +90,11 @@ if (!function_exists('formatDate')) {
         <div class="container">
             <h1>Olá, <?= htmlspecialchars($userName) ?></h1>
 
-            <!-- Seus cards originais, agora mostrando totais GLOBAIS -->
             <div class="geral-container">
                 <div class="geral-card">
                     <p>Renda</p>
                     <h2 class="h2-renda"><?= formatCurrency($totalRenda) ?></h2>
                 </div>
-
                 <div class="geral-card">
                     <p>Despesas</p>
                     <h2 class="h2-despesas"><?= formatCurrency($totalDespesas) ?></h2>
@@ -110,7 +109,6 @@ if (!function_exists('formatDate')) {
 
         <div class="container">
 
-            <!-- Seus botões de ação originais -->
             <div class="geral-container desktop-action-buttons">
                 <div class="geral-button-renda">
                     <button id="btn-add-renda">
@@ -167,7 +165,8 @@ if (!function_exists('formatDate')) {
                                                 <tr>
                                                     <td class="transaction-name"><?= htmlspecialchars($tx['nome']) ?></td>
                                                     <td class="transaction-method"><?= htmlspecialchars($tx['metodo']) ?></td>
-                                                    <td class="transaction-date"><?= htmlspecialchars(formatDate($tx['data'])) ?></td>
+                                                    <td class="transaction-date">
+                                                        <?= htmlspecialchars(formatDate($tx['data'])) ?></td>
 
                                                     <?php
                                                     $amountClass = ($tx['tipo'] === 'renda') ? 'amount-income' : 'amount-expense';
@@ -183,8 +182,8 @@ if (!function_exists('formatDate')) {
                                 </table>
                             </div>
                         </div>
-                        <div class="view-extrato-mobile-link" style="display: flex; padding: 0 auto; margin-top: -1rem; justify-content: center;">
-                            <!-- Link do extrato (global) -->
+                        <div class="view-extrato-mobile-link"
+                            style="display: flex; padding: 0 auto; margin-top: -1rem; justify-content: center;">
                             <a href="Extrato.php" class="btn btn-primary">Ver Extrato Completo</a>
                         </div>
                     </div>
@@ -194,8 +193,7 @@ if (!function_exists('formatDate')) {
                     <div class="category-chart-section">
                         <h2 class="section-title">Despesas por Categoria</h2>
                         <div class="chart-card">
-                            <canvas id="expenseDoughnutChart" data-labels='<?= $chartLabelsJSON ?>'
-                                data-valores='<?= $chartValoresJSON ?>'></canvas>
+                            <canvas id="expenseDoughnutChart"></canvas>
                         </div>
                     </div>
                 </div>
@@ -204,7 +202,6 @@ if (!function_exists('formatDate')) {
         </div>
     </main>
 
-    <!-- Modal de Escolha (Mobile) -->
     <div class="chooser-overlay" id="chooser-overlay"></div>
     <div class="chooser-modal" id="action-chooser-modal">
         <div class="chooser-header">
@@ -227,7 +224,6 @@ if (!function_exists('formatDate')) {
         </div>
     </div>
 
-    <!-- Modal de Transação (Principal) -->
     <div class="modal-overlay" id="modal-overlay"></div>
     <div class="transaction-modal" id="transaction-modal">
         <div class="modal-header">
@@ -236,7 +232,6 @@ if (!function_exists('formatDate')) {
         </div>
 
         <div class="modal-body">
-            <!-- Formulário corrigido: action aponta para o Controller (com ../) -->
             <form id="modal-form" action="../Controller/AdicionarTransacao.php" method="POST">
                 <input type="hidden" id="modal-type" name="tipo">
 
@@ -247,14 +242,14 @@ if (!function_exists('formatDate')) {
 
                 <div class="form-group">
                     <label for="modal-quantia">Quantia</label>
-                    <input type="number" id="modal-quantia" name="quantia" placeholder="R$ 0,00" step="0.01" min="0.01" required>
+                    <input type="number" id="modal-quantia" name="quantia" placeholder="R$ 0,00" step="0.01" min="0.01"
+                        required>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="modal-data">Data</label>
-                        <!-- Corrigido para datetime-local e data padrão -->
-                        <input type="datetime-local" id="modal-data" name="data" value="<?= date('Y-m-d\TH:i') ?>" required>
+                        <input type="datetime-local" id="modal-data" name="data" required>
                     </div>
 
                     <div class="form-group">
@@ -270,12 +265,10 @@ if (!function_exists('formatDate')) {
                         </select>
                     </div>
                 </div>
-                 
-                <!-- CAMPO CATEGORIA (ESSENCIAL PARA O GRÁFICO) -->
+
                 <div class="form-row">
                     <div class="form-group" style="width: 100%;">
                         <label for="modal-categoria">Categoria</label>
-                        <!-- Este select será preenchido pelo VisaoGeral.js -->
                         <select id="modal-categoria" name="categoria_id" required>
                             <option value="" disabled selected>Selecione o tipo primeiro</option>
                         </select>
@@ -287,21 +280,29 @@ if (!function_exists('formatDate')) {
 
         <div class="modal-footer">
             <button class="btn btn-secondary" id="modal-cancel-btn">Cancelar</button>
-            <button type="submit" form="modal-form" class="btn btn-primary" id="modal-confirm-btn">Confirmar</button>
+
+            <button type="submit" form="modal-form" class="btn btn-primary" id="modal-confirm-btn"
+                style="display: block !important; visibility: visible !important; opacity: 1 !important;">Adicionar</button>
         </div>
     </div>
 
-    <!-- Dados JSON para o JavaScript preencher o modal -->
-    <script id="categorias-data" type="application/json">
+    <script id="app-data" type="application/json">
         {
-            "renda": <?= json_encode($categoriasRenda) ?>,
-            "despesa": <?= json_encode($categoriasDespesa) ?>
+            "categorias": {
+                "renda": <?= json_encode($categoriasRenda) ?>,
+                "despesa": <?= json_encode($categoriasDespesa) ?>
+            },
+            "chartData": {
+                "labels": <?= json_encode($categoryData['labels']) ?>,
+                "valores": <?= json_encode(array_map('abs', $categoryData['valores'])) ?>
+            }
         }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
-    <!-- Caminho do JS corrigido com ../ -->
     <script src="../template/asset/js/VisaoGeral.js"></script>
 
+
 </body>
+
 </html>

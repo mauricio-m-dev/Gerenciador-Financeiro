@@ -1,9 +1,9 @@
 /*
 |--------------------------------------------------------------------------
-| VisaoGeral.js
+| Extrato.js
 |--------------------------------------------------------------------------
 | Este script é executado quando o DOM está totalmente carregado.
-| Ele gerencia todas as interatividades da página Visão Geral.
+| Ele gerencia todas as interatividades da página Extrato.
 */
 document.addEventListener("DOMContentLoaded", () => {
 
