@@ -1,22 +1,37 @@
-/* ================================== */
-/* 1. Reset Global e Estilos Base     */
-/* (Mantido da VisaoGeral.css)        */
-/* ================================== */
+/* ==========================================================================
+   1. VARIÁVEIS E RESET
+   ========================================================================== */
 :root {
-  /* Cores Principais */
-  --bg-color: #f9f9f9;
-  --text-color: #101828;
-  --text-color-light: #6c757d;
-  --card-bg-color: #ffffff;
-  --border-color: #e4e7ec;
+  /* --- Paleta de Cores --- */
+  --bg-body: #f9f9f9;
+  --bg-card: #ffffff;
 
-  /* Cores de Acento (Baseado no VisaoGeral) */
-  --renda-color: #0d9488;
-  --renda-color-bg: #ccfbf1;
-  --despesa-color: #dc2626;
-  --despesa-color-bg: #fee2e2;
-  --meta-color: #4f46e5;
-  --meta-color-bg: #e0e7ff;
+  /* Textos */
+  --text-dark: #101828;
+  --text-gray: #667085;
+  --text-light: #98a2b3;
+
+  /* Bordas e Sombras */
+  --border-color: #e4e7ec;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.05);
+  --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.1);
+
+  /* Semântica (Renda / Despesa / Meta) */
+  --color-renda: #0d9488;
+  /* Verde Petróleo */
+  --bg-renda: #ccfbf1;
+  --color-despesa: #dc2626;
+  /* Vermelho */
+  --bg-despesa: #fee2e2;
+  --color-meta: #4f46e5;
+  /* Indigo/Azul */
+  --bg-meta: #e0e7ff;
+
+  /* Botões e Links */
+  --primary-color: #155eef;
+  /* Azul Principal */
+  --primary-hover: #104abd;
 }
 
 * {
@@ -27,10 +42,11 @@
 
 body {
   font-family: "Poppins", sans-serif;
-  background-color: var(--bg-color);
-  color: var(--text-color);
+  background-color: var(--bg-body);
+  color: var(--text-dark);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
 }
 
 ul {
@@ -42,48 +58,61 @@ a {
   color: inherit;
 }
 
-/* ================================== */
-/* 2. Layout e Utilitários            */
-/* ================================== */
+/* ==========================================================================
+   2. LAYOUT E TIPOGRAFIA BASE
+   ========================================================================== */
 .container {
   max-width: 1200px;
-  width: 100%; /* Garante fluidez */
+  width: 100%;
   margin: 0 auto;
-  padding: 0 1.5rem; /* Espaçamento padrão (será ajustado no mobile) */
+  padding: 0 1.5rem;
 }
 
 main {
-  /* 70px (header) + 30px (espaço) */
   padding-top: calc(70px + 2rem);
-  padding-bottom: 3rem;
+  /* Header + Espaço */
+  padding-bottom: 6rem;
+  /* Espaço extra no fundo para mobile */
   min-height: 100vh;
 }
 
+/* Títulos Globais */
 main h1 {
   font-size: 2rem;
   font-weight: 600;
-  color: #101828;
+  color: var(--text-dark);
   margin-bottom: 1.5rem;
 }
 
 .section-title {
-  font-size: 1.5rem; /* Ajustado para um H2 mais coeso */
+  font-size: 1.5rem;
   color: #2d3748;
   font-weight: 600;
   margin-bottom: 1.5rem;
 }
 
+/* Utilitários */
 .align-right {
   text-align: right;
 }
 
-/* ================================== */
-/* 3. Componente: Header e Navbar     */
-/* ================================== */
+.align-center {
+  text-align: center;
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--text-gray);
+  padding: 3rem 1rem;
+}
+
+/* ==========================================================================
+   3. COMPONENTE: HEADER E NAVEGAÇÃO
+   ========================================================================== */
 header {
   width: 100%;
   background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-sm);
   position: fixed;
   top: 0;
   left: 0;
@@ -97,7 +126,7 @@ header.scrolled {
 
 .navbar {
   margin: 0 auto;
-  padding: 0 1.5rem; /* Espaçamento padrão */
+  padding: 0 1.5rem;
   height: 70px;
   display: flex;
   justify-content: space-between;
@@ -117,22 +146,7 @@ header.scrolled {
   color: #000;
 }
 
-.hamburger {
-  display: none; /* Escondido por padrão (desktop-first) */
-  cursor: pointer;
-  flex-direction: column;
-  gap: 5px;
-  padding: 10px; /* Área de clique maior */
-}
-
-.hamburger .line {
-  width: 25px;
-  height: 3px;
-  background-color: #333;
-  border-radius: 3px;
-  transition: all 0.3s ease-in-out;
-}
-
+/* Links Desktop */
 .nav-links {
   display: flex;
   gap: 2.5rem;
@@ -146,30 +160,18 @@ header.scrolled {
 }
 
 .nav-links li a:hover,
-.nav-links li a:focus {
-  color: #155eef;
+.nav-links li a:focus,
+.nav-links li a.active {
+  color: var(--primary-color);
   background-color: #f5f8ff;
   border-radius: 1rem;
-  outline: none;
 }
 
+/* Área do Usuário */
 .user-area {
   display: flex;
   align-items: center;
   gap: 1rem;
-}
-
-.settings-icon .material-symbols-outlined {
-  font-size: 28px;
-  color: #555;
-  align-items: center;
-  display: flex;
-  transition: transform 0.4s ease, color 0.3s ease;
-}
-
-.settings-icon:hover .material-symbols-outlined {
-  color: #101828;
-  transform: rotate(60deg);
 }
 
 .profile-pic {
@@ -182,12 +184,84 @@ header.scrolled {
   background-color: #f0f0f0;
 }
 
-/* ================================== */
-/* 4. Estilos da Página de Extrato    */
-/* (NOVO CÓDIGO)                      */
-/* ================================== */
+/* Menu Hamburguer (Mobile) */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px;
+}
 
-/* Grupo de transações (Ex: "21 Out 2025") */
+.hamburger .line {
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  border-radius: 3px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* ==========================================================================
+   4. COMPONENTE: CARDS E DASHBOARD
+   ========================================================================== */
+/* Grid de Cards (Renda/Despesa/Meta) */
+.geral-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+/* Estilo Base do Card */
+.geral-card,
+.card {
+  background: var(--bg-card);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+}
+
+.geral-card p {
+  font-weight: 500;
+  color: var(--text-gray);
+}
+
+.geral-card h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Cores dos Títulos */
+.geral-card .h2-renda {
+  color: var(--color-renda);
+}
+
+.geral-card .h2-despesas {
+  color: var(--color-despesa);
+}
+
+.geral-card .h2-metas {
+  color: var(--color-meta);
+}
+
+/* Grid Principal (Tabela + Gráfico) */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  /* Padrão 1 coluna */
+  gap: 2rem;
+  margin-top: 3rem;
+  align-items: flex-start;
+}
+
+/* ==========================================================================
+   5. COMPONENTE: LISTA DE TRANSAÇÕES (EXTRATO)
+   ========================================================================== */
 .transaction-group {
   margin-bottom: 1.75rem;
 }
@@ -195,9 +269,9 @@ header.scrolled {
 .transaction-group-date {
   font-size: 0.9rem;
   font-weight: 600;
-  color: var(--text-color-light);
+  color: var(--text-gray);
   margin-bottom: 0.75rem;
-  padding-left: 0.5rem; /* Leve alinhamento */
+  padding-left: 0.5rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -205,10 +279,10 @@ header.scrolled {
 .transaction-list {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem; /* Espaço entre os cards de transação */
+  gap: 0.75rem;
 }
 
-/* Card de Transação Individual */
+/* Item Individual */
 .transaction-item {
   display: flex;
   align-items: center;
@@ -216,14 +290,15 @@ header.scrolled {
   padding: 1rem;
   transition: transform 0.2s, box-shadow 0.2s;
 }
+
 .transaction-item:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-hover);
 }
 
-/* Ícone da Transação (Círculo colorido) */
+/* Ícone Circular */
 .transaction-icon {
-  flex-shrink: 0; /* Impede que o ícone encolha */
+  flex-shrink: 0;
   width: 42px;
   height: 42px;
   border-radius: 50%;
@@ -234,32 +309,32 @@ header.scrolled {
 }
 
 .transaction-icon.renda {
-  background-color: var(--renda-color-bg);
-  color: var(--renda-color);
-}
-.transaction-icon.despesa {
-  background-color: var(--despesa-color-bg);
-  color: var(--despesa-color);
-}
-.transaction-icon.meta {
-  background-color: var(--meta-color-bg);
-  color: var(--meta-color);
+  background-color: var(--bg-renda);
+  color: var(--color-renda);
 }
 
-/* Detalhes (Nome e Método) */
+.transaction-icon.despesa {
+  background-color: var(--bg-despesa);
+  color: var(--color-despesa);
+}
+
+.transaction-icon.meta {
+  background-color: var(--bg-meta);
+  color: var(--color-meta);
+}
+
+/* Textos do Item */
 .transaction-details {
-  flex: 1; /* Ocupa o espaço disponível */
+  flex: 1;
   display: flex;
   flex-direction: column;
-  /* Garante que o texto não quebre o layout */
-  min-width: 0; 
+  min-width: 0;
 }
 
 .transaction-name {
   font-size: 0.95rem;
   font-weight: 600;
-  color: var(--text-color);
-  /* Impede que texto muito longo quebre o layout */
+  color: var(--text-dark);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -267,78 +342,387 @@ header.scrolled {
 
 .transaction-method {
   font-size: 0.85rem;
-  color: var(--text-color-light);
+  color: var(--text-gray);
 }
 
-/* Valor da Transação */
+/* Valores */
 .transaction-amount {
   font-size: 1rem;
   font-weight: 600;
-  white-space: nowrap; /* Impede quebra de linha no valor */
+  white-space: nowrap;
 }
 
 .transaction-amount.renda {
-  color: var(--renda-color);
+  color: var(--color-renda);
 }
+
 .transaction-amount.despesa {
-  color: var(--despesa-color);
+  color: var(--color-despesa);
 }
+
 .transaction-amount.meta {
-  color: var(--meta-color);
+  color: var(--color-meta);
 }
 
-/* Mensagem para quando não há transações */
-.empty-state {
-  text-align: center;
-  color: var(--text-color-light);
-  font-size: 1rem;
-  padding: 3rem 1rem;
+/* ==========================================================================
+   6. COMPONENTE: BOTÕES
+   ========================================================================== */
+
+.transaction-actions form {
+  display: flex;
+  align-items: center;
 }
 
-.card {
-  background-color: var(--card-bg-color);
-  border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+.btn-delete-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #a0a0a0;
+  padding: 5px;
+  border-radius: 50%;
+  transition: 0.2s;
+}
+
+.btn-delete-icon:hover {
+  color: #e63946;
+  background-color: rgba(230, 57, 70, 0.1);
+}
+
+/* Botões de Ação Desktop (Cards clicáveis) */
+.desktop-action-buttons {
+  margin-top: 1.5rem;
+}
+
+.geral-container button {
+  border: none;
+  background: var(--bg-card);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
   border: 1px solid var(--border-color);
+  border-left: 5px solid var(--primary-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* ================================== */
-/* 10. Seção: Responsividade          */
-/* ================================== */
+.geral-container button:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+}
 
-/* Laptop (1024px) - Adiciona a sidebar */
+.geral-container button p {
+  font-weight: 500;
+  color: var(--text-gray);
+  margin: 0;
+}
+
+.geral-container button h2 {
+  font-size: 1rem;
+  color: var(--text-dark);
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+/* Botão Flutuante (Mobile) */
+.mobile-action-button-container {
+  display: none;
+  /* Hidden on desktop */
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 1050;
+}
+
+.btn-float-add {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 50px;
+  border: none;
+  background-color: var(--primary-color);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0 8px 20px rgba(21, 94, 239, 0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-float-add i {
+  font-size: 1.5rem;
+}
+
+.btn-float-add:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(21, 94, 239, 0.5);
+}
+
+/* Botões Padrão (Modal) */
+.btn {
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.btn-secondary {
+  background: #fff;
+  color: #344054;
+  border-color: #d0d5dd;
+}
+
+.btn-primary {
+  background: var(--primary-color);
+  color: #fff;
+}
+
+/* ==========================================================================
+   7. COMPONENTE: MODAIS
+   ========================================================================== */
+.modal-overlay,
+.chooser-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.modal-overlay.active,
+.chooser-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* --- Modal de Transação (Formulário) --- */
+.transaction-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -45%);
+  opacity: 0;
+  visibility: hidden;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 500px;
+  z-index: 2001;
+  transition: all 0.3s ease;
+}
+
+.transaction-modal.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.modal-header.modal-header-renda h2 {
+  color: var(--color-renda);
+}
+
+.modal-header.modal-header-despesa h2 {
+  color: var(--color-despesa);
+}
+
+.modal-header.modal-header-metas h2 {
+  color: var(--color-meta);
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  color: #999;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.modal-close-btn:hover {
+  color: #333;
+  transform: rotate(90deg);
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  background: #fff;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.modal-footer {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  background-color: #f9fafb;
+  border-top: 1px solid #f0f0f0;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+
+/* --- Modal Chooser (Restaurado ao Design Original) --- */
+.chooser-modal {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  width: 100%;
+  max-width: 500px;
+  background: #ffffff;
+  z-index: 2101;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  box-shadow: 0 -5px 30px rgba(0, 0, 0, 0.1);
+  transform: translate(-50%, 100%);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.chooser-modal.active {
+  transform: translate(-50%, 0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.chooser-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.chooser-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.chooser-button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 1.25rem;
+  border-radius: 12px;
+  border: 1px solid #d0d5dd;
+  background-color: #f9fafb;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  gap: 1rem;
+  color: #344054;
+}
+
+.chooser-button i {
+  font-size: 1.5rem;
+}
+
+/* Cores Específicas Chooser */
+#chooser-btn-renda {
+  --chooser-color: var(--color-renda);
+}
+
+#chooser-btn-despesa {
+  --chooser-color: var(--color-despesa);
+}
+
+#chooser-btn-metas {
+  --chooser-color: var(--primary-color);
+}
+
+.chooser-button:hover {
+  background-color: #fff;
+  border-color: var(--chooser-color);
+  color: var(--chooser-color);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   8. RESPONSIVIDADE (MEDIA QUERIES)
+   ========================================================================== */
+
+/* Desktop Grande (1024px+) */
 @media (min-width: 1024px) {
   .dashboard-grid {
-    grid-template-columns: 1fr 380px; /* 2 colunas */
+    grid-template-columns: 1fr 380px;
   }
 
+  /* Sidebar lateral */
   .table-scroll-wrapper {
-    max-height: 400px; /* Limita altura da tabela */
+    max-height: 400px;
   }
 
   .chart-card {
-    max-width: 100%; /* Gráfico ocupa toda a sidebar */
+    max-width: 100%;
     aspect-ratio: 1 / 1;
   }
 }
 
-/* Tablet (992px) - Ponto de quebra do menu hamburguer */
+/* Tablet (992px) - Menu Hamburguer */
 @media (max-width: 992px) {
   .nav-links {
-    display: flex;
     flex-direction: column;
     gap: 0;
     position: absolute;
-    top: 70px; /* Abaixo do header */
+    top: 70px;
     left: 0;
     width: 100%;
-    background-color: #ffffff;
-    border-top: 1px solid #f0f0f0;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    background: #fff;
     max-height: 0;
-    padding: 0;
     overflow: hidden;
-    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+    transition: 0.4s ease-out;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   }
 
   .nav-links.active {
@@ -347,93 +731,72 @@ header.scrolled {
   }
 
   .nav-links li {
-    width: 100%;
     text-align: center;
+    width: 100%;
     padding: 0.75rem 1.5rem;
   }
 
-  .nav-links li a:hover {
-    background-color: #f9f9f9;
-    transform: translateY(0);
-  }
-
   .hamburger {
-    display: flex; /* Mostra o ícone hamburguer */
+    display: flex;
   }
 
-  /* Animação do 'X' */
   .hamburger.active .line:nth-child(1) {
     transform: translateY(8px) rotate(45deg);
   }
+
   .hamburger.active .line:nth-child(2) {
     opacity: 0;
   }
+
   .hamburger.active .line:nth-child(3) {
     transform: translateY(-8px) rotate(-45deg);
   }
 }
 
-/* Tablet (768px) - Ponto de quebra dos botões de ação */
+/* Mobile (768px) - Troca de Botões e Layout */
 @media (max-width: 768px) {
+
   .container,
   .navbar {
-    padding: 0 1rem; /* Reduz o padding lateral */
-  }
-
-  main {
-    padding-top: calc(70px + 1.5rem);
+    padding: 0 1rem;
   }
 
   main h1 {
-    font-size: 1.75rem; /* Reduz o H1 */
+    font-size: 1.75rem;
   }
 
-  /* --- AQUI A MUDANÇA --- */
-  /* Esconde os 3 botões do desktop */
+  /* Esconde Desktop / Mostra Mobile */
   .desktop-action-buttons {
     display: none;
   }
 
-  /* Mostra o botão flutuante */
   .mobile-action-button-container {
     display: block;
   }
-  /* ------------------- */
 
   .geral-card h2 {
     font-size: 1.75rem;
   }
 }
 
-/* Mobile L (425px) */
-@media (max-width: 425px) {
-  main {
-    /* Espaço no fundo para o botão flutuante não cobrir conteúdo */
-    padding-bottom: 7rem;
-  }
-
+/* Mobile Pequeno (480px e menor) */
+@media (max-width: 480px) {
   main h1 {
     font-size: 1.5rem;
   }
 
-  /* Empilha os campos 'Data' e 'Método' no modal */
+  /* Inputs do modal empilhados */
   .form-row {
     grid-template-columns: 1fr;
-    gap: 0; /* .form-group já tem margin-bottom */
+    gap: 0;
   }
 
-  .modal-body {
-    padding: 1.5rem 1rem;
-  }
-  .modal-header,
-  .modal-footer {
-    padding: 1.25rem 1rem;
-  }
+  .modal-body,
   .chooser-body {
     padding: 1.5rem 1rem;
   }
 
-  /* Botão flutuante vira apenas ícone */
+  /* Botão flutuante vira círculo */
   .btn-float-add {
     width: 60px;
     height: 60px;
@@ -441,48 +804,17 @@ header.scrolled {
     padding: 0;
     justify-content: center;
   }
+
   .btn-float-add span {
-    display: none; /* Esconde o texto */
+    display: none;
   }
+
   .btn-float-add i {
     font-size: 1.75rem;
   }
 
-  .mobile-action-button-container {
-    bottom: 1.5rem;
-    right: 1.5rem;
-  }
-}
-
-/* Mobile M (375px) */
-@media (max-width: 375px) {
-  main h1 {
-    font-size: 1.4rem;
-  }
-
-  .geral-card h2 {
-    font-size: 1.5rem;
-  }
-
+  /* Ajustes finos */
   .logo {
     font-size: 1.4rem;
-  }
-
-  /* Reduz padding da tabela em telas muito pequenas */
-  .transactions-table th,
-  .transactions-table td {
-    padding: 0.8rem 1rem;
-  }
-}
-
-/* Mobile S (320px) */
-@media (max-width: 320px) {
-  .container,
-  .navbar {
-    padding: 0 0.75rem;
-  }
-
-  .logo {
-    display: none; /* Esconde o logo em telas minúsculas */
   }
 }

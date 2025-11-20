@@ -1,6 +1,25 @@
-/* ================================== */
-/* 1. Reset Global e Estilos Base     */
-/* ================================== */
+/* ============================================================
+   1. VARIÁVEIS E RESET GLOBAL
+   ============================================================ */
+:root {
+  /* Cores Principais */
+  --primary-color: #155eef;
+  --primary-hover: #104abd;
+  --bg-body: #f9f9f9;
+  --text-dark: #101828;
+  --text-gray: #555;
+
+  /* Cores Semânticas */
+  --success: #17b26a;
+  --danger: #f04438;
+  --warning: #f79009;
+
+  /* Bordas e Sombras */
+  --border-light: rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -9,9 +28,8 @@
 
 body {
   font-family: "Poppins", sans-serif;
-  background-color: #f9f9f9; /* Cor de fundo principal */
-  color: #101828;
-  /* Melhora a renderização do texto */
+  background-color: var(--bg-body);
+  color: var(--text-dark);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -25,48 +43,59 @@ a {
   color: inherit;
 }
 
-/* ================================== */
-/* 2. Layout e Utilitários            */
-/* ================================== */
+/* ============================================================
+   2. LAYOUT E UTILITÁRIOS
+   ============================================================ */
 .container {
   max-width: 1200px;
-  width: 100%; /* Garante fluidez */
+  width: 100%;
   margin: 0 auto;
-  padding: 0 1.5rem; /* Espaçamento padrão (será ajustado no mobile) */
+  padding: 0 1.5rem;
 }
 
 main {
-  /* 70px (header) + 30px (espaço) */
   padding-top: calc(70px + 2rem);
+  /* Altura do Header + Espaço */
   padding-bottom: 3rem;
   min-height: 100vh;
 }
 
+/* Títulos */
 main h1 {
   font-size: 2rem;
   font-weight: 600;
-  color: #101828;
+  color: var(--text-dark);
   margin-bottom: 1.5rem;
 }
 
 .section-title {
-  font-size: 1.5rem; /* Ajustado para um H2 mais coeso */
+  font-size: 1.5rem;
   color: #2d3748;
   font-weight: 600;
   margin-bottom: 1.5rem;
 }
 
+/* Utilitários de Texto */
 .align-right {
   text-align: right;
 }
 
-/* ================================== */
-/* 3. Componente: Header e Navbar     */
-/* ================================== */
+.align-center {
+  text-align: center;
+}
+
+/* Utilitários de Visibilidade (Usado no PHP Refatorado) */
+.mobile-hidden {
+  display: block;
+}
+
+/* ============================================================
+   3. HEADER E NAVEGAÇÃO
+   ============================================================ */
 header {
   width: 100%;
   background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-sm);
   position: fixed;
   top: 0;
   left: 0;
@@ -80,7 +109,7 @@ header.scrolled {
 
 .navbar {
   margin: 0 auto;
-  padding: 0 1rem; /* Espaçamento padrão */
+  padding: 0 1rem;
   height: 70px;
   display: flex;
   justify-content: space-between;
@@ -100,28 +129,7 @@ header.scrolled {
   color: #000;
 }
 
-.hamburger {
-  display: none; /* Escondido por padrão (desktop-first) */
-  cursor: pointer;
-  flex-direction: column;
-  gap: 5px;
-  padding: 10px; /* Área de clique maior */
-}
-
-.hamburger .line {
-  width: 25px;
-  height: 3px;
-  background-color: #333;
-  border-radius: 3px;
-  transition: all 0.3s ease-in-out;
-}
-
-.nav-links .active {
-  color: #155eef;
-  background-color: #f5f8ff;
-  border-radius: 1rem;
-  outline: none;
-}
+/* Menu Desktop */
 .nav-links {
   display: flex;
   gap: 2.5rem;
@@ -129,17 +137,17 @@ header.scrolled {
 
 .nav-links li a {
   font-weight: 500;
-  color: #555;
+  color: var(--text-gray);
   padding: 0.8rem;
   transition: 0.3s ease-in-out;
 }
 
 .nav-links li a:hover,
-.nav-links li a:focus {
-  color: #155eef;
+.nav-links li a:focus,
+.nav-links .active {
+  color: var(--primary-color);
   background-color: #f5f8ff;
   border-radius: 1rem;
-  outline: none;
 }
 
 .user-area {
@@ -150,10 +158,13 @@ header.scrolled {
 
 .bx {
   font-size: 28px;
-  color: #555;
-  align-items: center;
+  color: var(--text-gray);
   display: flex;
-  transition: transform 0.4s ease, color 0.3s ease;
+  align-items: center;
+}
+
+.bx-add {
+  color: #fff;
 }
 
 .profile-pic {
@@ -166,74 +177,87 @@ header.scrolled {
   background-color: #f0f0f0;
 }
 
-/* ================================== */
-/* 4. Componente: Cards Principais    */
-/* ================================== */
+/* Menu Hamburguer (Mobile) */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px;
+}
+
+.hamburger .line {
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  border-radius: 3px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* ============================================================
+   4. CARDS DE RESUMO (VISÃO GERAL)
+   ============================================================ */
 .geral-container {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(250px, 1fr)
-  ); /* Minmax mais flexível */
-  gap: 1.5rem; /* Gap ligeiramente menor */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
   margin-top: 2rem;
 }
 
 .geral-card {
   background: #ffffff;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-md);
   padding: 1.5rem;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-light);
 }
 
 .geral-card p {
   font-weight: 500;
-  color: #555;
+  color: var(--text-gray);
 }
 
 .geral-card h2 {
   font-size: 2rem;
   font-weight: 600;
   margin-top: 0.5rem;
-  /* Evita quebra de linha em valores grandes */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .geral-card .h2-renda {
-  color: #17b26a;
-}
-.geral-card .h2-despesas {
-  color: #f04438;
-}
-.geral-card .h2-metas {
-  color: #155eef;
+  color: var(--success);
 }
 
-/* ================================== */
-/* 5. Componente: Botões de Ação      */
-/* ================================== */
-/* Container dos botões de desktop */
+.geral-card .h2-despesas {
+  color: var(--danger);
+}
+
+.geral-card .h2-metas {
+  color: var(--primary-color);
+}
+
+/* ============================================================
+   5. BOTÕES DE AÇÃO RÁPIDA (DESKTOP)
+   ============================================================ */
 .desktop-action-buttons {
-  margin-top: 1.5rem; /* Reduzido */
+  margin-top: 1.5rem;
 }
 
 .geral-container button {
   border: none;
-  background: none;
+  background: #ffffff;
   font-family: inherit;
   text-align: left;
   cursor: pointer;
   display: block;
   width: 100%;
-  background: #ffffff;
   border-radius: 16px;
   padding: 1.5rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  border-left: 5px solid var(--button-accent-color, #155eef);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-light);
+  border-left: 5px solid var(--button-accent-color, var(--primary-color));
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -242,15 +266,9 @@ header.scrolled {
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
-.geral-container button:focus-visible {
-  outline: 2px solid #155eef;
-  outline-offset: 3px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-}
-
 .geral-container button p {
   font-weight: 500;
-  color: #555;
+  color: var(--text-gray);
   margin: 0;
 }
 
@@ -261,52 +279,53 @@ header.scrolled {
   margin-top: 0.5rem;
 }
 
+/* Cores dos botões */
 .geral-button-renda button {
   --button-accent-color: #48bb78;
 }
+
 .geral-button-despesas button {
   --button-accent-color: #f56565;
 }
+
 .geral-button-metas button {
   --button-accent-color: #155eef;
 }
 
-/* ================================== */
-/* 6. Componente: Grid do Dashboard   */
-/* ================================== */
+/* ============================================================
+   6. GRID PRINCIPAL: TABELA E GRÁFICO
+   ============================================================ */
 .dashboard-grid {
   display: grid;
-  /* Abordagem Mobile-First: 1 coluna por padrão */
   grid-template-columns: 1fr;
   gap: 2rem;
   margin-top: 3rem;
   align-items: flex-start;
 }
 
-/* O CARD PAI:
-   A única função dele é ser o 'card' branco com bordas arredondadas.
-   O 'overflow: hidden' é ESSENCIAL para cortar os cantos da tabela. */
+/* Container da Tabela */
 .card-table-container {
-    background: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    overflow: hidden; /* <-- MANTENHA ISTO! */
-    
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-light);
+  overflow: hidden;
+  height: 395px;
 }
 
 .table-scroll-wrapper {
-    /* Mude de 400px para 100px */
-    max-height: 100px; 
-    overflow-y: auto;  
-    overflow-x: auto;  
-    width: 100%;
-} 
+  height: 400px;
+  overflow-y: auto;
+  overflow-x: auto;
+  width: 100%;
+  position: relative;
+}
 
+/* Tabela em Si */
 .transactions-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 600px; /* Força rolagem apenas quando necessário */
+  min-width: 600px;
 }
 
 .transactions-table th,
@@ -317,59 +336,89 @@ header.scrolled {
   white-space: nowrap;
 }
 
+/* Sticky Header (Cabeçalho fixo) */
 .transactions-table th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   background-color: #f9fafb;
   font-weight: 600;
   font-size: 0.875rem;
   color: #667085;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
 .transactions-table tbody tr:last-child td {
   border-bottom: none;
 }
 
+/* Tipografia da Tabela */
 .transaction-name {
   font-weight: 600;
   color: #333;
 }
+
 .transaction-method,
 .transaction-date {
   color: #666;
   font-size: 0.95rem;
 }
+
 .amount-income {
-  color: #17b26a;
+  color: var(--success);
   font-weight: 600;
 }
+
 .amount-expense {
-  color: #f04438;
+  color: var(--danger);
   font-weight: 600;
 }
+
 .empty-table-message {
   text-align: center;
   color: #777;
   padding: 2rem;
 }
 
-/* Gráfico de Categorias */
+/* Botão de Excluir na Tabela */
+.btn-delete-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.25rem;
+  color: #98a2b3;
+  padding: 6px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-delete-icon:hover {
+  color: var(--danger);
+  background-color: #fef3f2;
+  transform: scale(1.1);
+}
+
+/* Card do Gráfico */
 .chart-card {
   background: #ffffff;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-light);
   padding: 1.5rem;
-  position: relative;
   width: 100%;
   margin: 0 auto;
-  max-width: 400px; /* Limite para telas pequenas/médias */
-  aspect-ratio: 1 / 1; /* Mantém o gráfico quadrado */
+  max-width: 400px;
+  aspect-ratio: 1 / 1;
 }
 
-/* ================================== */
-/* 7. Componente: Modal de Transação  */
-/* ================================== */
+/* ============================================================
+   7. MODAIS (TRANSAÇÃO E ESCOLHA)
+   ============================================================ */
+/* Overlay Comum */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -380,9 +429,15 @@ header.scrolled {
   z-index: 2000;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition: all 0.3s ease;
 }
 
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Modal Desktop/Central */
 .transaction-modal {
   position: fixed;
   top: 50%;
@@ -396,16 +451,12 @@ header.scrolled {
   width: 90%;
   max-width: 500px;
   z-index: 2001;
-  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-.modal-overlay.active,
 .transaction-modal.active {
   opacity: 1;
   visibility: visible;
-}
-
-.transaction-modal.active {
   transform: translate(-50%, -50%);
 }
 
@@ -417,22 +468,16 @@ header.scrolled {
   border-bottom: 1px solid #f0f0f0;
 }
 
-.modal-header h2 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin: 0;
-  transition: color 0.3s ease;
+.modal-header.modal-header-renda h2 {
+  color: var(--success);
 }
 
-/* Classes de cor do cabeçalho */
-.modal-header.modal-header-renda h2 {
-  color: #17b26a;
-}
 .modal-header.modal-header-despesa h2 {
-  color: #f04438;
+  color: var(--danger);
 }
+
 .modal-header.modal-header-metas h2 {
-  color: #155eef;
+  color: var(--primary-color);
 }
 
 .modal-close-btn {
@@ -441,9 +486,7 @@ header.scrolled {
   font-size: 1.75rem;
   color: #999;
   cursor: pointer;
-  line-height: 1;
-  padding: 0;
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition: 0.2s;
 }
 
 .modal-close-btn:hover {
@@ -455,6 +498,7 @@ header.scrolled {
   padding: 1.5rem;
 }
 
+/* Formulários */
 .form-group {
   margin-bottom: 1rem;
 }
@@ -463,31 +507,17 @@ header.scrolled {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 500;
-  color: #333;
   font-size: 0.875rem;
 }
 
-/* Inputs e Selects */
-.form-group input[type="text"],
-.form-group input[type="number"],
-.form-group input[type="date"],
+.form-group input,
 .form-group select {
   width: 100%;
   padding: 0.75rem;
   border: 1px solid #d0d5dd;
   border-radius: 8px;
-  font-family: "Poppins", sans-serif;
+  font-family: inherit;
   font-size: 1rem;
-  background: #fff;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.form-group input:focus,
-.form-group select:focus {
-  outline: none;
-  border-color: #155eef;
-  box-shadow: 0 0 0 3px rgba(21, 94, 239, 0.1);
 }
 
 .form-row {
@@ -501,47 +531,59 @@ header.scrolled {
   display: flex;
   justify-content: flex-end;
   gap: 0.75rem;
-  border-top: 1px solid #f0f0f0;
   background-color: #f9fafb;
+  border-top: 1px solid #f0f0f0;
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
 }
 
-/* Estilos de Botão do Modal */
+/* Botões Padrão */
 .btn {
   padding: 0.75rem 1.25rem;
-  border: none;
   border-radius: 8px;
-  font-family: "Poppins", sans-serif;
   font-weight: 500;
-  font-size: 0.95rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  border: 1px solid transparent;
 }
 
 .btn-secondary {
-  background-color: #ffffff;
+  background: #fff;
   color: #344054;
-  border: 1px solid #d0d5dd;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-.btn-secondary:hover {
-  background-color: #f9fafb;
+  border-color: #d0d5dd;
 }
 
 .btn-primary {
-  background-color: #155eef;
-  color: #ffffff;
-  border: 1px solid #155eef;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-.btn-primary:hover {
-  background-color: #104abd;
+  background: var(--primary-color);
+  color: #fff;
 }
 
-/* ================================== */
-/* 8. Componente: Modal de Escolha    */
-/* ================================== */
+.btn-primary:hover {
+  background: var(--primary-hover);
+}
+
+/* Botão Flutuante (Mobile) */
+.mobile-action-button-container {
+  display: none;
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 1050;
+}
+
+.btn-float-add {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 50px;
+  border: none;
+  background: var(--primary-color);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(21, 94, 239, 0.4);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
 .chooser-overlay {
   position: fixed;
   top: 0;
@@ -549,18 +591,18 @@ header.scrolled {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
-  z-index: 2100; /* Acima do overlay do modal principal */
+  z-index: 2100;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .chooser-modal {
   position: fixed;
   left: 50%;
-  bottom: 0; /* Sobe de baixo */
+  bottom: 0;
   width: 100%;
-  max-width: 500px; /* Consistente com o outro modal */
+  max-width: 500px;
   background: #ffffff;
   z-index: 2101;
   border-top-left-radius: 20px;
@@ -624,13 +666,14 @@ header.scrolled {
   font-size: 1.5rem;
 }
 
-/* Cores dinâmicas no hover */
 #chooser-btn-renda {
   --chooser-color: #17b26a;
 }
+
 #chooser-btn-despesa {
   --chooser-color: #f04438;
 }
+
 #chooser-btn-metas {
   --chooser-color: #155eef;
 }
@@ -643,241 +686,174 @@ header.scrolled {
   transform: translateY(-2px);
 }
 
-/* ================================== */
-/* 9. Componente: Botão Flutuante     */
-/* ================================== */
-.mobile-action-button-container {
-  display: none; /* Escondido por padrão (desktop) */
-  position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
-  z-index: 1050;
-}
+/* ============================================================
+   8. RESPONSIVIDADE (MEDIA QUERIES)
+   ============================================================ */
 
-.btn-float-add {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.25rem;
-  border-radius: 50px; /* Formato de pílula */
-  border: none;
-  background-color: #155eef;
-  color: #ffffff;
-  font-family: "Poppins", sans-serif;
-  font-size: 1rem;
-  font-weight: 500;
-  box-shadow: 0 8px 20px rgba(21, 94, 239, 0.4);
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.btn-float-add i {
-  font-size: 1.5rem;
-}
-
-.btn-float-add:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(21, 94, 239, 0.5);
-}
-
-/* ================================== */
-/* 10. Seção: Responsividade          */
-/* ================================== */
-
-/* Laptop (1024px) - Adiciona a sidebar */
-@media (min-width: 1024px) {
-  .dashboard-grid {
-    grid-template-columns: 1fr 380px; /* 2 colunas */
+/* --- Desktop Grande (1366px+) --- */
+@media (min-width: 1366px) {
+  .container {
+    max-width: 1320px;
   }
 
-  .table-scroll-wrapper {
-    max-height: 400px; /* Limita altura da tabela */
+  .dashboard-grid {
+    grid-template-columns: 2.5fr 1fr;
+    /* Tabela Larga / Gráfico Estreito */
+    gap: 2.5rem;
   }
 
   .chart-card {
-    max-width: 100%; /* Gráfico ocupa toda a sidebar */
-    aspect-ratio: 1 / 1;
+    padding: 2rem;
   }
 
-  .btn-primary {
+  .table-scroll-wrapper {
+    max-height: 500px;
+  }
+}
+
+/* --- Laptop (1024px) --- */
+@media (min-width: 1025px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr 380px;
+  }
+
+  /* Esconde botão mobile */
+  .view-extrato-mobile-link .btn-primary {
     display: none;
   }
 }
 
-/* Tablet (992px) - Ponto de quebra do menu hamburguer */
-@media (max-width: 992px) {
+/* --- Laptop (1024px) --- */
+@media (max-width: 1025px) {
+
+  /* Esconde botão mobile */
+  .view-extrato-mobile-link .btn-primary {
+    display: none;
+  }
+}
+
+/* --- Tablet (992px) --- */
+@media (max-width: 993px) {
+
+  /* Ajuste do Menu */
   .nav-links {
-    display: flex;
     flex-direction: column;
     gap: 0;
     position: absolute;
-    top: 70px; /* Abaixo do header */
+    top: 70px;
     left: 0;
     width: 100%;
-    background-color: #ffffff;
-    border-top: 1px solid #f0f0f0;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    background: #fff;
     max-height: 0;
-    padding: 0;
     overflow: hidden;
-    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+    transition: 0.4s ease-out;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   }
 
-  .nav-links .active {
+  .nav-links.active {
     max-height: 500px;
     padding: 1rem 0;
   }
 
   .nav-links li {
-    width: 100%;
     text-align: center;
-    padding: 0.75rem 1.5rem;
-  }
-
-  .nav-links li a:hover {
-    background-color: #f9f9f9;
-    transform: translateY(0);
+    width: 100%;
   }
 
   .hamburger {
-    display: flex; /* Mostra o ícone hamburguer */
+    display: flex;
   }
 
-  /* Animação do 'X' */
   .hamburger.active .line:nth-child(1) {
     transform: translateY(8px) rotate(45deg);
   }
+
   .hamburger.active .line:nth-child(2) {
     opacity: 0;
   }
+
   .hamburger.active .line:nth-child(3) {
     transform: translateY(-8px) rotate(-45deg);
   }
 }
 
-/* Tablet (768px) - Ponto de quebra dos botões de ação */
-@media (max-width: 768px) {
-  .container,
-  .navbar {
-    padding: 0 1rem; /* Reduz o padding lateral */
+/* --- Mobile (768px) --- */
+@media (max-width: 769px) {
+  .container {
+    padding: 0 1rem;
   }
 
   main {
     padding-top: calc(70px + 1.5rem);
   }
 
-  main h1 {
-    font-size: 1.75rem; /* Reduz o H1 */
-  }
-
-  .btn-primary {
-    display: none;
-  }
-
-  /* --- AQUI A MUDANÇA --- */
-  /* Esconde os 3 botões do desktop */
+  /* Esconde elementos Desktop */
   .desktop-action-buttons {
     display: none;
   }
 
-  /* Mostra o botão flutuante */
+  .mobile-hidden {
+    display: none !important;
+  }
+
+  /* Esconde tabela e títulos */
+
+  /* Mostra elementos Mobile */
   .mobile-action-button-container {
     display: block;
-  }
-  /* ------------------- */
-
-  .geral-card h2 {
-    font-size: 1.75rem;
-  }
-  
-  .btn-primary {
-    display: none;
-  }
-}
-
-/* Mobile L (425px) */
-@media (max-width: 425px) {
-  main {
-    /* Espaço no fundo para o botão flutuante não cobrir conteúdo */
-    padding-bottom: 7rem;
-  }
-
-  main h1 {
-    font-size: 1.5rem;
-  }
-
-  /* Empilha os campos 'Data' e 'Método' no modal */
-  .form-row {
-    grid-template-columns: 1fr;
-    gap: 0; /* .form-group já tem margin-bottom */
-  }
-
-  .modal-body {
-    padding: 1.5rem 1rem;
-  }
-  .modal-header,
-  .modal-footer {
-    padding: 1.25rem 1rem;
-  }
-  .chooser-body {
-    padding: 1.5rem 1rem;
-  }
-
-  /* Botão flutuante vira apenas ícone */
-  .btn-float-add {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    padding: 0;
-    justify-content: center;
-  }
-  .btn-float-add span {
-    display: none; /* Esconde o texto */
-  }
-  .btn-float-add i {
-    font-size: 1.75rem;
-  }
-
-  .mobile-action-button-container {
-    bottom: 1.5rem;
-    right: 1.5rem;
   }
 
   .card-table-container {
     display: none;
   }
 
-  .section-title-transactions {
-    display: none;
-  }
-
-  .element-style {
-    margin-top: -1rem;
-  }
-
-  .btn-primary {
-    display: block;
-  }
-}
-
-/* Mobile M (375px) */
-@media (max-width: 375px) {
-  main h1 {
-    font-size: 1.4rem;
-  }
-
-  .geral-card h2 {
-    font-size: 1.5rem;
+  /* Botão "Ver Extrato" visível e centralizado */
+  .view-extrato-mobile-link {
+    display: flex;
+    justify-content: center;
     width: 100%;
   }
 
-  .logo {
-    font-size: 1.4rem;
+  .view-extrato-mobile-link .btn-primary {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* --- Mobile Small (425px) --- */
+@media (max-width: 426px) {
+  main h1 {
+    font-size: 1.5rem;
   }
 
-  /* Reduz padding da tabela em telas muito pequenas */
-  .transactions-table th,
-  .transactions-table td {
-    padding: 0.8rem 1rem;
+  main {
+    padding-bottom: 7rem;
+  }
+
+  /* Espaço para botão flutuante não cobrir conteúdo */
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  /* Inputs empilhados */
+
+  /* Botão flutuante vira apenas ícone circular */
+  .btn-float-add {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .btn-float-add span {
+    display: none;
+  }
+
+  .btn-float-add i {
+    font-size: 1.75rem;
+    color: #fff;
   }
 }
