@@ -1,4 +1,26 @@
 <?php 
+if (!function_exists('formatCurrency')) {
+    function formatCurrency($value)
+    {
+        if (!is_numeric($value))
+            return "R$ 0,00";
+        return "R$ " . number_format($value, 2, ',', '.');
+    }
+}
+if (!function_exists('formatCurrency')) {
+    function formatCurrency($value) {
+        $value = (float) $value;
+        return 'R$ ' . number_format($value, 2, ',', '.');
+    }
+}
+
+
+// Simulção de dados caso as variáveis não estejam definidas (fallback local), quando integrar o banco só apagar.
+
+$totalDespesas = $totalDespesas ?? 546;
+$totalRenda = $totalRenda ?? 3129;
+$totalMetas = (int) ($totalMetas ?? 1203);
+
 ?>
 
 <html lang="en">
@@ -75,31 +97,32 @@
             <div class="geral-container">
 
                 <div class="geral-card-renda">
-                    <p class="mini">Patrimônio Total</p>
-                    <h2>R$45.000</h2>
+                    <p class="mini">Renda</p>
+                        <h2 class="h2-renda"><?= formatCurrency($totalRenda) ?></h2>
                     <p class="green"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-arrow-up-right" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
                                 d="M14 2.5a.5   .5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0z" />
-                        </svg>+12.5% vs mês anterior</p>
+                        </svg>+0,0% vs mês anterior</p>
                 </div>
                 <div class="geral-card-despesas">
-                    <p class="mini">Receita Mensal</p>
-                    <h2>R$9.200</h2>
-                    <p class="green"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-arrow-up-right" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M14 2.5a.5   .5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0z" />
-                        </svg>+12.5% vs mês anterior</p>
-                </div>
-                <div class="geral-card-metas">
-                    <p class="mini">Despesas Mensais</p>
-                    <h2>R$5.300</h2>
+                    <p class="mini">Despesas</p>
+                    <h2 class="h2-despesas"><?= formatCurrency($totalDespesas)?> </h2>
                     <p class="red"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-arrow-down-right" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
                                 d="M14 13.5a.5.5 0 0 1-.5.5h-6a.5.5 0 0 1 0-1h4.793L2.146 2.854a.5.5 0 1 1 .708-.708L13 12.293V7.5a.5.5 0 0 1 1 0z" />
-                        </svg>+1.9% vs mês anterior</p>
+                        </svg>
+                        </svg>-0,0% vs mês anterior</p>
+                </div>
+                <div class="geral-card-metas">
+                    <p class="mini">Metas</p>
+                     <h2 class="h2-metas"><?= formatCurrency($totalMetas) ?></h2>
+                    <p class="green"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-arrow-up-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M14 2.5a.5   .5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0z" />
+                        </svg>+0,0% vs mês anterior</p>
                 </div>
               
             </div>
@@ -128,17 +151,17 @@
 
                 <div class="comparison-card">
                     <div class="comparison-details">
-                        <h3>Receitas</h3>
-                        <p class="prev-value">Anterior: R$ 8.500</p>
+                        <h3>Renda</h3>
+                        <p class="prev-value">Anterior: R$ </p>
                     </div>
                     <div class="comparison-metrics">
-                        <span class="current-value">R$ 9.200</span>
+                        <span class="current-value"><?= formatCurrency($totalRenda) ?></span>
                         <span class="growth green">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-arrow-up-right" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
                                     d="M14 2.5a.5   .5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0z" />
-                            </svg>+8.2%
+                            </svg>+00%
                         </span>
                     </div>
                 </div>
@@ -146,16 +169,33 @@
                 <div class="comparison-card">
                     <div class="comparison-details">
                         <h3>Despesas</h3>
-                        <p class="prev-value">Anterior: R$ 5.100</p>
+                        <p class="prev-value">Anterior: R$ </p>
                     </div>
                     <div class="comparison-metrics">
-                        <span class="current-value">R$ 4.700</span>
+                        <span class="current-value"><?= formatCurrency($totalDespesas)?></span>
                         <span class="growth red">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-arrow-down-right" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
                                     d="M14 13.5a.5.5 0 0 1-.5.5h-6a.5.5 0 0 1 0-1h4.793L2.146 2.854a.5.5 0 1 1 .708-.708L13 12.293V7.5a.5.5 0 0 1 1 0z" />
-                            </svg>+3.9%
+                            </svg>-0,0%
+                        </span>
+                    </div>
+                </div>
+
+                <div class="comparison-card">
+                    <div class="comparison-details">
+                        <h3>Metas</h3>
+                        <p class="prev-value">Anterior: R$ </p>
+                    </div>
+                    <div class="comparison-metrics">
+                        <span class="current-value"><?= formatCurrency($totalMetas) ?></span>
+                        <span class="growth green">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-arrow-up-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M14 2.5a.5   .5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0z" />
+                            </svg>+0,0%
                         </span>
                     </div>
                 </div>
@@ -163,33 +203,16 @@
                 <div class="comparison-card">
                     <div class="comparison-details">
                         <h3>Investimentos</h3>
-                        <p class="prev-value">Anterior: R$ 2.500</p>
+                        <p class="prev-value">Anterior: R$ </p>
                     </div>
                     <div class="comparison-metrics">
-                        <span class="current-value">R$ 3.000</span>
+                        <span class="current-value">R$ <??></span>
                         <span class="growth green">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-arrow-up-right" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
                                     d="M14 2.5a.5   .5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0z" />
-                            </svg>+20%
-                        </span>
-                    </div>
-                </div>
-
-                <div class="comparison-card">
-                    <div class="comparison-details">
-                        <h3>Poupanças</h3>
-                        <p class="prev-value">Anterior: R$ 3.400</p>
-                    </div>
-                    <div class="comparison-metrics">
-                        <span class="current-value">R$ 3.900</span>
-                        <span class="growth green">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-arrow-up-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M14 2.5a.5   .5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0z" />
-                            </svg>+14.7%
+                            </svg>+0.0%
                         </span>
                     </div>
                 </div>
@@ -210,7 +233,7 @@
 
                     <div class="reco-card green-bg">
                         <h3>Metas</h3>
-                        <p>Crie metas financeiras!,</p>
+                        <p>Crie metas financeiras!</p>
                     </div>
 
                     <div class="reco-card yellow-bg">
