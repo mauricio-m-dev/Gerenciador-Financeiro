@@ -7,7 +7,7 @@ class Database
 {
     // Configurações do banco de dados
     private const DB_HOST = 'localhost';
-    private const DB_NAME = 'gerenciador_financeiro_investimentos'; // Altere conforme seu BD
+    private const DB_NAME = 'gerenciador_financeiro_investimento'; 
     private const DB_USER = 'root';
     private const DB_PASS = '';
     

@@ -271,7 +271,7 @@ header.scrolled {
 
 .geral-card-despesas h2 {
   font-size: 2rem;
-  color: #f04438;
+  color: #000000;
   font-weight: 600;
   margin-top: 0.5rem;
 }
@@ -295,6 +295,18 @@ header.scrolled {
   color: #155eef;
   font-weight: 600;
   margin-top: 0.5rem;
+}
+
+/* Valorização: estilos por estado (adicionados para controlar cor do h2) */
+.geral-card-despesas.val-positivo h2 {
+  color: #28a745; /* verde */
+  color: #28a745 !important;
+}
+.geral-card-despesas.val-negativo h2 {
+  color: #dc3545 !important; /* vermelho */
+}
+.geral-card-despesas.val-neutro h2 {
+  color: #000000 !important; /* preto */
 }
 
 .geral-card-metas p {

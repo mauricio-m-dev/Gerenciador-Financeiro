@@ -616,8 +616,77 @@ document.addEventListener('DOMContentLoaded', () => {
     const chartValores = carteira.map(ativo => parseFloat(ativo.valor_investido) || 0);
     inicializarGrafico(chartLabels, chartValores);
     
+    // Calcula valorização com base nos preços atuais obtidos da BRAPI (se disponíveis)
+    try {
+      calcularValorizacao(carteira);
+    } catch (erro) {
+      console.warn('Erro ao calcular valorização:', erro);
+    }
+    
     // Reattach listeners para os botões de apagar após atualizar a tabela
     anexarListenersApagar();
+  }
+
+  /**
+   * Calcula a valorização total da carteira comparando preço atual x cotas com o valor investido
+   * Se o preço atual não estiver disponível no cache `objFiltro`, usa o `valor_medio` como fallback.
+   */
+  function calcularValorizacao(carteira) {
+    if (!carteira || !carteira.length) {
+      atualizarValorizacaoDOM(0);
+      return;
+    }
+
+    // Mapa rápido de preços vindos da BRAPI: symbol -> close
+    const precoMapa = {};
+    if (Array.isArray(objFiltro) && objFiltro.length) {
+      objFiltro.forEach(item => {
+        if (item && item.ticket) precoMapa[item.ticket.toUpperCase()] = parseFloat(item.valor) || 0;
+      });
+    }
+
+    let totalValorizacao = 0;
+
+    carteira.forEach(ativo => {
+      const symbol = (ativo.asset_symbol || '').toUpperCase();
+      const cotas = parseFloat(ativo.total_cotas) || 0;
+      const valorInvestido = parseFloat(ativo.valor_investido) || 0;
+
+      // Preço atual: preferir BRAPI, senão usar valor médio (valor_medio) como fallback
+      let precoAtual = precoMapa[symbol];
+      if (!precoAtual || precoAtual === 0) {
+        precoAtual = parseFloat(ativo.valor_medio) || 0;
+      }
+
+      const valorMercado = precoAtual * cotas;
+      const diff = valorMercado - valorInvestido;
+      totalValorizacao += diff;
+    });
+
+    atualizarValorizacaoDOM(totalValorizacao);
+  }
+
+  function atualizarValorizacaoDOM(valor) {
+    const el = document.getElementById('valorizacao-valor');
+    if (!el) return;
+    const sinal = valor >= 0 ? '' : '-';
+    const absVal = Math.abs(valor);
+    const texto = (isNaN(absVal) ? 0 : absVal).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    el.textContent = (valor >= 0 ? 'R$ ' : '-R$ ') + texto;
+
+    // Atualiza classe no card (mais robusto que inline styles)
+    const card = el.closest('.geral-card-despesas');
+    if (card) {
+      card.classList.remove('val-positivo', 'val-negativo', 'val-neutro');
+      if (valor > 0) card.classList.add('val-positivo');
+      else if (valor < 0) card.classList.add('val-negativo');
+      else card.classList.add('val-neutro');
+      // remove estilo inline caso exista
+      el.style.color = '';
+    } else {
+      // fallback: set inline color
+      el.style.color = valor > 0 ? '#28a745' : (valor < 0 ? '#dc3545' : '#000');
+    }
   }
 
   // --- 9. Função para anexar listeners aos botões de apagar ---

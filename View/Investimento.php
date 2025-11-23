@@ -191,11 +191,11 @@ $chartValoresJSON = htmlspecialchars(json_encode($chartValores), ENT_QUOTES, 'UT
             <div class="geral-container">
                 <div class="geral-card-renda">
                     <p>Patrimônio</p>
-                    <h2>R$ 156.000</h2>
+                    <h2><?= formatCurrency($estatisticas['patrimonio_total']) ?></h2>
                 </div>
                 <div class="geral-card-despesas">
                     <p>Valorização</p>
-                    <h2>R$ 10.000 </h2>
+                    <h2 id="valorizacao-valor">R$ 0,00</h2>
                 </div>
                 <div class="geral-card-metas">
                     <p>Total de ativos</p>
