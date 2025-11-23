@@ -1,6 +1,0 @@
-Array
-(
-    [meta_id] => 5
-    [amount] => 333
-    [date] => 2025-11
-)
