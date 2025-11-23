@@ -289,6 +289,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const investmentUnit = document.getElementById('investment-value-unit');
   const qtdInput = document.getElementById('qtd-input');
   
+  // Helper seguro para adicionar listeners apenas se o elemento existir
+  function on(el, evt, handler, opts) {
+    if (!el) return;
+    el.addEventListener(evt, handler, opts);
+  }
 
 
   // Mock de exemplo — substitua por fetch para API real
@@ -317,7 +322,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let resultado = [];
 
   // 1. Listener de Input (lógica 100% do 2º script)
-  stockInput.addEventListener("input", function () {
+  on(stockInput, 'input', function () {
     let input = stockInput.value; // Pega o valor do input 1
     let q = input.trim().toLowerCase()
 
@@ -335,16 +340,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     else {
       // Se o input estiver vazio (do 2º)
-      suggestionsEl.innerHTML = "";
-      suggestionsEl.style.display = 'none'; // Adicionado para garantir que feche
+      if (suggestionsEl) {
+        suggestionsEl.innerHTML = "";
+        suggestionsEl.style.display = 'none'; // Adicionado para garantir que feche
+      }
     }
   });
 
   // 2. Função de Renderização (lógica 100% do 'display' do 2º script)
   function displaySuggestions(resultado) {
     if (!resultado.length) {
-      suggestionsEl.innerHTML = "";
-      suggestionsEl.style.display = 'none';
+      if (suggestionsEl) {
+        suggestionsEl.innerHTML = "";
+        suggestionsEl.style.display = 'none';
+      }
       return;
     }
 
@@ -355,8 +364,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }).join('');
 
     // Coloca dentro de um <ul>, como o 2º script
-    suggestionsEl.innerHTML = "<ul>" + content + "</ul>";
-    suggestionsEl.style.display = 'block'; // Mostra o container
+    if (suggestionsEl) {
+      suggestionsEl.innerHTML = "<ul>" + content + "</ul>";
+      suggestionsEl.style.display = 'block'; // Mostra o container
+    }
   }
 
   // 3. Função de Seleção (lógica 100% do 'selectInput' do 2º script)
@@ -373,17 +384,18 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('stock-name').value = item.nome;
 
     // Preenche o valor unitário no modal
-    const investmentUnit = document.getElementById('investment-value-unit');
     if (investmentUnit) {
       investmentUnit.value = item.valor;
     }
 
-    suggestionsEl.innerHTML = "";
-    suggestionsEl.style.display = 'none';
+    if (suggestionsEl) {
+      suggestionsEl.innerHTML = "";
+      suggestionsEl.style.display = 'none';
+    }
   }
 
   // 4. Listener de Clique (lógica 100% do 2º)
-  suggestionsEl.addEventListener('click', function (event) {
+  on(suggestionsEl, 'click', function (event) {
     // Exatamente a lógica do 2º
     if (event.target.tagName == "LI") {
       selectSuggestion(event.target);
@@ -392,6 +404,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 5. Bônus: Fechar ao clicar fora (o 2º não tem, mas é vital)
   document.addEventListener('click', (e) => {
+    if (!suggestionsEl) return;
     if (!suggestionsEl.contains(e.target) && e.target !== stockInput) {
       suggestionsEl.innerHTML = "";
       suggestionsEl.style.display = 'none';
@@ -407,8 +420,10 @@ document.addEventListener('DOMContentLoaded', () => {
        investmentUnit.value = '';
       valorTotalInput.value = '';
       qtdInput.value = '1';
-      suggestionsEl.innerHTML = "";
-      suggestionsEl.style.display = 'none';
+      if (suggestionsEl) {
+        suggestionsEl.innerHTML = "";
+        suggestionsEl.style.display = 'none';
+      }
     });
   }
 
@@ -489,13 +504,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const pesquisa = document.getElementById("pesquisa-mercado");
 
   // Seleciona o item das sugestões 
-  resultsbox.addEventListener('click', function (event) {
+  on(resultsbox, 'click', function (event) {
     if (event.target.tagName == "LI") {
       selectInput(event.target);
     }
   })
 
-  pesquisa.addEventListener("input", function () {
+  on(pesquisa, 'input', function () {
     let resultado = [];
     let input = pesquisa.value;
 
@@ -508,7 +523,7 @@ document.addEventListener('DOMContentLoaded', () => {
       display(resultado);
     } else {
       // Se o input estiver vazio (clique no 'x' ou apagar com backspace), limpa a caixa de resultados
-      resultsbox.innerHTML = "";
+      if (resultsbox) resultsbox.innerHTML = "";
     }
   });
 
@@ -517,12 +532,12 @@ document.addEventListener('DOMContentLoaded', () => {
       return "<li>" + list + "</li>";
     });
 
-    resultsbox.innerHTML = "<ul>" + content.join('') + "</ul>";
+    if (resultsbox) resultsbox.innerHTML = "<ul>" + content.join('') + "</ul>";
   }
 
   function selectInput(list) {
     pesquisa.value = list.innerHTML;
-    resultsbox.innerHTML = "";
+    if (resultsbox) resultsbox.innerHTML = "";
   }
 
   // --- 6. Controles de quantidade (+ / -) no modal de adicionar investimento ---
@@ -538,18 +553,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  //Fazer o campo de valor total ser atualizado conforme a quantidade e o valor for alterada
-  qtdInput.addEventListener('input', (e) => {
-    
-    let numerototal = investmentUnit.value * qtdInput.value;
-    valorTotalInput.value = Math.round(numerototal * 100) / 100;
-  })
+  // Atualiza o campo de valor total conforme a quantidade e o valor unitário
+  function atualizarTotalModal() {
+    const unitRaw = investmentUnit ? investmentUnit.value : '0';
+    const qtdRaw = qtdInput ? qtdInput.value : '0';
 
-  investmentUnit.addEventListener('input', (e) => {
-    
-    let numerototal = investmentUnit.value * qtdInput.value;
-    valorTotalInput.value = Math.round(numerototal * 100) / 100;
-  })
+    const unit = parseFloat(String(unitRaw).replace(',', '.')) || 0;
+    const qtd = parseFloat(String(qtdRaw).replace(',', '.')) || 0;
+
+    const total = Math.round(unit * qtd * 100) / 100;
+
+    if (valorTotalInput) {
+      console.debug('atualizarTotalModal', { unit, qtd, total });
+      valorTotalInput.value = total.toFixed(2);
+    }
+  }
+
+  on(qtdInput, 'input', atualizarTotalModal);
+  on(investmentUnit, 'input', atualizarTotalModal);
 
   // --- 8. Carregar Carteira do Banco de Dados ---
   async function carregarCarteira() {

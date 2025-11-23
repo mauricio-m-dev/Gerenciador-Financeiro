@@ -169,7 +169,7 @@ $chartValoresJSON = htmlspecialchars(json_encode($chartValores), ENT_QUOTES, 'UT
                                         <label for="investment-value-unit" class="form-label">Valor total
                                             (R$)</label>
                                         <input type="text" class="form-control" id="investment-value-total"
-                                            name="valor_total" value="0.00" readonly>
+                                            name="valor_total" value="0.00" >
                                         <div class="form-text">Valor total da ação, carregado da API.</div>
                                     </div>
 
@@ -208,22 +208,11 @@ $chartValoresJSON = htmlspecialchars(json_encode($chartValores), ENT_QUOTES, 'UT
                 <div class="pesquisa">
                     <h2>Mercado de Ações</h2>
 
-                    <!-- Barra de pesquisa com o autocomplete -->
-                    <div class="barra">
-                        <form class="d-flex" role="search">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-                                autocomplete="off" id="pesquisa-mercado">
-                            <button class="btn btn-outline-success" type="submit">Search</button>
-                        </form>
-                        <div class="result-box">
-
-                        </div>
-                    </div>
+                    
 
                 </div>
 
                     <div class="acoes" id="market-cards">
-                        <!-- Market cards will be rendered here by JavaScript (10 stocks from BRAPI) -->
                     </div>
 
 
@@ -291,15 +280,6 @@ $chartValoresJSON = htmlspecialchars(json_encode($chartValores), ENT_QUOTES, 'UT
                                                     </td>
                                                     <td class="amount-income align-right">
                                                         <?= $ativo['total_cotas'] ?>
-                                                    </td>
-                                                    <td class="align-center">
-                                                        <div class="btn-group btn-group-sm" role="group">
-                                                            <?php foreach ($transacaoIds as $transacaoId): ?>
-                                                                <button type="button" class="btn btn-danger btn-apagar" data-transacao-id="<?= $transacaoId ?>" title="Apagar esta transação">
-                                                                    <i class='bx bx-trash'></i>
-                                                                </button>
-                                                            <?php endforeach; ?>
-                                                        </div>
                                                     </td>
                                                 </tr>
                                             <?php endforeach; ?>
