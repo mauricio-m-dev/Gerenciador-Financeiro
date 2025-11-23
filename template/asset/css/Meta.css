@@ -1,167 +1,41 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* ============================================== */
+/* META.CSS - Estilos Específicos da Página Meta */
+/* ============================================== */
+/* Nota: Estilos globais estão em global.css    */
+/* ============================================== */
 
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #F9FAFB;
-    padding-top: 30px;
-}
-
-ul {
-    list-style: none;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-/* --- Estilo do Header e Navbar --- */
-header {
-    width: 100%;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    transition: box-shadow 0.3s ease;
-}
-
-/* Classe adicionada via JS */
-header.scrolled {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-.navbar {
-    max-width: 1700px;
-    margin: 0 auto;
-    padding: 0 3.2rem; /* Espaçamento lateral */
-    height: 70px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* --- Blocos da Navbar --- */
-
-/* 1. Bloco da Esquerda (Logo + Hamburguer) */
-.nav-left {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    /* Espaço entre hamburguer e logo */
-}
-
-.logo {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #222;
-}
-
-/* 2. Bloco do Centro (Links) */
-.nav-links {
-    display: flex;
-    gap: 2.5rem;
-    /* Espaçamento entre os links */
-}
-
-.nav-links li a {
-    font-weight: 500;
-    color: #555;
-    padding: 0.8rem;
-    transition-duration: 0.5s;
-    transition: 0.3s ease-in-out;
-}
-
-.nav-links li a:hover {
-    color: #155EEF;
-    background-color: #F5F8FF;
-    padding: 0.8rem;
-    border-radius: 1rem;
-    transform: translateY(-5px);
-}
-
-/* 3. Bloco da Direita (Usuário) */
-.user-area {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-/* Correção do seletor para o Boxicon <i> */
-.settings-icon i {
-    font-size: 28px;
-    color: #555;
-    align-items: center;
-    display: flex;
-    /* Diferencial: Animação de rotação no hover */
-    transition: transform 0.4s ease, color 0.3s ease;
-}
-
-.settings-icon:hover i {
-    color: #222;
-    transform: rotate(60deg);
-}
-
-.profile-pic {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    /* Garante que a imagem não distorça */
-    border: 2px solid #eee;
-    cursor: pointer;
-}
-
-/* --- Configuração do Hamburguer (Mobile) --- */
-.hamburger {
-    display: none;
-    /* Escondido no desktop */
-    cursor: pointer;
-    flex-direction: column;
-    gap: 5px;
-    /* Espaço entre as linhas */
-}
-
-.hamburger .line {
-    width: 25px;
-    height: 3px;
-    background-color: #333;
-    border-radius: 3px;
-    transition: all 0.3s ease-in-out;
-}
-
-main {
-    margin: 80px 0 0 0;
-    padding: 2rem 1.5rem;
-}
+/* main spacing controlled by global.css */
 
 .container {
-    max-width: 1200px; /* Alinha com o H1 e Navbar */
+    max-width: 1200px;
+    /* Alinha com o H1 e Navbar */
     min-width: 320px;
     width: 100%;
-    margin: 0 auto; /* Centraliza o container horizontalmente */
-    padding: 0 3.2rem; /* Mantém o mesmo padding lateral do navbar/h1 */
+    margin: 0 auto;
+    /* Centraliza o container horizontalmente */
+    padding: 0 3.2rem;
+    /* Mantém o mesmo padding lateral do navbar/h1 */
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* GARANTE O ALINHAMENTO À ESQUERDA PARA TODOS OS FILHOS */
+    align-items: flex-start;
+    /* GARANTE O ALINHAMENTO À ESQUERDA PARA TODOS OS FILHOS */
 }
 
 .header-meta-section {
     display: flex;
-    justify-content: space-between; /* Empurra o H1 para a esquerda e o botão para a direita */
-    align-items: center; /* Alinha verticalmente */
-    width: 100%; /* Ocupa a largura total do .container */
-    margin-bottom: 1.5rem; /* Margem padrão para separar dos meta-cards */
+    justify-content: space-between;
+    /* Empurra o H1 para a esquerda e o botão para a direita */
+    align-items: center;
+    /* Alinha verticalmente */
+    width: 100%;
+    /* Ocupa a largura total do .container */
+    margin-bottom: 1.5rem;
+    /* Margem padrão para separar dos meta-cards */
 }
 
 .header-meta-section h1 {
-    margin: 0; /* Remove a margem inferior que o H1 tinha antes */
-    font-size: 2.5rem; /* Mantém o tamanho original */
+    margin: 0;
+    /* font-size controlled by global.css */
 }
 
 .add-meta-button {
@@ -176,7 +50,8 @@ main {
     font-weight: 500;
     cursor: pointer;
     display: flex;
-    align-items: center; /* Mantém o alinhamento principal */
+    align-items: center;
+    /* Mantém o alinhamento principal */
     gap: 0.4rem;
     transition: all 0.2s ease-in-out;
     font-weight: 600;
@@ -193,30 +68,38 @@ main {
 .add-meta-button i {
     font-size: 1.2rem;
     margin-right: 0;
-    position: relative; 
-    top: 1.1px; /* Move o ícone 1 pixel para cima para alinhar melhor com o texto */
+    position: relative;
+    top: 1.1px;
+    /* Move o ícone 1 pixel para cima para alinhar melhor com o texto */
     color: #394753;
     font-weight: 600;
 }
 
 .meta-container {
     display: flex;
-    align-items: flex-start; /* Alinha os cartões ao topo da linha */
-    gap: 1.5rem; /* Espaço entre os cartões */
-    margin-top: 0; /* Remova a margem de 3rem que estava aqui */
+    align-items: flex-start;
+    /* Alinha os cartões ao topo da linha */
+    gap: 1.5rem;
+    /* Espaço entre os cartões */
+    margin-top: 0;
+    /* Remova a margem de 3rem que estava aqui */
     margin-bottom: 2rem;
     width: 100%;
-    justify-content: flex-start; /* GARANTE QUE O PRIMEIRO CARTÃO COMECE NA ESQUERDA */
-    flex-wrap: wrap; 
+    justify-content: flex-start;
+    /* GARANTE QUE O PRIMEIRO CARTÃO COMECE NA ESQUERDA */
+    flex-wrap: wrap;
 }
 
 .meta-card {
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-    width: 250px; /* Ajustei de 300px para 280px para ajudar no space-around */
+    padding: 1.5rem;
+    width: 250px;
+    /* Ajustei de 300px para 280px para ajudar no space-around */
     flex-grow: 1;
+    justify-content: center;
+    align-items: center;
     text-align: flex-start;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -241,7 +124,8 @@ main {
 
 .meta-details {
     margin-top: 1.5rem;
-    width: 100%; /* Garante que ocupe a largura total do container (1700px) */
+    width: 100%;
+    /* Garante que ocupe a largura total do container (1700px) */
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -253,8 +137,10 @@ main {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 2rem;
-    width: 100%; /* Agora ocupa 100% do seu pai (.meta-details, que é 100% do .container) */
-    max-width: 100%; /* Garante flexibilidade */
+    width: 100%;
+    /* Agora ocupa 100% do seu pai (.meta-details, que é 100% do .container) */
+    max-width: 100%;
+    /* Garante flexibilidade */
     text-align: flex-start;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -264,19 +150,23 @@ main {
 .card-details {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem; /* Espaçamento entre as seções */
-    padding: 2.5rem; /* Aumenta o padding interno para combinar com a imagem */
+    gap: 1.5rem;
+    /* Espaçamento entre as seções */
+    padding: 2.5rem;
+    /* Aumenta o padding interno para combinar com a imagem */
 }
 
 .card-details-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start; /* Alinha o texto do título acima do percentual */
+    align-items: flex-start;
+    /* Alinha o texto do título acima do percentual */
     margin-bottom: 1rem;
 }
 
 .card-details-header .goal-info h2 {
-    font-size: 1.8rem; /* Tamanho do título da meta */
+    font-size: 1.8rem;
+    /* Tamanho do título da meta */
     color: #333;
     margin-bottom: 0.3rem;
 }
@@ -284,17 +174,21 @@ main {
 .card-details-header .goal-info p {
     font-size: 1rem;
     color: #777;
-    margin: 0; /* Remove margem padrão de parágrafo */
+    margin: 0;
+    /* Remove margem padrão de parágrafo */
 }
 
 .card-details-header .goal-percentage {
-    background-color: #e0f2f7; /* Azul claro */
-    color: #2196f3; /* Azul mais escuro */
+    background-color: #e0f2f7;
+    /* Azul claro */
+    color: #2196f3;
+    /* Azul mais escuro */
     padding: 0.5rem 1rem;
     border-radius: 5px;
     font-weight: bold;
     font-size: 1.1rem;
-    align-self: flex-start; /* Garante que o percentual fique no topo */
+    align-self: flex-start;
+    /* Garante que o percentual fique no topo */
 }
 
 .progress-bar-container {
@@ -302,13 +196,15 @@ main {
     height: 8px;
     background-color: #e0e0e0;
     border-radius: 4px;
-    overflow: hidden; /* Garante que a barra de progresso não vaze */
+    overflow: hidden;
+    /* Garante que a barra de progresso não vaze */
     margin-bottom: 1.5rem;
 }
 
 .progress-bar {
     height: 100%;
-    background-color: #2a68ff; /* Azul da imagem */
+    background-color: #2a68ff;
+    /* Azul da imagem */
     border-radius: 4px;
     transition: width 0.5s ease-in-out;
 }
@@ -316,18 +212,20 @@ main {
 .chart-and-summary {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start; /* Alinha o conteúdo ao topo */
+    align-items: flex-start;
+    /* Alinha o conteúdo ao topo */
     gap: 2rem;
     margin-bottom: 1.5rem;
 }
 
 .chart-container {
     /* Mantém a largura e altura definidas anteriormente */
-    width: 65%; 
+    width: 65%;
     height: 200px;
-    border: 1px solid #eee; 
+    border: 1px solid #eee;
     border-radius: 8px;
-    padding: 10px; /* Adiciona padding para que o gráfico não toque nas bordas */
+    padding: 10px;
+    /* Adiciona padding para que o gráfico não toque nas bordas */
     position: relative;
     /* Certifique-se de que o overflow: hidden está removido ou ajustado
        se você quiser que o tooltip do gráfico apareça fora do container. */
@@ -339,13 +237,18 @@ main {
 }
 
 
-.summary-details-vertical { /* A nova classe */
-    width: 35%; /* Ocupa a largura restante (aprox. 35%) */
+.summary-details-vertical {
+    /* A nova classe */
+    width: 35%;
+    /* Ocupa a largura restante (aprox. 35%) */
     display: flex;
-    flex-direction: column; /* Organiza os itens um abaixo do outro */
-    justify-content: space-around; /* Distribui os 3 itens uniformemente */
+    flex-direction: column;
+    /* Organiza os itens um abaixo do outro */
+    justify-content: space-around;
+    /* Distribui os 3 itens uniformemente */
     gap: 1.2rem;
-    height: 200px; /* Mesma altura do gráfico para alinhar */
+    height: 200px;
+    /* Mesma altura do gráfico para alinhar */
 }
 
 .summary-details-vertical .summary-item {
@@ -374,15 +277,43 @@ main {
     font-weight: 600;
 }
 
+.card-actions {
+    display: flex; 
+    justify-content: flex-start;
+    gap: 1rem;
+}
+
+.contribute-button {
+    background-color: #e0f2f7;
+    color: #2196f3;
+    padding: 8px 16px;
+    font-size: 14.4px;
+    border: 1px solid #bfe8f3;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.contribute-button:hover {
+    background-color: #2196f3;
+    color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 174, 255, 0.3);
+}
+
 .timeline-details {
     display: flex;
-    justify-content: space-between; /* Espalha os itens: Prazo à esquerda, 5 meses à direita */
+    justify-content: space-between;
+    /* Espalha os itens: Prazo à esquerda, 5 meses à direita */
     align-items: center;
     gap: 2rem;
     margin-bottom: 1.5rem;
     padding-top: 1rem;
     border-top: 1px solid #f0f0f0;
-    width: 100%; /* Garante que ocupe 100% da largura para que o space-between funcione */
+    width: 100%;
+    /* Garante que ocupe 100% da largura para que o space-between funcione */
 }
 
 .timeline-details .timeline-item {
@@ -408,19 +339,24 @@ main {
 
 
 .alert-message {
-    background-color: #fffde7; /* Amarelo claro suave */
-    border-left: 5px solid #ffcc00; /* Borda esquerda amarela */
+    background-color: #fffde7;
+    /* Amarelo claro suave */
+    border-left: 5px solid #ffcc00;
+    /* Borda esquerda amarela */
     padding: 1rem 1.5rem;
     border-radius: 8px;
     display: flex;
-    align-items: flex-start; /* Alinha o ícone com o texto superior */
+    align-items: flex-start;
+    /* Alinha o ícone com o texto superior */
     gap: 0.8rem;
 }
 
 .alert-message i {
     font-size: 1.5rem;
-    color: #ffcc00; /* Cor do ícone de alerta */
-    margin-top: 0.1rem; /* Ajusta a posição vertical do ícone */
+    color: #ffcc00;
+    /* Cor do ícone de alerta */
+    margin-top: 0.1rem;
+    /* Ajusta a posição vertical do ícone */
 }
 
 .alert-message span {
@@ -436,7 +372,8 @@ main {
 .alert-message p {
     font-size: 0.9rem;
     color: #666;
-    margin: 0; /* Remove margem padrão de parágrafo */
+    margin: 0;
+    /* Remove margem padrão de parágrafo */
     line-height: 1.2;
 }
 
@@ -446,7 +383,8 @@ main {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
-    margin-top: 3rem; /* Espaçamento grande para separar da seção de Metas */
+    margin-top: 3rem;
+    /* Espaçamento grande para separar da seção de Metas */
     margin-bottom: 2rem;
     padding: 2rem;
     display: flex;
@@ -478,14 +416,16 @@ main {
 
 .tip-card span {
     font-weight: 600;
-    display: block; /* Garante que o span ocupe a linha inteira */
+    display: block;
+    /* Garante que o span ocupe a linha inteira */
     margin-bottom: 0.3rem;
 }
 
 .tip-card p {
     font-size: 0.95rem;
     color: #668091;
-    margin: 0; /* Remove a margem inferior do parágrafo */
+    margin: 0;
+    /* Remove a margem inferior do parágrafo */
 }
 
 
@@ -493,52 +433,58 @@ main {
 
 /* Verde: Excelente Taxa (Sucesso) */
 .tip-success {
-    background-color: #e9f8e9; /* Fundo verde muito claro */
-    border: 1px solid #c8e6c9; /* Borda verde clara */
+    background-color: #e9f8e9;
+    /* Fundo verde muito claro */
+    border: 1px solid #c8e6c9;
+    /* Borda verde clara */
 }
 
 .tip-title-success {
-    color: #388e3c; /* Cor do texto e bullet point verde escuro */
+    color: #388e3c;
+    /* Cor do texto e bullet point verde escuro */
     font-size: 18px;
 }
 
 /* Azul: Sugestões (Info) */
 .tip-info {
-    background-color: #e8f4fd; /* Fundo azul muito claro */
-    border: 1px solid #bbdefb; /* Borda azul clara */
+    background-color: #e8f4fd;
+    /* Fundo azul muito claro */
+    border: 1px solid #bbdefb;
+    /* Borda azul clara */
 }
 
 .tip-title-info {
-    color: #1976d2; /* Cor do texto e bullet point azul escuro */
+    color: #1976d2;
+    /* Cor do texto e bullet point azul escuro */
     font-size: 18px;
 }
 
 
 .modal-overlay {
     /* CRÍTICO: Esconde o modal por padrão */
-    display: none; 
-    
+    display: none;
+
     /* CRÍTICO: Fixa o modal na tela, ignorando o scroll da página */
-    position: fixed; 
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    
+
     /* Fundo semi-transparente escuro */
     background-color: rgba(0, 0, 0, 0.6);
-    
+
     /* Centraliza o conteúdo */
     justify-content: center;
     align-items: center;
-    
+
     /* Garante que o modal fique acima de todos os outros elementos */
-    z-index: 10000; 
-    
+    z-index: 10000;
+
     /* Propriedades para transição de abertura */
     opacity: 0;
     visibility: hidden;
-    pointer-events: none; 
+    pointer-events: none;
     transition: opacity 0.4s ease, visibility 0.4s ease;
 }
 
@@ -546,9 +492,9 @@ main {
 .modal-overlay.open {
     /* Torna o modal visível */
     display: flex;
-    opacity: 1; 
+    opacity: 1;
     visibility: visible;
-    pointer-events: auto; 
+    pointer-events: auto;
 }
 
 .modal-content {
@@ -666,18 +612,185 @@ main {
 }
 
 .submit-button:active {
-    transform: scale(0.99); /* Pequeno efeito de clique */
+    transform: scale(0.99);
+    /* Pequeno efeito de clique */
+}
+
+
+/* --- Estilos para Validação do Modal (NOVO) --- */
+
+.form-group.error input,
+.form-group.error select {
+    border-color: #dc3545 !important;
+    /* Vermelho para erro */
+    box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.2) !important;
+}
+
+.error-message {
+    color: #dc3545;
+    /* Vermelho para o texto da mensagem */
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    display: block;
+    /* Garante que a mensagem ocupe a linha */
+    font-weight: 500;
+}
+
+
+.delete-meta-button {
+    background-color: #FFF1F0;
+    /* Fundo vermelho bem claro */
+    color: #D9534F;
+    /* Texto vermelho */
+    border: 1px solid #FFD6D4;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.2s ease;
+}
+
+.delete-meta-button i {
+    font-size: 1.1rem;
+}
+
+.delete-meta-button:hover {
+    background-color: #D9534F;
+    /* Fundo vermelho sólido */
+    color: #ffffff;
+    /* Texto branco */
+    box-shadow: 0 2px 5px rgba(217, 83, 79, 0.4);
+}
+
+/* Ajuste para os botões de confirmação do modal */
+#cancelDeleteButton {
+    background-color: #6c757d;
+}
+
+#cancelDeleteButton:hover {
+    background-color: #5a6268;
+}
+
+#confirmDeleteButton {
+    background-color: #d9534f;
+}
+
+#confirmDeleteButton:hover {
+    background-color: #c9302c;
+}
+
+/* --- Novo Botão de Histórico --- */
+.history-button {
+    background-color: #fff8e1; /* Amarelo bem claro */
+    color: #f57c00; /* Laranja/Amarelo escuro */
+    border: 1px solid #ffe0b2;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.2s ease;
+}
+
+.history-button:hover {
+    background-color: #ffcc80;
+    color: #e65100;
+    border-color: #fb8c00;
+    box-shadow: 0 2px 5px rgba(255, 152, 0, 0.3);
+}
+
+.history-button i {
+    font-size: 1.1rem;
+}
+
+/* --- Estilos do Modal de Histórico --- */
+.history-list-container {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 0.5rem;
+    background-color: #fafafa;
+}
+
+.history-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid #e0e0e0;
+    background: #fff;
+    transition: background 0.2s;
+}
+
+.history-item:last-child {
+    border-bottom: none;
+}
+
+.history-item:hover {
+    background-color: #f9f9f9;
+}
+
+.history-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.history-date {
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.history-value {
+    font-weight: 600;
+    color: #333;
+    font-size: 1rem;
+}
+
+.history-contribution {
+    font-size: 0.8rem;
+    color: #2a68ff; /* Azul para indicar o aporte */
+}
+
+.btn-remove-history {
+    background: none;
+    border: none;
+    color: #d9534f;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 5px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.btn-remove-history:hover {
+    background-color: #fee;
 }
 
 
 /* --- Responsividade (Tablet e Desktop menor) --- */
 @media (max-width: 1400px) {
     .meta-card {
-        width: 250px; /* Reduz a largura do cartão para caber 4 em 1400px ou menos */
+        width: 250px;
+        /* Reduz a largura do cartão para caber 4 em 1400px ou menos */
     }
 
     .card-details {
-        width: 100%; /* Garante que o detalhe da meta ocupe 100% do container */
+        width: 100%;
+        /* Garante que o detalhe da meta ocupe 100% do container */
     }
 }
 
@@ -759,34 +872,40 @@ main {
 /* --- Responsividade (Mobile) --- */
 @media (max-width: 768px) {
     main {
-        padding: 2rem 1rem; /* Reduz o padding lateral da main */
+        padding: 2rem 1rem;
+        /* Reduz o padding lateral da main */
     }
 
-    main h1 {
-        padding: 0 1.5rem; /* Ajusta o padding do H1 para o mobile */
-    }
+    /* main h1 spacing handled in global.css */
 
     .container {
-        padding: 0 1.5rem; /* Ajusta o padding do container para o mobile */
+        padding: 0 1.5rem;
+        /* Ajusta o padding do container para o mobile */
     }
 
     .meta-container {
-        flex-direction: column; /* Empilha os cartões verticalmente */
+        flex-direction: column;
+        /* Empilha os cartões verticalmente */
         gap: 1.5rem;
         margin-top: 1.5rem;
         width: 100%;
-        justify-content: center; /* Centraliza o container */
-        align-items: center; /* Centraliza os cartões dentro dele */
+        justify-content: center;
+        /* Centraliza o container */
+        align-items: center;
+        /* Centraliza os cartões dentro dele */
     }
 
     .meta-card {
-        width: 100%; /* Ocupa a largura total na tela móvel */
-        max-width: 350px; /* Adiciona um max-width razoável para o cartão em mobile */
+        width: 100%;
+        /* Ocupa a largura total na tela móvel */
+        max-width: 350px;
+        /* Adiciona um max-width razoável para o cartão em mobile */
         padding: 1.5rem;
     }
 
     .meta-card h2 {
-        font-size: 2rem; /* Reduz o tamanho da fonte do valor */
+        font-size: 2rem;
+        /* Reduz o tamanho da fonte do valor */
     }
 
     .meta-details {
@@ -802,26 +921,33 @@ main {
     }
 
     .chart-and-summary {
-        flex-direction: column; /* Empilha o gráfico e os detalhes */
+        flex-direction: column;
+        /* Empilha o gráfico e os detalhes */
         gap: 1.5rem;
     }
 
     .chart-container,
     .summary-details-vertical {
-        width: 100%; /* Ocupam a largura total em mobile */
-        height: auto; /* Remove a altura fixa em mobile */
+        width: 100%;
+        /* Ocupam a largura total em mobile */
+        height: auto;
+        /* Remove a altura fixa em mobile */
     }
 
     .card-details-header {
-        flex-direction: row; /* Volta a ser row para o percentual ficar na direita */
-        justify-content: space-between; /* Espalha título e percentual */
+        flex-direction: row;
+        /* Volta a ser row para o percentual ficar na direita */
+        justify-content: space-between;
+        /* Espalha título e percentual */
         align-items: center;
         margin-bottom: 0.5rem;
     }
 
     .card-details-header .goal-percentage {
-        align-self: center; /* Alinha no centro vertical */
-        margin-top: 0; /* Remove a margem negativa que era usada */
+        align-self: center;
+        /* Alinha no centro vertical */
+        margin-top: 0;
+        /* Remove a margem negativa que era usada */
     }
 
     .card-details-header .goal-info h2 {
@@ -829,12 +955,14 @@ main {
     }
 
     .timeline-details {
-        flex-direction: row; /* Mantém na linha */
-        justify-content: space-between; /* Garante que o relógio vá para a direita */
+        flex-direction: row;
+        /* Mantém na linha */
+        justify-content: space-between;
+        /* Garante que o relógio vá para a direita */
     }
 
     .timeline-details .timeline-item {
         /* Garante que os itens não quebrem a linha */
-        white-space: nowrap; 
+        white-space: nowrap;
     }
 }
