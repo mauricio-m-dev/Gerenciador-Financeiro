@@ -1,0 +1,13 @@
+{
+    "name": "gerenciador/financeiro",
+    "description": "Gerenciador Financeiro",
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Model\\": "Model/",
+            "Controller\\": "Controller/"
+        }
+    }
+}

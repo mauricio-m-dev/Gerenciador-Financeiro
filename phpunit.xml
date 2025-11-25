@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.6/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+         verbose="true">
+    <testsuites>
+        <testsuite name="Application Test Suite">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <const name="DB_HOST" value="localhost"/>
+        <const name="DB_NAME" value="gerenciador_financeiro"/>
+        <const name="DB_USER" value="root"/>
+        <const name="DB_PASSWORD" value=""/>
+        <const name="DB_PORT" value="3306"/>
+        <const name="DB_CHARSET" value="utf8mb4"/>
+    </php>
+</phpunit>
