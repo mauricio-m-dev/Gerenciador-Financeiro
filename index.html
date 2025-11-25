@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOVYX - Controle suas finanças com clareza</title>
+
+    <meta name="description"
+        content="Chega de planilhas complicadas. O NOVYX é o gerenciador financeiro inteligente que te ajuda a economizar, planejar metas e alcançar a tranquilidade financeira.">
+
+    <link rel="icon" href="template/asset/img/favicon.ico" sizes="any">
+    <link rel="icon" href="template/asset/img/favicon.svg" type="image/svg+xml">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <link rel="stylesheet" href="template/asset/css/style.css">
+</head>
+
+<body>
+
+    <header class="header-fixed">
+        <nav class="container-landing navbar-landing">
+            <a href="#inicio" class="logo-landing">NOVYX</a>
+
+            <ul class="nav-links-landing" id="nav-links">
+                <li><a href="#inicio" class="nav-link active" aria-current="page">Início</a></li>
+                <li><a href="#funcionalidades" class="nav-link">Funcionalidades</a></li>
+                <li><a href="#beneficios" class="nav-link">Benefícios</a></li>
+                <li><a href="#depoimentos" class="nav-link">Depoimentos</a></li>
+                <li><a href="#faq" class="nav-link">FAQ</a></li>
+                <li class="nav-buttons-mobile">
+                    <a href="View/Login.php" class="btn btn-secondary">Login</a>
+                    <a href="View/Cadastro.php" class="btn btn-primary">Começar Agora</a>
+                </li>
+            </ul>
+
+            <div class="nav-buttons-desktop">
+                <a href="View/Login.php" class="btn-nav-login">Login</a>
+                <a href="View/Cadastro.php" class="btn btn-primary btn-nav-cta">Começar Agora</a>
+            </div>
+
+            <button class="hamburger-landing" id="hamburger-btn" aria-label="Abrir menu">
+                <i class='bx bx-menu'></i>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <section id="inicio" class="hero-section">
+            <div class="container-landing hero-grid">
+                <div class="hero-content">
+                    <h1>Sua vida financeira, finalmente sob controle.</h1>
+                    <p class="subtitle">Chega de planilhas complicadas. O NOVYX é o gerenciador inteligente que te ajuda
+                        a economizar, planejar metas e alcançar a tranquilidade financeira.</p>
+                    <a href="View/Cadastro.php" class="btn btn-primary btn-lg">Quero organizar minhas finanças (Grátis)</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="funcionalidades" class="features-section">
+            <div class="container-landing text-center">
+                <span class="section-tag">Funcionalidades</span>
+                <h2>Tudo que você precisa em um só lugar</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class='bx bx-line-chart'></i>
+                        <h3>Controle Total</h3>
+                        <p>Registre suas despesas e receitas de forma rápida e veja seu saldo em tempo real.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class='bx bx-pie-chart-alt-2'></i>
+                        <h3>Gráficos Automáticos</h3>
+                        <p>Entenda seus gastos com relatórios visuais e saiba exatamente para onde seu dinheiro vai.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class='bx bx-target-lock'></i>
+                        <h3>Planejamento de Metas</h3>
+                        <p>Crie metas de economia e acompanhe seu progresso para realizar seus sonhos.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class='bx bx-bell'></i>
+                        <h3>Alertas Inteligentes</h3>
+                        <p>Seja notificado sobre contas a vencer e evite surpresas no fim do mês.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class='bx bx-git-compare'></i>
+                        <h3>Open Finance</h3>
+                        <p>Conecte suas contas bancárias e importe suas transações automaticamente com segurança.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class='bx bx-devices'></i>
+                        <h3>Multiplataforma</h3>
+                        <p>Acesse seus dados no computador ou celular. Sua vida financeira na sua mão.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="beneficios" class="benefits-section">
+            <div class="container-landing benefits-grid">
+                <div class="benefits-content">
+                    <span class="section-tag">Por que usar?</span>
+                    <h2>Menos esforço, mais resultados financeiros</h2>
+                    <p>Focar no valor é mais importante que focar na função. Nós te ajudamos a focar no que importa.</p>
+                    <ul class="benefits-list">
+                        <li>
+                            <i class='bx bx-check-circle'></i>
+                            <div>
+                                <h4>Economize tempo</h4>
+                                <p>Com a integração bancária, suas transações são categorizadas automaticamente.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class='bx bx-check-circle'></i>
+                            <div>
+                                <h4>Visão clara do futuro</h4>
+                                <p>Nossas projeções ajudam você a planejar os próximos meses sem complicação.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class='bx bx-check-circle'></i>
+                            <div>
+                                <h4>Segurança em primeiro lugar</h4>
+                                <p>Usamos criptografia de nível bancário para proteger seus dados 24/7.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="depoimentos" class="testimonials-section">
+            <div class="container-landing text-center">
+                <span class="section-tag">Prova Social</span>
+                <h2>O que nossos usuários dizem</h2>
+                <div class="testimonials-grid">
+
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i><i
+                                class='bx bxs-star'></i><i class='bx bxs-star'></i>
+                        </div>
+                        <p>"O NOVYX mudou minha vida financeira. Finalmente saí do vermelho e comecei a investir. Otima
+                            plataforma!"</p>
+                        <div class="author">
+                            <div class="author-avatar" aria-hidden="true">MS</div>
+                            <span>Mauricio S., Desenvolvedor</span>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i><i
+                                class='bx bxs-star'></i><i class='bx bxs-star'></i>
+                        </div>
+                        <p>"Eu usava planilhas, mas era muito chato. Com os gráficos automáticos, eu entendi na hora
+                            onde eu estava gastando mais."</p>
+                        <div class="author">
+                            <div class="author-avatar" aria-hidden="true">AB</div>
+                            <span>Ana B., Designer</span>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i><i
+                                class='bx bxs-star'></i><i class='bx bxs-star'></i>
+                        </div>
+                        <p>"A função de metas é minha favorita. Consegui planejar minha viagem de férias e acompanhar
+                            cada centavo que guardei."</p>
+                        <div class="author">
+                            <div class="author-avatar" aria-hidden="true">CP</div>
+                            <span>Carlos P., Freelancer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="cta" class="cta-section">
+            <div class="container-landing text-center">
+                <h2>Pronto para transformar sua vida financeira?</h2>
+                <p>Crie sua conta grátis em menos de 30 segundos. Sem cartão de crédito, sem pegadinhas.</p>
+                <a href="View/Cadastro.php" class="btn btn-light btn-lg">Criar minha conta grátis</a>
+            </div>
+        </section>
+
+        <section id="faq" class="faq-section">
+            <div class="container-landing faq-container">
+                <h2 class="text-center">Perguntas Frequentes</h2>
+                <div class="faq-accordion">
+                    <details>
+                        <summary>O sistema é realmente gratuito?</summary>
+                        <p>Sim. O NOVYX oferece um plano 100% gratuito com todas as funcionalidades essenciais para você
+                            organizar sua vida financeira. No futuro, planejamos adicionar planos "Pro" com automações
+                            avançadas.</p>
+                    </details>
+                    <details>
+                        <summary>O que é Open Finance? É seguro?</summary>
+                        <p>Open Finance (ou Sistema Financeiro Aberto) é uma iniciativa do Banco Central que permite que
+                            você compartilhe seus dados entre diferentes instituições financeiras de forma segura. O
+                            NOVYX usa essa tecnologia apenas para *ler* suas transações (nunca para movimentar), com sua
+                            autorização, usando os mesmos protocolos de segurança de nível bancário.</p>
+                    </details>
+                    <details>
+                        <summary>Posso usar no celular?</summary>
+                        <p>Com certeza. Nossa plataforma é totalmente responsiva e se adapta a qualquer dispositivo,
+                            seja computador, tablet ou celular, para você acessar seus dados de onde estiver.</p>
+                    </details>
+                    <details>
+                        <summary>Meus dados financeiros estão seguros?</summary>
+                        <p>Segurança é nossa prioridade máxima. Utilizamos criptografia de ponta-a-ponta e seguimos os
+                            mais rigorosos padrões de segurança do mercado, os mesmos utilizados por grandes bancos.</p>
+                    </details>
+                    <details>
+                        <summary>Preciso cadastrar um cartão de crédito?</summary>
+                        <p>Não. O cadastro é gratuito e não exige nenhum dado de pagamento. Você só precisa de um nome e
+                            um e-mail para começar.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer-section">
+        <div class="container-landing footer-grid">
+            <div class="footer-col">
+                <a href="#inicio" class="logo-landing">NOVYX</a>
+                <p>Organizando sua vida financeira com simplicidade e tecnologia.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navegação</h4>
+                <ul>
+                    <li><a href="#funcionalidades">Funcionalidades</a></li>
+                    <li><a href="#beneficios">Benefícios</a></li>
+                    <li><a href="#depoimentos">Depoimentos</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Política de Privacidade</a></li>
+                    <li><a href="#">Termos de Uso</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contato</h4>
+                <p>contato@novyx.com</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram"><i class='bx bxl-instagram'></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class='bx bxl-linkedin-square'></i></a>
+                    <a href="#" aria-label="Twitter"><i class='bx bxl-twitter'></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container-landing">
+                <p>© 2025 NOVYX. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="template/asset/js/Script.js"></script>
+</body>
+
+</html>

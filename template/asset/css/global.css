@@ -1,0 +1,922 @@
+/* ============================================== */
+/* GLOBAL.CSS - Padrões Globais da Aplicação    */
+/* ============================================== */
+
+/* ============================================== */
+/* 1. VARIÁVEIS DE COR (CSS Custom Properties)   */
+/* ============================================== */
+:root {
+  /* Cores Primárias */
+  --primary-blue: #155eef;
+  --dark-blue: #104abd;
+  --light-blue: #f5f8ff;
+  
+  /* Cores de Texto */
+  --text-dark: #101828;
+  --text-medium: #555;
+  --text-light: #777;
+  
+  /* Cores de Fundo */
+  --background-light: #f9f9f9;
+  --background-white: #ffffff;
+  --background-gray: #F9FAFB;
+  
+  /* Cores de Status */
+  --success-green: #17b26a;
+  --warning-yellow: #f39c12;
+  --error-red: #e74c3c;
+  --info-blue: #3498db;
+  
+  /* Cores de Borda e Sombra */
+  --border-color: #e0e0e0;
+  --border-light: #f0f0f0;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  --shadow-light: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-medium: 0 2px 16px rgba(60, 60, 60, 0.06);
+  
+  /* Cores de Avatar */
+  --avatar-bg-1: #e0f7fa;
+  --avatar-text-1: #00796b;
+  --avatar-bg-2: #fff3e0;
+  --avatar-text-2: #ef6c00;
+  --avatar-bg-3: #e8eaf6;
+  --avatar-text-3: #3949ab;
+  
+  /* Tipografia */
+  --font-family: 'Poppins', sans-serif;
+  --font-size-base: 1rem;
+  --line-height-base: 1.7;
+}
+
+/* ============================================== */
+/* 2. RESET E ESTILOS BASE                       */
+/* ============================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  color: var(--text-medium);
+  background-color: var(--background-gray);
+  line-height: var(--line-height-base);
+  padding-top: 70px;
+}
+
+/* Espaçamento padrão para o conteúdo principal (abaixo do header fixo) */
+main {
+  padding-top: calc( 2rem);
+  padding-bottom: 3rem;
+  min-height: 100vh;
+}
+
+/* ============================================== */
+/* 3. TIPOGRAFIA                                 */
+/* ============================================== */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-dark);
+  font-weight: 600;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+h1 { 
+  font-size: 2rem; 
+  font-family: var(--font-family);
+  font-weight: 600;
+  margin: 0 0 1rem;
+  color: var(--text-dark);
+}
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.0rem; }
+h4 { font-size: 1rem; }
+h5 { font-size: 1rem; }
+h6 { font-size: 0.8rem; }
+
+/* Responsividade para títulos principais */
+@media (max-width: 992px) {
+  h1 { font-size: 1.75rem; }
+}
+@media (max-width: 425px) {
+  h1 { font-size: 1.5rem; }
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: var(--primary-blue);
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--dark-blue);
+}
+
+ul, ol {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ============================================== */
+/* 4. CONTAINERS E LAYOUT                        */
+/* ============================================== */
+.container {
+  max-width: 1200px;
+  width: 90%;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.container-landing {
+  max-width: 1140px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+section {
+  padding: 80px 0;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* ============================================== */
+/* 5. HEADER E NAVEGAÇÃO                         */
+/* ============================================== */
+header {
+  width: 100%;
+  background-color: var(--background-white);
+  box-shadow: var(--shadow-light);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  transition: box-shadow 0.3s ease;
+}
+
+header.scrolled {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.navbar {
+  margin: 0 auto;
+  padding: 0 1rem;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1700px;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  display: flex;
+  text-decoration: none;
+  transition: color 0.2s;
+  color: #000000;
+}
+
+.logo:hover {
+  color: var(--primary-blue);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+}
+
+.nav-links li a {
+  font-weight: 500;
+  color: var(--text-medium);
+  padding: 0.8rem;
+  transition: all 0.3s ease;
+  border-radius: 1rem;
+}
+
+.nav-links li a:hover,
+.nav-links li a.active {
+  color: var(--primary-blue);
+  background-color: var(--light-blue);
+  transform: translateY(-5px);
+}
+
+.user-area {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.settings-icon  {
+    font-size: 28px;
+    color: #555;
+    align-items: center;
+    display: flex;
+    /* Diferencial: Animação de rotação no hover */
+    transition: transform 0.4s ease, color 0.3s ease;
+}
+
+.settings-icon:hover .material-symbols-outlined {
+    color: #222;
+    transform: rotate(60deg);
+}
+
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.profile-pic:hover {
+  transform: scale(1.1);
+}
+
+/* Hamburger Menu (Mobile) */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.hamburger .line {
+  width: 25px;
+  height: 3px;
+  background-color: var(--text-dark);
+  border-radius: 3px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* ============================================== */
+/* 6. BOTÕES                                      */
+/* ============================================== */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  text-align: center;
+}
+
+.btn-primary {
+  background-color: var(--primary-blue);
+  color: var(--background-white);
+}
+
+.btn-primary:hover {
+  background-color: var(--dark-blue);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.btn-secondary {
+  background-color: var(--background-light);
+  color: var(--text-dark);
+  border: 1px solid var(--border-color);
+}
+
+/* Estilo para o Botão de Fechar Modal (X) */
+.modal-close-btn {
+  /* Propriedades Básicas (Mantidas do CSS original) */
+  background: none;
+  border: none;
+  font-size: 1.75rem; /* Tamanho do ícone/texto 'x' */
+  color: #999;
+  cursor: pointer;
+  
+  /* Transições para o efeito hover/focus */
+  transition: all 0.25s ease;
+  
+  /* Garante que o botão seja um círculo e melhora a área de clique */
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%; /* Torna-o redondo */
+}
+
+/* Efeito ao passar o mouse ou receber foco */
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+  color: #333; /* Fica mais escuro */
+  transform: rotate(90deg); /* Rotação de 90 graus (do seu CSS original) */
+  outline: none; /* Remove o contorno padrão do foco */
+}
+
+/* Efeito ao ser clicado (para feedback visual) */
+.modal-close-btn:active {
+  color: #000;
+  background-color: #ddd; /* Fica um pouco mais escuro */
+  transform: scale(0.95) rotate(90deg); /* Encolhe levemente */
+}
+
+.btn-secondary:hover {
+  background-color: var(--border-light);
+}
+
+.btn-success {
+  background-color: var(--success-green);
+  color: var(--background-white);
+}
+
+.btn-success:hover {
+  background-color: #138d52;
+}
+
+.btn-danger {
+  background-color: var(--error-red);
+  color: var(--background-white);
+}
+
+.btn-danger:hover {
+  background-color: #c0392b;
+}
+
+.btn-minimal {
+  background: var(--text-dark);
+  color: var(--background-white);
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+  font-size: 1.08rem;
+  padding: 0.7rem 1.5rem;
+  transition: all 0.2s;
+}
+
+.btn-minimal:hover,
+.btn-minimal:focus {
+  background: #444;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ============================================== */
+/* 7. FORMULÁRIOS                                 */
+/* ============================================== */
+.form-container {
+  margin-top: 25px;
+  max-width: 370px;
+  width: 100%;
+  background: var(--background-white);
+  border-radius: 18px;
+  box-shadow: var(--shadow-medium);
+  padding: 2.5rem 2rem 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-dark);
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.form-floating > .minimal-input,
+.form-floating input,
+.form-floating select,
+.form-floating textarea {
+  border-radius: 10px;
+  background: var(--background-light);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  font-family: var(--font-family);
+  font-size: 1rem;
+  color: var(--text-dark);
+  transition: all 0.3s ease;
+}
+
+.form-floating input:focus,
+.form-floating select:focus,
+.form-floating textarea:focus,
+.form-floating > .minimal-input:focus {
+  border-color: var(--primary-blue);
+  background: var(--background-white);
+  box-shadow: 0 0 0 3px rgba(21, 94, 239, 0.1);
+  outline: none;
+}
+
+.form-group.error input,
+.form-group.error select,
+.form-group.error textarea {
+  border-color: var(--error-red);
+  background-color: rgba(231, 76, 60, 0.05);
+}
+
+.error-message {
+  display: block;
+  color: var(--error-red);
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  font-weight: 500;
+}
+
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.form-check input[type="checkbox"],
+.form-check input[type="radio"] {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+}
+
+/* ============================================== */
+/* 8. CARDS E CAIXAS                             */
+/* ============================================== */
+.card {
+  background: var(--background-white);
+  border-radius: 12px;
+  box-shadow: var(--shadow-light);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow);
+  transform: translateY(-4px);
+}
+
+.card-header {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.card-body {
+  margin-bottom: 1rem;
+}
+
+.card-footer {
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-light);
+}
+
+/* ============================================== */
+/* 9. MODAIS                                      */
+/* ============================================== */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  animation: fadeIn 0.3s ease;
+}
+
+.modal.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: var(--background-white);
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.3s ease;
+}
+
+.modal-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  margin: 0;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-light);
+  transition: color 0.3s ease;
+}
+
+.modal-close:hover {
+  color: var(--text-dark);
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+.modal-footer {
+  padding: 1.5rem;
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+/* ============================================== */
+/* 10. TABELAS                                    */
+/* ============================================== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background-color: var(--light-blue);
+}
+
+th {
+  padding: 1rem;
+  text-align: left;
+  color: var(--text-dark);
+  font-weight: 600;
+  border-bottom: 2px solid var(--border-color);
+}
+
+td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-medium);
+}
+
+tbody tr:hover {
+  background-color: var(--background-light);
+}
+
+/* ============================================== */
+/* 11. ALERTAS E NOTIFICAÇÕES                     */
+/* ============================================== */
+.alert {
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  border-left: 4px solid;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  border-color: var(--success-green);
+  color: #155724;
+}
+
+.alert-error,
+.alert-danger {
+  background-color: #f8d7da;
+  border-color: var(--error-red);
+  color: #721c24;
+}
+
+.alert-warning {
+  background-color: #fff3cd;
+  border-color: var(--warning-yellow);
+  color: #856404;
+}
+
+.alert-info {
+  background-color: #d1ecf1;
+  border-color: var(--info-blue);
+  color: #0c5460;
+}
+
+.section-tag {
+  display: inline-block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--primary-blue);
+  background-color: var(--light-blue);
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+/* ============================================== */
+/* 12. AVATARES E IMAGENS                         */
+/* ============================================== */
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.avatar-sm { width: 32px; height: 32px; }
+.avatar-md { width: 48px; height: 48px; }
+.avatar-lg { width: 64px; height: 64px; }
+
+.avatar-1 {
+  background-color: var(--avatar-bg-1);
+  color: var(--avatar-text-1);
+}
+
+.avatar-2 {
+  background-color: var(--avatar-bg-2);
+  color: var(--avatar-text-2);
+}
+
+.avatar-3 {
+  background-color: var(--avatar-bg-3);
+  color: var(--avatar-text-3);
+}
+
+/* ============================================== */
+/* 13. BADGE E LABELS                            */
+/* ============================================== */
+.badge {
+  display: inline-block;
+  padding: 0.35rem 0.65rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.badge-primary {
+  background-color: var(--light-blue);
+  color: var(--primary-blue);
+}
+
+.badge-success {
+  background-color: #d4edda;
+  color: var(--success-green);
+}
+
+.badge-danger {
+  background-color: #f8d7da;
+  color: var(--error-red);
+}
+
+.badge-warning {
+  background-color: #fff3cd;
+  color: var(--warning-yellow);
+}
+
+/* ============================================== */
+/* 14. UTILITÁRIOS                                */
+/* ============================================== */
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+.mt-5 { margin-top: 3rem; }
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+.mb-5 { margin-bottom: 3rem; }
+
+.p-1 { padding: 0.5rem; }
+.p-2 { padding: 1rem; }
+.p-3 { padding: 1.5rem; }
+.p-4 { padding: 2rem; }
+.p-5 { padding: 3rem; }
+
+.gap-1 { gap: 0.5rem; }
+.gap-2 { gap: 1rem; }
+.gap-3 { gap: 1.5rem; }
+.gap-4 { gap: 2rem; }
+
+.flex { display: flex; }
+.flex-column { flex-direction: column; }
+.flex-wrap { flex-wrap: wrap; }
+.justify-between { justify-content: space-between; }
+.justify-center { justify-content: center; }
+.items-center { align-items: center; }
+
+.hidden { display: none !important; }
+.visible { display: block !important; }
+
+.opacity-50 { opacity: 0.5; }
+.opacity-75 { opacity: 0.75; }
+
+/* ============================================== */
+/* 15. ANIMAÇÕES                                  */
+/* ============================================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================================== */
+/* 16. RESPONSIVIDADE                             */
+/* ============================================== */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 1rem;
+    flex-wrap: wrap;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .nav-links {
+    display: none;
+    gap: 1rem;
+  }
+
+  .nav-links.active {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background: var(--background-white);
+    box-shadow: var(--shadow);
+    padding: 1rem 0;
+  }
+
+  .nav-links.active li {
+    padding: 0 1rem;
+  }
+
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.6rem; }
+  h3 { font-size: 1.2rem; }
+
+  .modal-content {
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  .form-container {
+    max-width: 100%;
+  }
+
+  table {
+    font-size: 0.85rem;
+  }
+
+  th, td {
+    padding: 0.75rem 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding-top: 60px;
+  }
+
+  .navbar {
+    height: 60px;
+  }
+
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.3rem; }
+  h3 { font-size: 1.1rem; }
+
+  .btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  .container {
+    width: 95%;
+  }
+
+  section {
+    padding: 40px 0;
+  }
+}
+
+
+/* ============================================================
+   CORREÇÃO DE CONFLITO COM BOOTSTRAP NAVBAR
+   ============================================================ */
+
+body header .navbar {
+    /* 1. ZERANDO VARIÁVEIS DO BOOTSTRAP
+       Isso impede que o Bootstrap injete espaçamentos indesejados */
+    --bs-navbar-padding-x: 0;
+    --bs-navbar-padding-y: 0;
+    --bs-navbar-brand-padding-y: 0;
+    --bs-navbar-brand-margin-end: 0;
+    
+    /* 2. RESETANDO ESTILOS VISUAIS
+       Remove bordas, sombras ou cores que o tema possa aplicar */
+    background: transparent;
+    box-shadow: none;
+    border: none;
+
+    /* 3. APLICANDO SEU LAYOUT (Com correções) */
+    max-width: 1700px;
+    width: 100%;         /* Garante que ocupe o espaço disponível */
+    margin: 0 auto;      /* Centraliza na tela */
+    padding: 0 3.2rem;   /* Seu padding lateral original */
+    height: 70px;
+    
+    /* 4. CORRIGINDO O FLEXBOX
+       O Bootstrap define 'flex-wrap: wrap', o que faz seus itens 
+       caírem para a linha de baixo se faltar espaço. 
+       Mudamos para 'nowrap'. */
+    display: flex;
+    flex-wrap: nowrap; 
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Garante que os links dentro da navbar não tenham 
+   cores ou sublinhados padrão do Bootstrap */
+body header .navbar a {
+    text-decoration: none;
+    /* Se precisar forçar a cor preta ou branca, descomente abaixo: */
+    /* color: inherit; */ 
+}
+
+/* Remove margens extras que o Bootstrap coloca em listas (ul) */
+body header .navbar ul {
+    margin-bottom: 0;
+    padding-left: 0;
+}

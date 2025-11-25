@@ -1,36 +1,59 @@
-<?php ?>
+<?php
+/*
+|--------------------------------------------------------------------------
+| Entry Point (VisaoGeral.php)
+|--------------------------------------------------------------------------
+| Integração Login + Dashboard
+*/
 
-<!DOCTYPE html>
-<html lang="en">
+session_start();
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../template/asset/css/VisaoGeral.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-        integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
+// 1. LOGOUT (Se clicar em sair)
+if (isset($_GET['sair']) && $_GET['sair'] == 'true') {
+    session_destroy();
+    header("Location: Login.php");
+    exit;
+}
 
-<body>
-    <header class="header">
-        <div class="brand">NONYX</div>
+// 2. VERIFICAÇÃO DE SEGURANÇA REAL
+// Verifica se a sessão 'id' existe (criada no Login.php)
+// Se não existir, manda de volta para o login
+if (!isset($_SESSION['id'])) {
+    header('Location: Login.php');
+    exit;
+}
 
-        <nav class="nav-links">
-            <a href="#" data-index="0" class="active">Início</a>
-            <a href="#" data-index="1">Sobre</a>
-            <a href="#" data-index="2">Serviços</a>
-            <a href="#" data-index="3">Portfólio</a>
-            <a href="#" data-index="4">Contato</a>
-        </nav>
+// 3. CARREGAMENTO DE ARQUIVOS
+// Ajustando para usar o Connection.php que criamos
+if (file_exists(__DIR__ . '/../Model/Connection.php')) {
+    require_once __DIR__ . '/../Model/Connection.php';
+} else {
+    // Fallback de segurança
+    die("Erro: Arquivo Model/Connection.php não encontrado.");
+}
 
-        <div class="profile-settings">
-            <i class="fas fa-cog settings-icon"></i>
-            <img src="https://via.placeholder.com/40" alt="Foto de Perfil" class="profile-pic" />
-        </div>
-    </header>
+// Carrega Models e Controllers do Dashboard
+require_once '../Model/DashboardModel.php';
+require_once '../Controller/DashboardController.php';
 
-    <script src="../template/asset/js/VisaoGeral.js"></script>
-</body>
+use Model\Connection;
 
-</html>
+// 4. INICIALIZAÇÃO
+try {
+    // Pega a conexão nova
+    $pdo = Connection::getInstance();
+
+    // Pega o ID real do usuário logado
+    $userId = $_SESSION['id'];
+
+    // Inicializa o MVC do Dashboard
+    $model = new DashboardModel($pdo);
+    $controller = new DashboardController($model);
+
+    // Renderiza a tela
+    $controller->showDashboard($userId);
+
+} catch (Exception $e) {
+    die("Erro ao carregar dashboard: " . $e->getMessage());
+}
+?>

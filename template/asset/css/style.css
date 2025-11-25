@@ -1,0 +1,649 @@
+/* ================================== */
+/* 1. Globals e Variáveis de Cor      */
+/* ================================== */
+:root {
+  --primary-blue: #155eef;
+  --dark-blue: #104abd;
+  --light-blue: #f5f8ff;
+  --text-dark: #101828;
+  --text-medium: #555;
+  --text-light: #777;
+  --background-light: #f9f9f9;
+  --background-white: #ffffff;
+  --border-color: #e0e0e0;
+  --success-green: #17b26a;
+  --warning-yellow: #f39c12;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+
+  /* MUDANÇA: Cores para os Avatares (para diversidade) */
+  --avatar-bg-1: #e0f7fa;
+  --avatar-text-1: #00796b;
+  --avatar-bg-2: #fff3e0;
+  --avatar-text-2: #ef6c00;
+  --avatar-bg-3: #e8eaf6;
+  --avatar-text-3: #3949ab;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth; 
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-medium);
+  background-color: var(--background-white);
+  line-height: 1.7;
+  padding-top: 80px; 
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-dark);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+h1 { font-size: 2.8rem; line-height: 1.3; }
+h2 { font-size: 2.2rem; line-height: 1.4; }
+h3 { font-size: 1.4rem; }
+p { margin-bottom: 1rem; }
+a { text-decoration: none; color: var(--primary-blue); }
+ul { list-style: none; }
+img { max-width: 100%; height: auto; }
+
+.container-landing {
+  max-width: 1140px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+section {
+  padding: 80px 0;
+}
+.text-center { text-align: center; }
+.section-tag {
+  display: inline-block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--primary-blue);
+  background-color: var(--light-blue);
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+/* ================================== */
+/* 2. Botões (Baseado no seu design)  */
+/* ================================== */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  text-align: center;
+}
+.btn-primary {
+  background-color: var(--primary-blue);
+  color: #ffffff;
+}
+.btn-primary:hover {
+  background-color: var(--dark-blue);
+  transform: translateY(-2px);
+}
+.btn-secondary {
+  background-color: var(--light-blue);
+  color: var(--primary-blue);
+}
+.btn-secondary:hover {
+  background-color: #e0e9ff;
+}
+.btn-light {
+  background-color: #ffffff;
+  color: var(--primary-blue);
+}
+.btn-light:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-2px);
+}
+.btn-lg {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+}
+
+/* MUDANÇA: Animação de "pulse" para o CTA principal */
+.btn-primary.btn-lg {
+  animation: pulse 2s infinite ease-in-out;
+}
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(21, 94, 239, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(21, 94, 239, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(21, 94, 239, 0);
+  }
+}
+
+/* ================================== */
+/* 1. Header (Cabeçalho Fixo)         */
+/* ================================== */
+.header-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: var(--background-white);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  z-index: 1000;
+  height: 80px;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-landing {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-landing {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  text-decoration: none;
+}
+
+.nav-links-landing {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.nav-links-landing li {
+  padding: 0 0.5rem;
+}
+
+.nav-link {
+  font-weight: 500;
+  color: var(--text-medium);
+  text-decoration: none;
+  padding: 0.8rem;
+  transition: all 0.3s ease;
+  border-bottom: 2px solid transparent; /* MUDANÇA: Preparação para o 'active' */
+}
+.nav-link:hover {
+  color: #155eef;
+  background-color: #f5f8ff;
+  border-radius: 6px; /* MUDANÇA: Mais sutil que 1rem */
+  border-bottom-color: transparent;
+}
+.nav-link.active {
+  color: var(--primary-blue);
+  font-weight: 600; /* MUDANÇA: Destaca mais o link ativo */
+  border-bottom-color: var(--primary-blue);
+  background-color: transparent;
+}
+
+.nav-buttons-desktop {
+  display: flex;
+  gap: 1rem;
+}
+.btn-nav-login {
+  padding: 0.6rem 1.2rem;
+  font-weight: 500;
+  color: var(--text-medium);
+}
+.btn-nav-cta {
+  padding: 0.6rem 1.2rem;
+}
+.nav-buttons-mobile {
+  display: none;
+}
+.hamburger-landing {
+  display: none;
+  font-size: 2.5rem;
+  color: var(--text-dark);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* ================================== */
+/* 2. Seção Hero                      */
+/* ================================== */
+
+/* MUDANÇA: Animação de "fade in" para o conteúdo do Hero */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-section {
+  /* MUDANÇA: Adicionado padding para o Hero não colar no header */
+  padding: 60px 0; 
+  background-color: var(--background-white);
+  overflow: hidden; /* Garante que a animação não cause scroll */
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+/* MUDANÇA: Aplicando a animação */
+.hero-content {
+  animation: fadeInUp 0.8s ease-out;
+}
+.hero-image-mockup {
+  animation: fadeInUp 0.8s ease-out 0.2s; /* Atraso de 0.2s */
+  animation-fill-mode: backwards; /* Garante que comece invisível */
+}
+
+
+/* ================================== */
+/* 3. Seção de Funcionalidades        */
+/* ================================== */
+.features-section {
+  background: var(--light-blue);
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 4rem;
+}
+.feature-card {
+  background: var(--background-white);
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+.feature-card i {
+  font-size: 3rem;
+  color: var(--primary-blue);
+  margin-bottom: 1rem;
+}
+
+/* ================================== */
+/* 4. Seção de Benefícios             */
+/* ================================== */
+.benefits-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+.benefits-image-mockup img {
+  border-radius: 12px;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+}
+.benefits-list {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.benefits-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.benefits-list i {
+  font-size: 1.5rem;
+  color: var(--success-green);
+  margin-top: 4px;
+}
+.benefits-list h4 {
+  font-size: 1.2rem;
+  margin-bottom: 0.25rem;
+}
+.benefits-list p {
+  margin-bottom: 0;
+  color: var(--text-light);
+}
+
+/* ================================== */
+/* 6. Seção de Depoimentos            */
+/* ================================== */
+.testimonials-section {
+  background: var(--background-light);
+}
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 4rem;
+}
+.testimonial-card {
+  background: var(--background-white);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  display: flex; /* MUDANÇA: Flex column para alinhar melhor o autor */
+  flex-direction: column;
+  justify-content: space-between;
+}
+.testimonial-card .stars {
+  color: var(--warning-yellow);
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+.testimonial-card .author {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* MUDANÇA: Estilos para o Avatar de CSS (muito mais profissional)
+*/
+.author-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--avatar-text-1);
+  background-color: var(--avatar-bg-1);
+}
+/* Avatares com cores diferentes */
+.testimonial-card:nth-child(2) .author-avatar {
+  background-color: var(--avatar-bg-2);
+  color: var(--avatar-text-2);
+}
+.testimonial-card:nth-child(3) .author-avatar {
+  background-color: var(--avatar-bg-3);
+  color: var(--avatar-text-3);
+}
+
+.testimonial-card .author span {
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+/* REMOVIDO: Regra da imagem do autor que não existe mais */
+/*
+.testimonial-card .author img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+*/
+
+
+/* ================================== */
+/* 7. Seção de CTA Final              */
+/* ================================== */
+.cta-section {
+  background-color: var(--primary-blue);
+  color: #ffffff;
+  padding: 80px 0;
+}
+.cta-section h2 {
+  color: #ffffff;
+}
+.cta-section p {
+  font-size: 1.2rem;
+  margin: 1rem 0 2rem;
+  opacity: 0.9;
+  max-width: 600px; /* MUDANÇA: Limita a largura do texto */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ================================== */
+/* 9. Seção de FAQ                    */
+/* ================================== */
+.faq-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.faq-accordion {
+  margin-top: 3rem;
+  border-top: 1px solid var(--border-color);
+}
+.faq-accordion details {
+  border-bottom: 1px solid var(--border-color);
+  padding: 1.5rem 0;
+}
+.faq-accordion summary {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  cursor: pointer;
+  list-style: none; 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.faq-accordion summary::-webkit-details-marker {
+  display: none;
+}
+.faq-accordion summary::after {
+  content: '+';
+  font-size: 1.5rem;
+  color: var(--primary-blue);
+  transition: transform 0.3s ease;
+}
+.faq-accordion details[open] summary::after {
+  transform: rotate(45deg);
+}
+.faq-accordion details[open] summary {
+  color: var(--primary-blue); /* MUDANÇA: Destaca a pergunta aberta */
+}
+.faq-accordion details p {
+  padding-top: 1rem;
+  color: var(--text-medium);
+}
+
+/* ================================== */
+/* 10. Rodapé (Footer)                */
+/* ================================== */
+.footer-section {
+  background: var(--text-dark);
+  color: #aeb4c3;
+  padding-top: 60px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 2rem;
+}
+.footer-col .logo-landing {
+  color: #ffffff;
+}
+.footer-col p {
+  margin-top: 1rem;
+  max-width: 300px;
+}
+.footer-col h4 {
+  color: #ffffff;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+.footer-col ul li {
+  margin-bottom: 0.75rem;
+}
+.footer-col ul a {
+  color: #aeb4c3;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.footer-col ul a:hover {
+  color: #ffffff;
+}
+.social-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.social-links a {
+  color: #aeb4c3;
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+.social-links a:hover {
+  color: var(--primary-blue);
+}
+.footer-bottom {
+  border-top: 1px solid #3a4150;
+  margin-top: 40px;
+  padding: 20px 0;
+}
+.footer-bottom p {
+  text-align: center;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* ================================== */
+/* 11. Responsividade                 */
+/* ================================== */
+
+/* Tablets (992px) */
+@media (max-width: 992px) {
+  h1 { font-size: 2.5rem; }
+  h2 { font-size: 2rem; }
+  
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Mobile (768px) */
+@media (max-width: 768px) {
+  body {
+    padding-top: 70px; 
+  }
+  .header-fixed {
+    height: 70px;
+  }
+  
+  /* Menu Hamburguer */
+  .hamburger-landing {
+    display: block;
+  }
+  .nav-buttons-desktop {
+    display: none;
+  }
+  .nav-links-landing {
+    display: none;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background: var(--background-white);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    border-top: 1px solid var(--border-color);
+  }
+  .nav-links-landing.active {
+    display: flex;
+  }
+  .nav-links-landing li {
+    padding: 0;
+    width: 100%;
+  }
+  .nav-link {
+    display: block;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+  /* MUDANÇA: Lógica do active no mobile */
+  .nav-link.active {
+    border-bottom-color: var(--primary-blue);
+    background-color: var(--light-blue);
+  }
+  .nav-link:hover {
+    border-radius: 0;
+  }
+  .nav-buttons-mobile {
+    display: flex;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: var(--light-blue);
+  }
+  .nav-buttons-mobile a {
+    flex: 1;
+  }
+  
+  /* Seções */
+  section {
+    padding: 60px 0;
+  }
+
+  /* MUDANÇA: Padding do Hero no mobile */
+  .hero-section {
+    padding: 40px 0;
+  }
+  
+  .hero-grid,
+  .benefits-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .hero-image-mockup {
+    grid-row: 1; 
+    margin-bottom: 2rem;
+  }
+  .benefits-image-mockup {
+    margin-bottom: 2rem;
+  }
+  .benefits-content {
+    text-align: left;
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .footer-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .footer-col p {
+    max-width: 100%;
+  }
+  .social-links {
+    justify-content: center;
+  }
+}

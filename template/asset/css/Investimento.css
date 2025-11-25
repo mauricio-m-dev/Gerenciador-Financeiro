@@ -1,0 +1,723 @@
+/* ============================================================
+   1. VARIÁVEIS E RESET (Cópia fiel da Visão Geral)
+   ============================================================ */
+:root {
+    /* Cores Principais */
+    --primary-color: #155eef;
+    --primary-hover: #104abd;
+    --bg-body: #f9f9f9;
+    --text-dark: #101828;
+    --text-gray: #555;
+
+    /* Cores Semânticas */
+    --success: #17b26a;
+    --danger: #f04438;
+    --warning: #f79009;
+
+    /* Estética dos Cards */
+    --card-bg: #ffffff;
+    --border-light: 1px solid rgba(0, 0, 0, 0.05);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.05);
+    --radius-md: 16px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-dark);
+    -webkit-font-smoothing: antialiased;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ============================================================
+   2. LAYOUT E UTILITÁRIOS
+   ============================================================ */
+.container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+main {
+    padding-top: calc(70px + 2rem) !important;
+    /* Header + Espaço */
+    padding-bottom: 3rem;
+    min-height: 100vh;
+}
+
+/* Título e Botões */
+.titulo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.titulo h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.section-title {
+    font-size: 1.25rem;
+    color: #2d3748;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+/* Botão Principal (Estilo Visão Geral) */
+.btn-primary {
+    background-color: var(--primary-color);
+    /* Azul padrão do sistema */
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    /* Arredondamento suave */
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(21, 94, 239, 0.2);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(21, 94, 239, 0.3);
+}
+
+/* ============================================================
+   3. HEADER (Idêntico à Visão Geral)
+   ============================================================ */
+/* --- Estilo do Header e Navbar --- */
+header {
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    transition: box-shadow 0.3s ease;
+}
+
+/* Classe adicionada via JS */
+header.scrolled {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.navbar {
+  margin: 0 auto;
+  padding: 0 1rem;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1700px;
+}
+
+/* Sobrescreve o padding do Bootstrap */
+.navbar .nav-links,
+.navbar ol,
+.navbar ul {
+    padding-left: 0 !important;
+    margin: 0;
+}
+
+/* --- Blocos da Navbar --- */
+/* 1. Bloco da Esquerda (Logo + Hamburguer) */
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    /* Espaço entre hamburguer e logo */
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #000;
+}
+
+/* 2. Bloco do Centro (Links) */
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+}
+
+.nav-links .active {
+    color: #155EEF;
+    background-color: #F5F8FF;
+    padding: 0.8rem;
+    border-radius: 1rem;
+    transform: translateY(-5px);
+}
+
+.nav-links li a {
+  font-weight: 500;
+  color: var(--text-gray);
+  padding: 0.8rem;
+  transition: 0.3s ease-in-out;
+}
+
+.nav-links li a:hover {
+    color: #155EEF;
+    background-color: #F5F8FF;
+    padding: 0.8rem;
+    border-radius: 1rem;
+    transform: translateY(-5px);
+}
+
+/* 3. Bloco da Direita (Usuário) */
+.user-area {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.settings-icon .material-symbols-outlined {
+    font-size: 28px;
+    color: #555;
+    align-items: center;
+    display: flex;
+    /* Diferencial: Animação de rotação no hover */
+    transition: transform 0.4s ease, color 0.3s ease;
+}
+
+.settings-icon:hover .material-symbols-outlined {
+    color: #222;
+    transform: rotate(60deg);
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    /* Garante que a imagem não distorça */
+    border: 2px solid #eee;
+    cursor: pointer;
+}
+
+/* --- Configuração do Hamburguer (Mobile) --- */
+.hamburger {
+    display: none;
+    /* Escondido no desktop */
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+    /* Espaço entre as linhas */
+}
+
+.hamburger .line {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    border-radius: 3px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Fim do header */
+.titulo {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* ============================================================
+   4. CARDS DE RESUMO (Patrimônio, etc.)
+   ============================================================ */
+.geral-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Classe base para todos os cards */
+.geral-card-renda,
+.geral-card-despesas,
+.geral-card-metas {
+    background: var(--card-bg);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    border: var(--border-light);
+    padding: 1.5rem;
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.geral-card-renda:hover,
+.geral-card-despesas:hover,
+.geral-card-metas:hover {
+    transform: translateY(-5px);
+}
+
+.geral-container p {
+    font-weight: 500;
+    color: var(--text-gray);
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.geral-container h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* Cores específicas */
+.geral-card-renda h2 {
+    color: #2c3e50;
+}
+
+.geral-card-despesas h2 {
+    color: var(--success);
+}
+
+/* Valorização verde */
+.geral-card-metas h2 {
+    color: var(--primary-color);
+}
+
+/* ============================================================
+   5. MERCADO & PESQUISA (Estilização Limpa)
+   ============================================================ */
+.mercado {
+    background: var(--card-bg);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    border: var(--border-light);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.pesquisa h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+/* Grid de Cards de Ações */
+.acoes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+}
+
+/* O card interno do mercado (JS) */
+.market-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 1rem;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.market-card:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(21, 94, 239, 0.1);
+}
+
+/* ============================================================
+   6. GRID PRINCIPAL (Gráfico + Tabela)
+   ============================================================ */
+.carteira {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    /* Gráfico (1/3) | Tabela (2/3) */
+    gap: 1.5rem;
+    align-items: start;
+    /* Importante para não esticar altura */
+}
+
+/* Containers brancos */
+.grafico,
+.seus {
+    background: var(--card-bg);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    border: var(--border-light);
+    padding: 1.5rem;
+    width: 100%;
+}
+
+/* Ajuste do Canvas */
+.chart-card {
+    position: relative;
+    width: 100%;
+    min-height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ============================================================
+   7. TABELA ESTILIZADA (Igual Visão Geral)
+   ============================================================ */
+.card-table-container {
+    border-radius: 12px;
+    overflow: hidden;
+    /* Arredonda cantos da tabela */
+    border: 1px solid #f0f0f0;
+}
+
+.table-scroll-wrapper {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.transactions-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.transactions-table th,
+.transactions-table td {
+    padding: 1.2rem 1.5rem;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.transactions-table th {
+    background-color: #f9fafb;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-gray);
+    text-transform: uppercase;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.transaction-name {
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.transaction-name small {
+    display: block;
+    color: #888;
+    font-weight: 400;
+    font-size: 0.8rem;
+    margin-top: 2px;
+}
+
+.amount-income {
+    font-weight: 600;
+    color: var(--text-dark);
+    text-align: right;
+}
+
+.align-right {
+    text-align: right;
+}
+
+/* Mensagem de Vazio */
+.empty-table-message {
+    text-align: center;
+    color: #999;
+    padding: 3rem !important;
+}
+
+/* ============================================================
+   8. MODAIS (Limpeza Visual)
+   ============================================================ */
+/* Remove estilos padrão do Bootstrap que conflitam */
+.modal-content {
+    border-radius: 20px !important;
+    border: none !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+.modal-header {
+    border-bottom: 1px solid #f0f0f0;
+    padding: 1.5rem;
+}
+
+.modal-title {
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-footer {
+    border-top: 1px solid #f0f0f0;
+    padding: 1rem 1.5rem;
+    background-color: #fcfcfc;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+/* Inputs Bonitos */
+.form-control,
+.form-select {
+    border-radius: 10px;
+    border: 1px solid #d0d5dd;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    background-color: #fff;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(21, 94, 239, 0.1);
+    outline: none;
+}
+
+.form-label {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: #344054;
+    margin-bottom: 0.5rem;
+}
+
+/* Autocomplete Flutuante */
+.autocomplete-list {
+    position: absolute;
+    z-index: 1060;
+    /* Acima do modal */
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 0 0 12px 12px;
+    width: 92%;
+    /* Ajuste fino */
+    max-height: 220px;
+    overflow-y: auto;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    margin-top: 2px;
+}
+
+.autocomplete-item {
+    padding: 0.8rem 1rem;
+    cursor: pointer;
+    border-bottom: 1px solid #f9f9f9;
+    font-size: 0.9rem;
+}
+
+.autocomplete-item:hover {
+    background-color: #F5F8FF;
+    color: var(--primary-color);
+}
+
+/* Botão de Excluir na Tabela */
+.btn-delete {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.25rem;
+  color: #98a2b3;
+  padding: 6px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-delete:hover {
+  color: var(--danger);
+  background-color: #fef3f2;
+  transform: scale(1.1);
+}
+
+
+/* ============================================================
+   9. RESPONSIVIDADE (Mobile)
+   ============================================================ */
+@media (max-width: 992px) {
+
+    /* Menu Hamburguer */
+    .nav-links {
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: #fff;
+        max-height: 0;
+        overflow: hidden;
+        transition: 0.4s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        padding: 0;
+    }
+
+    .nav-links.active {
+        max-height: 500px;
+        padding: 1.5rem 0;
+    }
+
+    .nav-links li {
+        text-align: center;
+        width: 100%;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    /* Layout Vira Coluna */
+    .carteira {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    /* Reordena: Gráfico primeiro no mobile */
+    .grafico {
+        order: 1;
+    }
+
+    .seus {
+        order: 2;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        padding: 0 1rem;
+    }
+
+    .titulo {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .btn-primary {
+        width: 100%;
+        /* Botão full width no mobile */
+        justify-content: center;
+    }
+
+    .acoes {
+        grid-template-columns: 1fr;
+        /* Cards de Ações empilhados */
+    }
+}
+
+/* ============================================================
+   10. RESPONSIVIDADE EXTRA (Celulares)
+   ============================================================ */
+
+/* Mobile Large (425px) */
+@media (max-width: 426px) {
+    
+    .market-card {
+        width: 290px;
+    }
+    /* Ajuste de Títulos */
+    .titulo h1 {
+        font-size: 1.5rem; /* Reduz o título principal */
+    }
+    
+    .section-title {
+        font-size: 1.1rem;
+    }
+
+    /* Cards de Resumo (Patrimônio) */
+    .geral-container {
+        grid-template-columns: 1fr; /* Uma coluna só */
+        gap: 1rem;
+    }
+
+    .geral-card-renda, 
+    .geral-card-despesas, 
+    .geral-card-metas {
+        padding: 1.2rem; /* Menos padding interno */
+    }
+
+    .geral-container h2 {
+        font-size: 1.5rem; /* Números menores */
+    }
+
+    /* Botão de Adicionar */
+    .titulo .btn-primary {
+        width: 100%; /* Botão ocupa toda a largura */
+        justify-content: center;
+        margin-top: 0.5rem;
+    }
+
+    /* Gráfico */
+    .chart-card {
+        min-height: 0 auto; /* Gráfico mais baixo */
+    }
+    
+    .chart-card canvas {
+        height: 250px !important;
+    }
+
+    /* Tabela de Histórico */
+    .transactions-table th, 
+    .transactions-table td {
+        padding: 0.8rem 0.5rem; /* Células mais compactas */
+        font-size: 0.85rem; /* Texto menor */
+    }
+}
+
+/* Mobile Medium (375px) */
+@media (max-width: 376px) {
+    
+    .container {
+        padding: 0 0.8rem; /* Margem lateral mínima */
+    }
+
+    /* Ajuste fino no Header */
+    .navbar {
+        padding: 0 0.8rem;
+    }
+    
+    .logo {
+        font-size: 1.5rem;
+    }
+
+    /* Cards de Mercado (Ações) */
+    .market-card {
+        padding: 0.8rem;
+    }
+    
+    .market-card .card-title {
+        font-size: 0.95rem;
+    }
+    
+    /* Modal mais compacto */
+    .modal-body {
+        padding: 1rem;
+    }
+    
+    .modal-footer {
+        flex-direction: column; /* Botões um em cima do outro */
+        gap: 0.5rem;
+    }
+    
+    .modal-footer .btn {
+        width: 100%;
+    }
+}
