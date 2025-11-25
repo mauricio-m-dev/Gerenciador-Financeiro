@@ -11,12 +11,42 @@ function get_icon($label) {
 }
 $colors = ['Casa'=>'dot-home','Alimentação'=>'dot-food','Transporte'=>'dot-transport','Lazer'=>'dot-leisure','Saúde'=>'dot-health'];
 ?>
+<?php
+// Demo data for visualisation when no real data is provided
+if (!isset($cartoes) || empty($cartoes)) {
+    $cartoes = [
+        ['id'=>1,'nome'=>'Cartão Visa','bandeira'=>'Visa','tipo'=>'credito','ultimos4'=>'1234'],
+        ['id'=>2,'nome'=>'Cartão Mastercard','bandeira'=>'Mastercard','tipo'=>'debito','ultimos4'=>'5678'],
+        ['id'=>3,'nome'=>'Cartão Elo','bandeira'=>'Elo','tipo'=>'credito','ultimos4'=>'9012']
+    ];
+    $activeCardId = $cartoes[0]['id'];
+}
+if (!isset($resumo)) {
+    $resumo = ['renda'=>1500.00,'despesa'=>800.00,'meta'=>3000.00];
+}
+if (!isset($expensesByCategory)) {
+    $expensesByCategory = [
+        ['label'=>'Alimentação','porcentagem'=>40],
+        ['label'=>'Transporte','porcentagem'=>30],
+        ['label'=>'Lazer','porcentagem'=>20],
+        ['label'=>'Saúde','porcentagem'=>10]
+    ];
+}
+if (!isset($latestTransactions)) {
+    $latestTransactions = [
+        ['descricao'=>'Supermercado','metodo'=>'Cartão','data'=>date('Y-m-d'),'quantia'=>-150.75,'tipo'=>'despesa'],
+        ['descricao'=>'Salário','metodo'=>'Transferência','data'=>date('Y-m-d'),'quantia'=>2500.00,'tipo'=>'renda'],
+        ['descricao'=>'Uber','metodo'=>'Cartão','data'=>date('Y-m-d'),'quantia'=>-45.00,'tipo'=>'despesa']
+    ];
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciador - Cartões</title>
+    <link rel="stylesheet" href="../template/asset/css/global.css">
     <link rel="stylesheet" href="../template/asset/css/Cartao.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -35,18 +65,23 @@ $colors = ['Casa'=>'dot-home','Alimentação'=>'dot-food','Transporte'=>'dot-tra
     <script>
         new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
-    <header class="header">
-        <div class="brand">NOVYX</div>
-        <nav class="nav-links">
-            <a href="VisaoGeral.php">Visão Geral</a>
-            <a href="Investimentos.php">Investimentos</a>
-            <a href="Analise.php">Análise</a>
-            <a href="Metas.php">Metas</a>
-            <a href="Cartao.php" class="active">Cartões</a>
+    <header>
+        <nav class="navbar">
+            <div class="nav-left">
+                <div class="hamburger"><span class="line"></span><span class="line"></span><span class="line"></span></div>
+                <a href="#" class="logo">NOVYX</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="VisaoGeral.php">Visão Geral</a></li>
+                <li><a href="Investimento.php">Investimentos</a></li>
+                <li><a href="Analise.php">Análise</a></li>
+                <li><a href="Meta.php">Metas</a></li>
+                <li><a href="CartaoView.php" class="active">Cartões</a></li>
+            </ul>
+            <div class="user-area">
+                <a href="#" class="settings-icon"><i class='bx bx-cog'></i></a>
+            </div>
         </nav>
-        <div class="profile-settings">
-            <i class="fas fa-cog settings-icon"></i>
-        </div>
     </header>
     
     <main class="main-content1">

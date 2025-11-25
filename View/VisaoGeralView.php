@@ -116,7 +116,7 @@ $listaMetas = !empty($userId) ? $metaController->index($userId) : [];
                 <li><a href="Investimento.php">Investimentos</a></li>
                 <li><a href="Analise.php">Análise</a></li>
                 <li><a href="Meta.php">Metas</a></li>
-                <li><a href="Cartao.php">Cartões</a></li>
+                <li><a href="CartaoView.php">Cartões</a></li>
             </ul>
             <div class="user-area">
                 <a href="#" class="settings-icon"><i class='bx bx-cog'></i></a>

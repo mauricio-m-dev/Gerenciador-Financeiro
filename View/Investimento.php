@@ -133,7 +133,7 @@ function formatCurrency($value)
                 <li><a href="Investimento.php" class="active">Investimentos</a></li>
                 <li><a href="Analise.php">Análise</a></li>
                 <li><a href="Meta.php">Metas</a></li>
-                <li><a href="Cartao.php">Cartões</a></li>
+                <li><a href="CartaoView.php">Cartões</a></li>
 
             </ul>
 

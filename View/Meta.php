@@ -4,7 +4,7 @@ require_once '../Config/configuration.php'; // Certifique-se que o arquivo de co
 require_once '../Controller/MetaController.php';
 
 // Ajuste para pegar o ID da sessão real do seu sistema
-$userId = $_SESSION['user_id'] ?? 7; 
+$userId = $_SESSION['id'] ?? 7; 
 
 $pdo = getConexao();
 $controller = new MetaController($pdo);
@@ -68,7 +68,7 @@ $min_date = date('Y-m-d');
                 <li><a href="Investimento.php">Investimentos</a></li>
                 <li><a href="Analise.php">Análise</a></li>
                 <li><a href="Meta.php" class="active">Metas</a></li>
-                <li><a href="Cartao.php">Cartões</a></li>
+                <li><a href="CartaoView.php">Cartões</a></li>
             </ul>
             <div class="user-area">
                 <a href="#" class="settings-icon"><i class='bx bx-cog'></i></a>
